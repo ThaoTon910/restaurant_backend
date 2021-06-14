@@ -1,0 +1,178 @@
+openapi: 3.0.3
+info:
+  description: "Restaurant service api"
+  version: "1.0.0"
+  title: "Restaurant Service"
+
+servers:
+  - url: "/v0"
+
+paths:
+
+  /merchant:
+    post:
+      summary: "create a new merchant"
+      description: ""
+      operationId: app.create_merchant
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/Merchant'
+
+      responses:
+        '200':
+          description: |-
+            New Merchant information
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Merchant'
+
+
+  /merchant/{merchant_id}:
+    get:
+      summary: "get business information"
+      description: ""
+      operationId: app.get_merchant
+      parameters:
+        - $ref: "#components/parameters/merchant_id"
+      responses:
+        '200':
+          description: |-
+            Get merchant information
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Merchant'
+
+  /category:
+    post:
+      summary: "create a new category"
+      description: ""
+      operationId: app.create_category
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/Category'
+
+      responses:
+        '200':
+          description: |-
+            New Category information
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Category'
+
+    get:
+      summary: "get all categories"
+      description: ""
+      operationId: app.get_all_categories
+      responses:
+        '200':
+          description: |-
+            Get all Categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Category'
+
+  /category/{category_id}:
+    get:
+      summary: "get category by id"
+      description: ""
+      operationId: app.get_category
+      parameters:
+        - $ref: "#components/parameters/category_id"
+      responses:
+        '200':
+          description: |-
+            Get category by id
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Category'
+
+
+
+
+components:
+  parameters:
+    merchant_id:
+      name: merchant_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+
+    category_id:
+      name: category_id
+      in: path
+      required: true
+      schema:
+        type: string
+
+  schemas:
+    Merchant:
+      type: object
+      required:
+        - createdTime
+        - name
+        - address
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for a merchant
+        createdTime:
+          type: string
+          format: date-time
+          description: |-
+            Datetime the merchant was created
+          readOnly: true
+        name:
+          type: string
+          description: Name of the merchant
+        phone:
+          type: string
+          description: Business phone number
+        address:
+          type: string
+          description: Business address
+        hours:
+          type: object
+          description: Hours
+    Category:
+      type: object
+      required:
+        - name
+        - index
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for a category
+          readOnly: True
+        name:
+          type: string
+          description: Name of the category
+        index:
+          type: integer
+          description: order to display index
+        createdTime:
+          type: string
+          format: date-time
+          description: |-
+            Datetime the category was created
+          readOnly: true
+        updatedTime:
+          type: string
+          format: date-time
+          description: |-
+            Datetime the category was created
+          readOnly: true
