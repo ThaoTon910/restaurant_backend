@@ -39,7 +39,7 @@ def get_all_categories() -> Response:
     return {}#CategoryResource.get_all_categories()
 
 def get_category(category_id: UUID) -> Response:
-    return {}#CategoryResource.get_by_id(category_id)
+    return CategoryResource.get_by_id(category_id)
 
 def create_category() -> Response:
     return CategoryResource.post()

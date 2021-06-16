@@ -48,7 +48,7 @@ paths:
 
   /category:
     post:
-      summary: "create a new category"
+      summary: "create a new category.py"
       description: ""
       operationId: app.create_category
       requestBody:
@@ -83,7 +83,7 @@ paths:
 
   /category/{category_id}:
     get:
-      summary: "get category by id"
+      summary: "get category.py by id"
       description: ""
       operationId: app.get_category
       parameters:
@@ -156,11 +156,11 @@ components:
         id:
           type: string
           format: uuid
-          description: A unique identifier for a category
+          description: A unique identifier for a category.py
           readOnly: True
         name:
           type: string
-          description: Name of the category
+          description: Name of the category.py
         index:
           type: integer
           description: order to display index
