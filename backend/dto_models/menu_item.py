@@ -4,7 +4,7 @@ from uuid import UUID, uuid4
 from typing import Union
 
 @attrs
-class MenuItem(object):
+class MenuItemDTO(object):
     category_id = attrib(
         init=True,
         type=UUID,

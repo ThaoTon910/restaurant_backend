@@ -17,7 +17,7 @@ class MenuItemSchema(BaseSchema):
 
     #Dump to UI
     id = fields.UUID(dump_only=True)
-    creationTime = fields.DateTime(dump_only=True,  attribute="creation_time")
+    createdTime = fields.DateTime(dump_only=True,  attribute="created_time")
     updatedTime = fields.DateTime(dump_only=True, attribute="updated_time")
 
 if __name__ == "__main__":

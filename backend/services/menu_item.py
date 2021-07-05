@@ -1,5 +1,5 @@
-from dto_models.menu_item import MenuItem as MenuItemDTO
-from dbo_models.menu_item import MenuItem as MenuItemDBO
+from dto_models.menu_item import MenuItemDTO
+from dbo_models.menu_item import MenuItemDBO
 from services._base import BaseService
 from converters.menu_item import menu_item_dbo_to_dto, menu_item_dto_to_dbo
 from utils.exceptions import *
@@ -8,7 +8,7 @@ from typing import List
 import logging
 
 logger = logging.getLogger(__name__)
-
+#create, get_by_id, get_all, update, delete
 class MenuItemService(BaseService):
     def __init__(self) -> None:
         super().__init__()
@@ -19,11 +19,11 @@ class MenuItemService(BaseService):
     def _is_recipe_name_exist(self, name: str) -> bool:
         return self.session.query(MenuItemDBO).filter_by(name=name).first()
 
-    def get_all_recipes(self) -> List[MenuItemDTO]:
+    def get_all_menu_items(self) -> List[MenuItemDTO]:
         base_query = self.session.query(MenuItemDBO)
 
-        # sort by creation_time
-        dbos = base_query.order_by( MenuItemDBO.creation_time)
+        # sort by created_time
+        dbos = base_query.order_by( MenuItemDBO.created_time)
 
         dtos = [menu_item_dbo_to_dto(dbo) for dbo in dbos]
         return dtos

@@ -8,6 +8,7 @@ from settings import flask_config
 from uuid import UUID
 from resources.category import CategoryResource
 from resources.menu_item import MenuItemResource
+from resources.addon_group import AddonGroupResource
 import logging
 
 logger = logging.getLogger(__name__)
@@ -31,13 +32,15 @@ def create_app():
     app.run(port=8080)
     return app, flask_app
 
+# Merchant
+def create_merchant() -> Response:
+    return {}#MerchantResource.post()
 
 def get_merchant(merchant_id: UUID) -> Response:
     return {}#MerchantResource.get(merchant_id)
 
-def create_merchant() -> Response:
-    return {}#MerchantResource.post()
 
+#Category
 def create_category() -> Response:
     return CategoryResource.post()
 
@@ -48,11 +51,12 @@ def get_category(category_id: UUID) -> Response:
     return CategoryResource.get_by_id(category_id)
 
 def delete_category(category_id: UUID) -> Response:
-    return CategoryResource.delete(category_id)
+    return {}#CategoryResource.delete(category_id)
 
 def update_category(category_id: UUID) -> Response:
     return {}#CategoryResource.update(category_id)
 
+#Menu Item
 def create_menu_item() -> Response:
     return MenuItemResource.post()
 
@@ -63,10 +67,24 @@ def get_menu_item(menu_item_id: UUID) -> Response:
     return MenuItemResource.get_by_id(menu_item_id)
 
 def delete_menu_item(menu_item_id: UUID) -> Response:
-    return MenuItemResource.delete(menu_item_id)
+    return {}#MenuItemResource.delete(menu_item_id)
 
 def update_menu_item(menu_item_id: UUID) -> Response:
     return {}#MenuItemResource.update(menu_item_id)
 
+#Addon Group
+def create_addon_group() -> Response:
+    return AddonGroupResource.post()
 
+def get_all_addon_groups() -> Response:
+    return AddonGroupResource.get_all_addon_groups()
+
+def get_addon_group(addon_group_id: UUID) -> Response:
+    return AddonGroupResource.get_by_id(addon_group_id)
+
+def delete_addon_group(menu_item_id: UUID) -> Response:
+    return {}#AddonGroupSource.delete(menu_addon_group)
+
+def update_addon_group(menu_item_id: UUID) -> Response:
+    return {}#AddonGroupSource.update(menu_addon_group)
 app, flask_app = create_app()

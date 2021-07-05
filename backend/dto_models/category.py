@@ -4,7 +4,7 @@ from datetime import datetime
 from typing import Optional, Dict
 
 @attrs
-class Category(object):
+class CategoryDTO(object):
     name = attrib(
         init=True,
         type=str,
@@ -48,7 +48,7 @@ if __name__ == '__main__':
     }
 
     category_dto = category_schema.load(category_json)
-    dto = Category(**category_dto)
+    dto = CategoryDTO(**category_dto)
 
     print(category_dto)
     print(dto)

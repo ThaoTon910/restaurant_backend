@@ -24,12 +24,12 @@ def create_categories(merchant_name: str):
             if(r.status_code == 500):
                 print(r.text)
 
-def create_addOnGroup(merchant_name: str):
+def create_addon_group(merchant_name: str):
     addOnGroups_file = os.path.join(CURRENT_DIR, merchant_name, 'addOnGroups.json')
     with open(addOnGroups_file, 'r') as fp:
         addOnGroups = json.load(fp)
         for index, group in enumerate(addOnGroups):
-            r = requests.post(BASE_URL + '/addOnGroup', json=group)
+            r = requests.post(BASE_URL + '/addon-group', json=group)
             if(r.status_code == 500):
                 print(r.text)
 
@@ -98,8 +98,8 @@ def create_recipeToAddOnGroup(merchant_name: str):
 
 def create_merchant_detail(merchant_name):
     # create_merchant(merchant_name)
-    # create_categories(merchant_name)
-    # create_addOnGroup(merchant_name)
+    create_categories(merchant_name)
+    create_addon_group(merchant_name)
     create_menu_item(merchant_name)
     # create_addOn(merchant_name)
     # create_recipeToAddOnGroup(merchant_name)

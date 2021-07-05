@@ -5,13 +5,14 @@ from datetime import datetime
 from typing import Union
 from ._helper import GUID
 
-class Category(db.Model):
+class CategoryDBO(db.Model):
     __tablename__ = "category"
-    id = db.Column(GUID, primary_key=True)
     name = db.Column(VARCHAR(100), nullable=False)
-    created_time = db.Column(DateTime(timezone=True), nullable=False, default=datetime.utcnow,)
-    updated_time = db.Column(DateTime(timezone=True), nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
     index = db.Column(Integer)
+
+    id = db.Column(GUID, primary_key=True)
+    created_time = db.Column(DateTime(timezone=True), nullable=False, default=datetime.utcnow)
+    updated_time = db.Column(DateTime(timezone=True), nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     def __init__(self, id: Union[UUID, GUID],
                  name: str,

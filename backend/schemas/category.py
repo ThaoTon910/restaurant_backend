@@ -1,5 +1,5 @@
 from datetime import datetime
-from marshmallow import fields, Schema
+from marshmallow import fields
 from schemas import BaseSchema
 # dump: creates json, send back to UI
 #load: creates dto object
@@ -25,7 +25,7 @@ if __name__ == '__main__':
         'index' : 0,
         'id': uuid.uuid4(),
         'abc': 'xyz',
-        'createdTime': datetime.datetime.now()
+        # 'createdTime': datetime.datetime.now()
     }
 
     class CategoryDTO():

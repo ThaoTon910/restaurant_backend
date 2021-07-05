@@ -29,7 +29,6 @@ export SQLALCHEMY_DATABASE_URI=postgresql://postgres:root@localhost:5432/postgre
 export FLASK_APP=app:flask_app
 flask db upgrade
 
-
 flask db migrate -m 'message'
 flask db upgrade
 # REMEMBER TO CHECK IN THE MIGRATION FILES

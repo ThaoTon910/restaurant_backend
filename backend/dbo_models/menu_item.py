@@ -6,10 +6,10 @@ from datetime import datetime
 from typing import Union
 from ._helper import GUID
 
-class MenuItem(db.Model):
+class MenuItemDBO(db.Model):
     __tablename__ = "menu-item"
     category_id = db.Column(GUID, ForeignKey("category.id"), index=True, nullable=False)
-    category = relationship("Category", backref="MenuItem")
+    category = relationship("CategoryDBO", backref="MenuItem")
 
     name = db.Column(VARCHAR(100), nullable=False)
     description = db.Column(VARCHAR(100), nullable=True)

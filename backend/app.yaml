@@ -9,6 +9,7 @@ servers:
 
 paths:
 
+#Merchant
   /merchant:
     post:
       summary: "create a new merchant"
@@ -29,7 +30,6 @@ paths:
               schema:
                 $ref: '#components/schemas/Merchant'
 
-
   /merchant/{merchant_id}:
     get:
       summary: "get business information"
@@ -46,6 +46,7 @@ paths:
               schema:
                 $ref: '#components/schemas/Merchant'
 
+#category (create, get all, get by id, delete, update)
   /category:
     post:
       summary: "create a new category.py"
@@ -131,6 +132,7 @@ paths:
               schema:
                 $ref: '#components/schemas/Category'
 
+#menu-item (create, get all, get by id)
   /menu-item:
     post:
       summary: "create a menu item"
@@ -181,6 +183,58 @@ paths:
             application/json:
               schema:
                 $ref: '#components/schemas/MenuItem'
+
+  /addon-group:
+    post:
+      summary: "create a new addon group"
+      description: ""
+      operationId: app.create_addon_group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/AddonGroup'
+
+      responses:
+        '200':
+          description: |-
+            New Addon Group Information
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/AddonGroup'
+
+    get:
+      summary: "get all add on group"
+      description: ""
+      operationId: app.get_all_addon_groups
+      responses:
+        '200':
+          description: |-
+            Get all Addon Groups
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/AddonGroup'
+
+  /addon-group/{addon_group_id}:
+    get:
+      summary: "get addon group by id"
+      description: ""
+      operationId: app.get_addon_group
+      parameters:
+        - $ref: "#components/parameters/addon_group_id"
+      responses:
+        '200':
+          description: |-
+            Get addon group by id
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/AddonGroup'
+
 components:
   parameters:
     merchant_id:
@@ -199,9 +253,16 @@ components:
         type: string
         format: uuid
 
-
     menu_item_id:
       name: menu_item_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+
+    addon_group_id:
+      name: addon_group_id
       in: path
       required: true
       schema:
@@ -238,6 +299,7 @@ components:
         hours:
           type: object
           description: Hours
+
     Category:
       type: object
       required:
@@ -323,11 +385,52 @@ components:
           type: string
           format: date-time
           description: |-
+            Datetime the menu item was created
+          readOnly: true
+        updatedTime:
+          type: string
+          format: date-time
+          description: |-
+            Datetime the menu item was created
+          readOnly: true
+
+    AddonGroup:
+      type: object
+      required:
+        - name
+        - maxQuantity
+        - minQuantity
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier of a recipe
+          readOnly: True
+        name:
+          type: string
+          description: Name of the add on group
+        maxQuantity:
+          type: number
+          nullable: true
+          description: Max addon quantity
+
+        minQuantity:
+          type: number
+          nullable: true
+          description: Min addon quantity
+
+        createdTime:
+          type: string
+          format: date-time
+          description: |-
             Datetime the add-on group was created
           readOnly: true
+
         updatedTime:
           type: string
           format: date-time
           description: |-
             Datetime the add-on group was created
           readOnly: true
+
+
