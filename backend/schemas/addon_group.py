@@ -13,6 +13,7 @@ class  AddonGroupSchema(BaseSchema):
     createdTime = fields.DateTime(dump_only=True, format='iso8601', attribute="created_time")
     updatedTime = fields.DateTime(dump_only=True, format='iso8601', attribute="updated_time")
 
+
 # Test
 if __name__ == '__main__':
     addon_group_schema = AddonGroupSchema()
