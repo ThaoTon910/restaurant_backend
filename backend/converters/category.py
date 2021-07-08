@@ -4,9 +4,9 @@ from dto_models.category import CategoryDTO
 
 def category_dto_to_dbo(dto: CategoryDTO) -> CategoryDBO:
     dbo = CategoryDBO(
-        id=dto.id,
-        name=dto.name,
-        index=dto.index
+        id = dto.id,
+        name = dto.name,
+        index = dto.index
     )
     dbo.updated_time = dto.updated_time
     dbo.created_time = dto.created_time
@@ -14,8 +14,8 @@ def category_dto_to_dbo(dto: CategoryDTO) -> CategoryDBO:
 
 def category_dbo_to_dto(dbo: CategoryDBO) -> CategoryDTO:
     dto = CategoryDTO(
-        name=dbo.name,
-        index=dbo.index
+        name = dbo.name,
+        index = dbo.index
     )
     dto.updated_time = dbo.updated_time
     dto.created_time = dbo.created_time

@@ -8,7 +8,7 @@ class  AddonGroupSchema(BaseSchema):
     maxQuantity = fields.Integer(required=True, type=Union[int, None], attribute="max_quantity", allow_none=True)
     minQuantity = fields.Integer(required=True, type=Union[int, None], attribute="min_quantity", allow_none=True)
 
-    #Service
+    # #Service
     id = fields.UUID(dump_only=True)
     createdTime = fields.DateTime(dump_only=True, format='iso8601', attribute="created_time")
     updatedTime = fields.DateTime(dump_only=True, format='iso8601', attribute="updated_time")
@@ -25,6 +25,6 @@ if __name__ == '__main__':
 
     loaded = addon_group_schema.load(addon_group_json)
     print(loaded)
-
+    #print(addon_group_schema.load(addon_group_json))
 
 

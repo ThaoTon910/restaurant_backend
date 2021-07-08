@@ -40,8 +40,12 @@ def create_menu_item(merchant_name: str):
 
         actual_category_groups = requests.get(BASE_URL + '/category').json() #get real category in database
         mapping = {}
-        for item in actual_category_groups:
-            mapping[item['name']] = item['id']
+        try:
+            for item in actual_category_groups:
+                mapping[item['name']] = item['id']
+        except Exception as e:
+            print(e)
+            x = 1
         for category_name, recipes in category_group.items():
             for recipe in recipes:
                 recipe['categoryId'] = mapping[category_name]
@@ -50,9 +54,9 @@ def create_menu_item(merchant_name: str):
                 if(r.status_code == 500):
                     print(r.text)
 
-def create_addOn(merchant_name: str):
+def create_addon(merchant_name: str):
     addOn_file = os.path.join(CURRENT_DIR, merchant_name, 'addsOn.json')
-    actual_addon_groups = requests.get(BASE_URL + '/addOnGroup').json()  # get real category in database
+    actual_addon_groups = requests.get(BASE_URL + '/addon-group').json()  # get real category in database
     mapping = {}
     for item in actual_addon_groups:
         mapping[item['name']] = item['id']
@@ -62,8 +66,8 @@ def create_addOn(merchant_name: str):
         addOns = json.load(fp)
         for key, values in addOns.items():
             for addon in values:
-                addon['addOnGroupId'] = mapping[key]
-                r = requests.post(BASE_URL + '/addOn', json=addon)
+                addon['addonGroupId'] = mapping[key]
+                r = requests.post(BASE_URL + '/addon', json=addon)
                 if(r.status_code == 500):
                     print(r.text)
 
@@ -101,7 +105,7 @@ def create_merchant_detail(merchant_name):
     create_categories(merchant_name)
     create_addon_group(merchant_name)
     create_menu_item(merchant_name)
-    # create_addOn(merchant_name)
+    create_addon(merchant_name)
     # create_recipeToAddOnGroup(merchant_name)
 
 if __name__ == "__main__":

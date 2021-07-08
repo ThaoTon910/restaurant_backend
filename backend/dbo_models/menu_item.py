@@ -5,12 +5,11 @@ from sqlalchemy.orm import relationship
 from datetime import datetime
 from typing import Union
 from ._helper import GUID
-
 class MenuItemDBO(db.Model):
     __tablename__ = "menu-item"
-    category_id = db.Column(GUID, ForeignKey("category.id"), index=True, nullable=False)
-    category = relationship("CategoryDBO", backref="MenuItem")
+    category = relationship("CategoryDBO", backref="menu_items")
 
+    category_id = db.Column(GUID, ForeignKey("category.id"), index=True, nullable=False)
     name = db.Column(VARCHAR(100), nullable=False)
     description = db.Column(VARCHAR(100), nullable=True)
     price = db.Column(Float, nullable=False)
@@ -25,7 +24,8 @@ class MenuItemDBO(db.Model):
     updated_time = db.Column(DateTime(timezone=True), nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
     __table_args = UniqueConstraint('category_id', 'name', name='_category_name_uc')
 
-    def __init__(self, id: Union[UUID, GUID],
+    def __init__(self,
+                 id: Union[UUID, GUID],
                  name: str,
                  category_id: int,
                  description: str,

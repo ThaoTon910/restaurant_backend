@@ -2,7 +2,7 @@ from attr import attrib, attrs, validators, Factory
 from uuid import UUID, uuid4
 from datetime import datetime
 from typing import Optional, Dict
-
+from schemas import BaseSchema
 @attrs
 class CategoryDTO(object):
     name = attrib(
@@ -43,17 +43,20 @@ if __name__ == '__main__':
     category_json = {
         'name': 'Appertizer',
         'index' : 0,
-        'id': uuid.uuid4(),
-        'abc': 'xyz'
+        #'id': uuid.uuid4(),
+        #'abc': 'xyz'
     }
 
-    category_dto = category_schema.load(category_json)
-    dto = CategoryDTO(**category_dto)
+    loaded = category_schema.load(category_json)
+    # loaded = {'name': Appertizer, 'index': 0}
+    # -> **loaded (key : value) = 'name': Appertizer, 'index': 0
+    # dto = CategoryDTO(name=loaded['name'],
+    #                     index=loaded['index'],
 
-    print(category_dto)
+    dto = CategoryDTO(**loaded)
+
+    print(loaded)
     print(dto)
-
-
     output_json = category_schema.dumps(dto)
     print(output_json)
 

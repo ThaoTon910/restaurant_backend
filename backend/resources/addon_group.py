@@ -11,8 +11,8 @@ class AddonGroupResource:
     def post()-> Response:
         try:
             json = request.get_json(force=True) #get form body
-            schemas = AddonGroupSchema()
-            validated_schema = schemas.load(json) #Validated data from frontend
+            schema = AddonGroupSchema()
+            validated_schema = schema.load(json) #Validated data from frontend
             dto = AddonGroupDTO(**validated_schema) #transform to DTO OBJECT
 
             #After done Services, we call AddonService class to reture DTO
@@ -29,8 +29,7 @@ class AddonGroupResource:
 
             #After donne Serivecs, we send back to UI by .dump from returned_dto above
             #Dumps to UI format(json)
-        schemas = AddonGroupSchema(many=True)
-        response_data = schemas.dumps(returned_dto)
+        response_data = schema.dumps(returned_dto)
 
         return Response(response_data, status=200, headers={}, mimetype="application/json")
 

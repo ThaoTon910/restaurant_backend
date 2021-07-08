@@ -9,6 +9,7 @@ from uuid import UUID
 from resources.category import CategoryResource
 from resources.menu_item import MenuItemResource
 from resources.addon_group import AddonGroupResource
+from resources.addon import AddonResource
 import logging
 
 logger = logging.getLogger(__name__)
@@ -87,4 +88,15 @@ def delete_addon_group(menu_item_id: UUID) -> Response:
 
 def update_addon_group(menu_item_id: UUID) -> Response:
     return {}#AddonGroupSource.update(menu_addon_group)
+
+#Addon
+def create_addon() -> Response:
+    return AddonResource.post()
+
+def get_all_addons() -> Response:
+    return AddonResource.get_all_addons()
+
+def get_addon(addon_id: UUID) -> Response:
+    return AddonResource.get_by_id(addon_id)
+
 app, flask_app = create_app()

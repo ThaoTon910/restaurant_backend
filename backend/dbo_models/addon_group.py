@@ -15,7 +15,8 @@ class AddonGroupDBO(db.Model):
     created_time = db.Column(DateTime(timezone=True), nullable=False, default=datetime.utcnow())
     updated_time = db.Column(DateTime(timezone=True), nullable=False, default=datetime.utcnow(), onupdate=datetime.utcnow())
 
-    def __init__(self, id: Union[UUID, GUID],
+    def __init__(self,
+                 id: Union[UUID, GUID],
                  name: str,
                  max_quantity:int,
                  min_quantity: int):

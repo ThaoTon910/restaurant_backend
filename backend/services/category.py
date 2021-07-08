@@ -9,7 +9,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-#create, get_by_id, get_all, update, delete
+#create, get_all, get_by_id, update, delete
 class CategoryService(BaseService):
     def __init__(self) -> None:
         super().__init__()
@@ -22,7 +22,7 @@ class CategoryService(BaseService):
 
     # Outcome: input from Resource (DTO) -> output send back to the UI (DTO) too
     # We use the Convertes to convert dto to DBO and then, add and commit to database
-    # Then, we use the Convertes to convert dbo to DTO
+    # Then, we return the Convertes to convert dbo to DTO
     def create(self, dto: CategoryDTO) -> CategoryDTO:
         dbo = category_dto_to_dbo(dto)
         if self._is_category_name_exist(dto.name):

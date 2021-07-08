@@ -1,51 +1,50 @@
-from schemas.category import CategorySchema
-from dto_models.category import CategoryDTO
-from services.category import CategoryService
+
+from schemas.addon import AddonSchema
+from dto_models.addon import AddonDTO
+from services.addon import AddonService
 from flask import request, Response, abort
 from utils.exceptions import ObjectAlreadyExists
 from uuid import UUID
 import logging
 logger = logging.getLogger(__name__)
 
-class CategoryResource:
-    #create(post), get_by_id, get_all, update, delete
+class AddonResource:
     @staticmethod
+    # create(post), get_all, get_by_id
     def post() -> Response:
+        schema = AddonSchema()
         try:
-            json = request.get_json(force=True) #get from body
-            schema = CategorySchema()
-            validated_json = schema.load(json) #Validated data from frontend
-            dto = CategoryDTO(**validated_json) #transform to DTO OBJECT
-
-            returned_dto = CategoryService().create(dto)
-
+            json = request.get_json(force=True)#get json form body
+            validated_schema =  schema.load(json) #Validated data from frontend
+            dto = AddonDTO(**validated_schema) #transform to DTO OBJECT
+            returned_dto = AddonService().create(dto)
         except ValueError as e:
             abort(400, {'message': str(e)})
-            logger.debug("CategoryResource post 400 {}".format(e))
+            logger.debug("AddonResource post 400 {}".format(e))
         except ObjectAlreadyExists as e:
             abort(400, {'message': str(e)})
-            logger.debug("CategoryResource post 400 {}".format(e))
+            logger.debug("AddonResource post 400 {}".format(e))
         except Exception as e:
             abort(500, {'message': str(e)})
-            logger.debug("CategoryResource post 500 {}".format(e))
+            logger.debug("AddonResource post 500 {}".format(e))
 
-        #Dumps to UI format (json)
+
         response_data = schema.dumps(returned_dto)
 
         return Response(response_data, status=200, headers={}, mimetype="application/json")
 
     @staticmethod
-    def get_all_categories() -> Response:
+    def get_all_addons() -> Response:
         try:
-            returned_dto = CategoryService().get_all_categories()
+            returned_dto = AddonService().get_all_addons()
         except ValueError as e:
             abort(400, {'message': str(e)})
         except Exception as e:
             abort(500, {'message': str(e)})
-            logger.debug("CategoryResource get 500 {}".format(e))
+            logger.debug("AddonResource get 500 {}".format(e))
 
             # Dumps to UI format (json)
-        schema = CategorySchema(many=True)
+        schema = AddonSchema(many=True)
         response_data = schema.dumps(returned_dto)
 
         return Response(response_data, status=200, headers={}, mimetype="application/json")
@@ -53,28 +52,28 @@ class CategoryResource:
     @staticmethod
     def get_by_id(id: UUID) -> Response:
         try:
-            returned_dto = CategoryService().get_by_id(id)
+            returned_dto = AddonService().get_by_id(id)
         except ValueError as e:
             abort(400, {'message': str(e)})
         except Exception as e:
             abort(500, {'message': str(e)})
-            logger.debug("CategoryResource get 500 {}".format(e))
+            logger.debug("AddonResource get 500 {}".format(e))
 
             # Dumps to UI format (json)
-        schema = CategorySchema()
+        schema = AddonSchema()
         response_data = schema.dumps(returned_dto)
 
         return Response(response_data, status=200, headers={}, mimetype="application/json")
 
     @staticmethod
-    def update_category(id: UUID) -> Response:
+    def update_addon(id: UUID) -> Response:
         pass
-    
+
     @staticmethod
-    def delete_category(id: UUID) -> Response:
-        #call the delete method of the category resource, get back the deleted category object
+    def delete_addon(id: UUID) -> Response:
+        # call the delete method of the category resource, get back the deleted category object
 
-        #serialize the category object into json
+        # serialize the category object into json
 
-        #return the response
+        # return the response
         pass

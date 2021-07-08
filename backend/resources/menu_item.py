@@ -11,9 +11,9 @@ logger = logging.getLogger(__name__)
 class MenuItemResource:
     @staticmethod
     def post() -> Response:
+        schema = MenuItemSchema()
         try:
             json = request.get_json(force=True) #get from body
-            schema = MenuItemSchema()
             validated_json = schema.load(json) #Validated data from frontend
             dto = MenuItemDTO(**validated_json) #transform to DTO OBJECT
             returned_dto = MenuItemService().create(dto)

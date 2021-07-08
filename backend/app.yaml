@@ -234,7 +234,56 @@ paths:
             application/json:
               schema:
                 $ref: '#components/schemas/AddonGroup'
+  #Addon
+  /addon:
+    post:
+      summary: "create a new addon"
+      description: ""
+      operationId: app.create_addon
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/Addon'
 
+      responses:
+        '200':
+          description: |-
+            New Addon Information
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Addon'
+
+    get:
+      summary: "get all add on"
+      description: ""
+      operationId: app.get_all_addons
+      responses:
+        '200':
+          description: |-
+            Get all Addon
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Addon'
+  /addon/{addon_id}:
+    get:
+      summary: "get addon by id"
+      description: ""
+      operationId: app.get_addon
+      parameters:
+        - $ref: "#components/parameters/addon_id"
+      responses:
+        '200':
+          description: |-
+            Get addon by id
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Addon'
 components:
   parameters:
     merchant_id:
@@ -263,6 +312,14 @@ components:
 
     addon_group_id:
       name: addon_group_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+
+    addon_id:
+      name: addon_id
       in: path
       required: true
       schema:
@@ -340,8 +397,6 @@ components:
         - size
         - imageUrl
         - active
-        - isTaxable
-        - taxRate
       properties:
         id:
           type: string
@@ -433,4 +488,48 @@ components:
             Datetime the add-on group was created
           readOnly: true
 
+    Addon:
+      type: object
+      required:
+        - addonGroupId
+        - name
+        - price
+        - description
+        - isTaxable
+      properties:
+        addonGroupId:
+            type: string
+            format: uuid
+            description: A foreign key addon group id from addon group
+        name:
+          type: string
+          description: Name of the addon
+
+        price:
+          type: number
+          description: price of a addon
+
+        description:
+          type: string
+          nullable: true
+          description: description of a addon
+
+        isTaxable:
+          type: boolean
+          nullable: true
+          description: tax status of a addon
+
+        createdTime:
+          type: string
+          format: date-time
+          description: |-
+            Datetime the menu item was created
+          readOnly: true
+
+        updatedTime:
+          type: string
+          format: date-time
+          description: |-
+            Datetime the menu item was created
+          readOnly: true
 
