@@ -8,7 +8,6 @@ servers:
   - url: "/v0"
 
 paths:
-
 #Merchant
   /merchant:
     post:
@@ -234,7 +233,8 @@ paths:
             application/json:
               schema:
                 $ref: '#components/schemas/AddonGroup'
-  #Addon
+
+#addon
   /addon:
     post:
       summary: "create a new addon"
@@ -284,6 +284,42 @@ paths:
             application/json:
               schema:
                 $ref: '#components/schemas/Addon'
+
+#menu item to addon group
+  /menu-item-to-addon-group:
+    post:
+      summary: "create a new menu item to addon group"
+      description: ""
+      operationId: app.create_menu_item_to_addon_group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/MenuItemToAddonGroup'
+
+      responses:
+        '200':
+          description: |-
+            New Addon Information
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/MenuItemToAddonGroup'
+
+    get:
+      summary: "get all menu item to addon groups"
+      description: ""
+      operationId: app.get_all_menu_item_to_addon_groups
+      responses:
+        '200':
+          description: |-
+            Get all Menu Item To Addon Groups
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/MenuItemToAddonGroup'
 components:
   parameters:
     merchant_id:
@@ -320,6 +356,14 @@ components:
 
     addon_id:
       name: addon_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+
+    menu_item_to_addon_group_id:
+      name: menu_item_to_addon_group_id
       in: path
       required: true
       schema:
@@ -532,4 +576,20 @@ components:
           description: |-
             Datetime the menu item was created
           readOnly: true
+
+    MenuItemToAddonGroup:
+      type: object
+      required:
+        - addonGroupId
+        - menuItemId
+      properties:
+        addonGroupId:
+          type: string
+          format: uuid
+          description: A foreign key addon group id from addon group
+        menuItemId:
+          type: string
+          format: uuid
+          description: A foreign key menu item id from menu item group
+
 

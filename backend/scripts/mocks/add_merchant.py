@@ -71,10 +71,10 @@ def create_addon(merchant_name: str):
                 if(r.status_code == 500):
                     print(r.text)
 
-def create_recipeToAddOnGroup(merchant_name: str):
+def create_menu_item_to_addon_group(merchant_name: str):
     recipeToAddOnGroup_file = os.path.join(CURRENT_DIR, merchant_name, 'recipeToAddOnGroup.json') # open
-    actual_recipe = requests.get(BASE_URL + '/recipe').json() #open recipe file to get recipe_id
-    actual_addOnGroup = requests.get(BASE_URL + '/addOnGroup').json()  # get add on group id
+    actual_recipe = requests.get(BASE_URL + '/menu-item').json() #open recipe file to get recipe_id
+    actual_addOnGroup = requests.get(BASE_URL + '/addon-group').json()  # get add on group id
     mapping_recipe= {}
     mapping_addOnGroup= {}
     for recipe in actual_recipe:
@@ -91,22 +91,22 @@ def create_recipeToAddOnGroup(merchant_name: str):
 
                 group_id = mapping_addOnGroup[group_name]
                 data = {
-                    'recipeId': recipe_id,
-                    'addOnGroupId': group_id
+                    'menuItemId': recipe_id,
+                    'addonGroupId': group_id
                 }
 
-                r = requests.post(BASE_URL + '/recipeToAddOnGroup', json=data)
+                r = requests.post(BASE_URL + '/menu-item-to-addon-group', json=data)
                 print(r.text)
                 if(r.status_code == 500):
                     print(r.text)
 
 def create_merchant_detail(merchant_name):
     # create_merchant(merchant_name)
-    create_categories(merchant_name)
-    create_addon_group(merchant_name)
-    create_menu_item(merchant_name)
-    create_addon(merchant_name)
-    # create_recipeToAddOnGroup(merchant_name)
+    # create_categories(merchant_name)
+    # create_addon_group(merchant_name)
+    # create_menu_item(merchant_name)
+    # create_addon(merchant_name)
+    create_menu_item_to_addon_group(merchant_name)
 
 if __name__ == "__main__":
     create_merchant_detail("pho21")

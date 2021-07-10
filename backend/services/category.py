@@ -45,7 +45,6 @@ class CategoryService(BaseService):
         dbo = self.session.query(CategoryDBO).filter_by(id=category_id).first()
         if not dbo:
             raise ObjectNotFound("Category id '{}' not found".format(category_id))
-
         return category_dbo_to_dto(dbo)
 
         

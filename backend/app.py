@@ -10,6 +10,7 @@ from resources.category import CategoryResource
 from resources.menu_item import MenuItemResource
 from resources.addon_group import AddonGroupResource
 from resources.addon import AddonResource
+from resources.menu_item_to_addon_group import MenuItemToAddonGroupResource
 import logging
 
 logger = logging.getLogger(__name__)
@@ -98,5 +99,13 @@ def get_all_addons() -> Response:
 
 def get_addon(addon_id: UUID) -> Response:
     return AddonResource.get_by_id(addon_id)
+
+#Menu Item to Addon Group
+
+def create_menu_item_to_addon_group() -> Response:
+    return MenuItemToAddonGroupResource.post()
+
+def get_all_menu_item_to_addon_groups() -> Response:
+    return MenuItemToAddonGroupResource.get_all_menu_item_to_addon_groups()
 
 app, flask_app = create_app()

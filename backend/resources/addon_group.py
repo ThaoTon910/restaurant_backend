@@ -36,7 +36,7 @@ class AddonGroupResource:
     @staticmethod
     def get_all_addon_groups() -> Response:
         try:
-            returned_dto = AddonGroupService().get_all_addon_group()
+            returned_dto = AddonGroupService().get_all_addon_groups()
         except ValueError as e:
             abort(400, {'message': str(e)})
         except Exception as e:
