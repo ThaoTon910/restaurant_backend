@@ -50,6 +50,22 @@ class AddonResource:
         return Response(response_data, status=200, headers={}, mimetype="application/json")
 
     @staticmethod
+    def get_addons_from_group(id: UUID) -> Response:
+        try:
+            returned_dtos = AddonService().get_addons_from_group(id)
+        except ValueError as e:
+            abort(400, {'message': str(e)})
+        except Exception as e:
+            abort(500, {'message': str(e)})
+            logger.debug("AddonGroup Resource get 500 {}".format(e))
+
+            # Dumps to UI format (json)
+        schema = AddonSchema(many=True)
+        response_data = schema.dumps(returned_dtos)
+
+        return Response(response_data, status=200, headers={}, mimetype="application/json")
+
+    @staticmethod
     def get_by_id(id: UUID) -> Response:
         try:
             returned_dto = AddonService().get_by_id(id)

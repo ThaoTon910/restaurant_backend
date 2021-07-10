@@ -84,10 +84,10 @@ def get_all_addon_groups() -> Response:
 def get_addon_group(addon_group_id: UUID) -> Response:
     return AddonGroupResource.get_by_id(addon_group_id)
 
-def delete_addon_group(menu_item_id: UUID) -> Response:
+def delete_addon_group(addon_group_id: UUID) -> Response:
     return {}#AddonGroupSource.delete(menu_addon_group)
 
-def update_addon_group(menu_item_id: UUID) -> Response:
+def update_addon_group(addon_group_id: UUID) -> Response:
     return {}#AddonGroupSource.update(menu_addon_group)
 
 #Addon
@@ -96,6 +96,9 @@ def create_addon() -> Response:
 
 def get_all_addons() -> Response:
     return AddonResource.get_all_addons()
+
+def get_addons_from_group(addon_group_id:UUID) -> Response:
+    return AddonResource.get_addons_from_group(addon_group_id)
 
 def get_addon(addon_id: UUID) -> Response:
     return AddonResource.get_by_id(addon_id)

@@ -234,6 +234,23 @@ paths:
               schema:
                 $ref: '#components/schemas/AddonGroup'
 
+  /addon-group/{addon_group_id}/addons:
+    get:
+      summary: "get all addons in an addon group"
+      description: ""
+      operationId: app.get_addons_from_group
+      parameters:
+        - $ref: "#components/parameters/addon_group_id"
+      responses:
+        '200':
+          description: |-
+            Get all addons in an addon group
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Addon'
 #addon
   /addon:
     post:
@@ -285,6 +302,7 @@ paths:
               schema:
                 $ref: '#components/schemas/Addon'
 
+
 #menu item to addon group
   /menu-item-to-addon-group:
     post:
@@ -320,6 +338,7 @@ paths:
                 type: array
                 items:
                   $ref: '#components/schemas/MenuItemToAddonGroup'
+
 components:
   parameters:
     merchant_id:
