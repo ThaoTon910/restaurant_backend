@@ -1,5 +1,7 @@
 from dto_models.category import CategoryDTO
 from dbo_models.category import CategoryDBO
+from dto_models.menu_item import MenuItemDTO
+from services.menu_item import MenuItemService
 from converters.category import category_dbo_to_dto, category_dto_to_dbo
 from services._base import BaseService
 from utils.exceptions import *
@@ -34,8 +36,9 @@ class CategoryService(BaseService):
 
     # We get all categories from database (DBO) -> return DT
     # We use the ".query" in DBO database to get all
-    def get_all_categories(self):
+    def get_all_categories(self) -> List[CategoryDTO]:
         dbo_list = self.session.query(CategoryDBO).all()
+        menu_item_service = MenuItemService()
         if not dbo_list:
             raise ObjectNotFound("Categories fetch failed")
 
@@ -45,6 +48,11 @@ class CategoryService(BaseService):
         dbo = self.session.query(CategoryDBO).filter_by(id=category_id).first()
         if not dbo:
             raise ObjectNotFound("Category id '{}' not found".format(category_id))
+        # dto: CategoryDTO = category_dbo_to_dto(dbo)
+        #
+        # # TODO: optimize query to join data across table
+        # menu_items: List[MenuItemDTO] = MenuItemService().get_menu_items_from_category(dto.id)
+        # dto.menu_items = menu_items
         return category_dbo_to_dto(dbo)
 
         
@@ -61,10 +69,11 @@ class CategoryService(BaseService):
         return category_dbo_to_dto(dbo)
 
     def update_category(self, dto: CategoryDTO) -> CategoryDTO:
-        dbo = self.session.query(CategoryDBO).filter_by(id=dto.id).first()
-        if not dbo:
-            raise ObjectNotFound("Category id '{}' not found".format(category_id))
-        dbo.name = dto.name
-        dbo.index = dto.index
-        self.session.commit()
-        return category_dbo_to_dto(dbo)
+        pass
+    #     dbo = self.session.query(CategoryDBO).filter_by(id=dto.id).first()
+    #     if not dbo:
+    #         raise ObjectNotFound("Category id '{}' not found".format(dto.id))
+    #     dbo.name = dto.name
+    #     dbo.index = dto.index
+    #     self.session.commit()
+    #     return category_dbo_to_dto(dbo)

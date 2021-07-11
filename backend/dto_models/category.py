@@ -1,7 +1,8 @@
 from attr import attrib, attrs, validators, Factory
 from uuid import UUID, uuid4
 from datetime import datetime
-from typing import Optional, Dict
+from dto_models.menu_item import MenuItemDTO
+from typing import Optional, Dict, List
 from schemas import BaseSchema
 @attrs
 class CategoryDTO(object):
@@ -29,11 +30,17 @@ class CategoryDTO(object):
         default=Factory(datetime.utcnow),
         validator=validators.instance_of(datetime),
     )
-
     id = attrib(
         type=UUID,
         default=Factory(uuid4),
         validator=validators.instance_of(UUID),
+    )
+    #extra
+    menu_items =attrib(
+        init=False,
+        type=List[MenuItemDTO],
+        default=[],
+        # validator=validators.instance_of(List[MenuItemDTO])
     )
 
 if __name__ == '__main__':

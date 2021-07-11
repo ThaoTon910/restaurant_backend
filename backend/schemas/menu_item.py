@@ -20,6 +20,9 @@ class MenuItemSchema(BaseSchema):
     createdTime = fields.DateTime(dump_only=True,  attribute="created_time")
     updatedTime = fields.DateTime(dump_only=True, attribute="updated_time")
 
+    #Extra
+    addonGroupIds = fields.List(fields.UUID, dump_only=True, attribute="addon_group_ids")
+
 if __name__ == "__main__":
     schema = MenuItemSchema()
     data = {

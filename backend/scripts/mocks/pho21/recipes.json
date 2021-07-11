@@ -84,7 +84,7 @@
       "name": "Spring Rolls",
       "description": "Goi Cuon",
       "price": 6.95,
-      "size": "\bRegular",
+      "size": "Regular",
       "imageUrl": "",
       "active": true,
       "isTaxable": true,
@@ -763,7 +763,7 @@
       "taxRate": null
     },
     {
-      "name": "Filet Mignon \bRare Beef (1/2lb)",
+      "name": "Filet Mignon Rare Beef (1/2lb)",
       "description": null,
       "price": 6.5,
       "size": "Regular",

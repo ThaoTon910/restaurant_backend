@@ -83,6 +83,24 @@ paths:
                 items:
                   $ref: '#components/schemas/Category'
 
+  /category/{category_id}/menu-items:
+    get:
+      summary: "get all menu items in a category"
+      description: ""
+      operationId: app.get_menu_items_from_category
+      parameters:
+        - $ref: "#components/parameters/category_id"
+      responses:
+        '200':
+          description: |-
+            Get all menu items in a category
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/MenuItem'
+
   /category/{category_id}:
     get:
       summary: "get category.py by id"
@@ -166,6 +184,24 @@ paths:
                 type: array
                 items:
                   $ref: '#components/schemas/MenuItem'
+
+  /menu-item/{menu_item_id}/addon-groups:
+    get:
+      summary: "get all addon groups in a menu item"
+      description: ""
+      operationId: app.get_addon_groups_from_menu_item
+      parameters:
+        - $ref: "#components/parameters/menu_item_id"
+      responses:
+        '200':
+          description: |-
+            Get all addon groups in a menu item
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/AddonGroup'
 
   /menu-item/{menu_item_id}:
     get:

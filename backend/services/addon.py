@@ -42,7 +42,6 @@ class AddonService(BaseService):
     def get_addons_from_group(self, group_id: UUID):
         dbo_list = self.session.query(AddonDBO).filter_by(addon_group_id=group_id)\
             .order_by(desc(AddonDBO.created_time))
-
         if not dbo_list:
             raise ObjectNotFound("Addon fetch failed")
         return [addon_dbo_to_dto(dbo) for dbo in dbo_list]

@@ -1,7 +1,7 @@
 from attr import attrib, attrs, validators, Factory
 from datetime import datetime
 from uuid import UUID, uuid4
-from typing import Union
+from typing import Union, List
 
 @attrs
 class MenuItemDTO(object):
@@ -71,4 +71,11 @@ class MenuItemDTO(object):
         type=datetime,
         default=Factory(datetime.utcnow),
         validator=validators.instance_of(datetime),
+    )
+    #Extra
+    addon_group_ids = attrib(
+        init=False,
+        type=List[UUID],
+        default=[],
+        # validator=validators.instance_of(List[UUID])
     )

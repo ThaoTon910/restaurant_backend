@@ -62,6 +62,21 @@ class MenuItemResource:
 
         return Response(response_data, status=200, headers={}, mimetype="application/json")
 
+    @staticmethod
+    def get_menu_items_from_category(id: UUID) -> Response:
+        try:
+            returned_dtos = MenuItemService().get_menu_items_from_category(id)
+        except ValueError as e:
+            abort(400, {'message': str(e)})
+        except Exception as e:
+            abort(500, {'message': str(e)})
+            logger.debug("Addon Resource get 500 {}".format(e))
+
+            # Dumps to UI format (json)
+        schema = MenuItemSchema(many=True)
+        response_data = schema.dumps(returned_dtos)
+
+        return Response(response_data, status=200, headers={}, mimetype="application/json")
     # @staticmethod
     # def update_menu_utem(id: UUID) -> Response:
     #     try:

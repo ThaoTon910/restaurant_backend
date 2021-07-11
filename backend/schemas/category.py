@@ -1,6 +1,8 @@
 from datetime import datetime
 from marshmallow import fields
 from schemas import BaseSchema
+from schemas.menu_item import MenuItemSchema
+from typing import List
 # dump: creates json, send back to UI
 #load: creates dto object
 
@@ -8,12 +10,12 @@ class CategorySchema(BaseSchema):
     #Resource
     name = fields.String(required=True)
     index = fields.Integer(required=True)
-
     #Dump to UI
     id = fields.UUID(dump_only=True)
     createdTime = fields.DateTime(dump_only=True, format='iso8601', attribute="created_time")
     updatedTime = fields.DateTime(dump_only=True, format='iso8601', attribute="updated_time")
-
+    #extra
+    menuItems = fields.List(fields.Nested(MenuItemSchema), dump_only=True, attribute="menu_items")
 
 # Test
 

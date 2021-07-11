@@ -57,7 +57,7 @@ class AddonResource:
             abort(400, {'message': str(e)})
         except Exception as e:
             abort(500, {'message': str(e)})
-            logger.debug("AddonGroup Resource get 500 {}".format(e))
+            logger.debug("Addon Resource get 500 {}".format(e))
 
             # Dumps to UI format (json)
         schema = AddonSchema(many=True)
