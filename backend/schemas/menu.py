@@ -10,4 +10,5 @@ from schemas.addon_group import AddonGroupSchema
 
 class MenuSchema(BaseSchema):
     #Resource
-    categories = fields.List(CategoryMenuSchema)
+    categories = fields.List(fields.Nested(CategorySchema), dump_only=True)
+    addonGroups = fields.List(fields.Nested(AddonGroupSchema), dump_only=True, attribute='addon_groups')

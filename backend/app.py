@@ -10,6 +10,7 @@ from resources.category import CategoryResource
 from resources.menu_item import MenuItemResource
 from resources.addon_group import AddonGroupResource
 from resources.addon import AddonResource
+from resources.menu import MenuResource
 from resources.menu_item_to_addon_group import MenuItemToAddonGroupResource
 import logging
 
@@ -118,4 +119,7 @@ def create_menu_item_to_addon_group() -> Response:
 def get_all_menu_item_to_addon_groups() -> Response:
     return MenuItemToAddonGroupResource.get_all_menu_item_to_addon_groups()
 
+#menu
+def get_menu()->Response:
+    return MenuResource.get_menu()
 app, flask_app = create_app()

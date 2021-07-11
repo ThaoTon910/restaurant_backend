@@ -374,7 +374,21 @@ paths:
                 type: array
                 items:
                   $ref: '#components/schemas/MenuItemToAddonGroup'
-
+  /menu:
+    get:
+      summary: "get menu"
+      description: ""
+      operationId: app.get_menu
+      responses:
+        '200':
+          description: |-
+            Get menu
+          content:
+            application/json:
+              schema:
+                type: object
+#                items:
+#                  $ref: '#components/schemas/Addon'
 components:
   parameters:
     merchant_id:
