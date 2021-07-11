@@ -23,7 +23,7 @@ def category_dbo_to_dto(dbo: CategoryDBO) -> CategoryDTO:
     if dbo.menu_items:
         dto.menu_items = [menu_item_dbo_to_dto(m_dbo) for m_dbo in dbo.menu_items]
     else:
-        dbo.menu_items = []
+        dto.menu_items = []
     dto.id = dbo.id
     return dto
 

@@ -10,7 +10,7 @@ class AddonDBO(db.Model):
     __tablename__ = "addon"
     addon_group = relationship("AddonGroupDBO", backref="addons")
 
-    addon_group_id = db.Column(GUID, ForeignKey("addon-group.id"), index=True, nullable=False)
+    addon_group_id = db.Column(GUID, ForeignKey("addongroup.id"), index=True, nullable=False)
     id = db.Column(GUID, primary_key=True)
     name = db.Column(VARCHAR(100), nullable=False)
     price = db.Column(Float, nullable=True)

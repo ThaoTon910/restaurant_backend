@@ -2,14 +2,18 @@ from database import db
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy import VARCHAR, Integer, DateTime
 from datetime import datetime
+from sqlalchemy.orm import relationship
 from typing import Union
 from ._helper import GUID
 
 class AddonGroupDBO(db.Model):
-    __tablename__ = "addon-group"
+    __tablename__ = "addongroup"
     name = db.Column(VARCHAR(100), nullable=False)
     max_quantity = db.Column(Integer)
     min_quantity = db.Column(Integer)
+
+    menu_items = relationship('MenuItemDBO', secondary='menuitemtoaddongroup', lazy='subquery',
+                                       back_populates="addon_groups")
 
     id = db.Column(GUID, primary_key=True)
     created_time = db.Column(DateTime(timezone=True), nullable=False, default=datetime.utcnow())

@@ -1,6 +1,8 @@
 from attr import attrib, attrs, validators, Factory
 from uuid import UUID, uuid4
 from datetime import datetime
+from dto_models.addon import AddonDTO
+from typing import List
 
 @attrs
 class AddonGroupDTO(object):
@@ -36,6 +38,13 @@ class AddonGroupDTO(object):
         type=datetime,
         default=Factory(datetime.utcnow),
         validator=validators.instance_of(datetime),
+    )
+    # extra
+    addons = attrib(
+        init=False,
+        type=List[AddonDTO],
+        default=[],
+        # validator=validators.instance_of(List[MenuItemDTO])
     )
 
 if __name__== '__main__':

@@ -35,12 +35,12 @@ class MenuItemService(BaseService):
         base_query = self.session.query(MenuItemDBO)
 
         # sort by created_time
-        dbos = base_query.order_by( MenuItemDBO.created_time)
+        dbos = base_query.order_by(MenuItemDBO.created_time)
         dtos = [menu_item_dbo_to_dto(dbo) for dbo in dbos]
-        addon_group_service = AddonGroupService()
-        for dto in dtos:
-            addon_groups: List[AddonGroupDTO] = addon_group_service.get_addon_groups_from_menu_item(dto.id)
-            dto.addon_group_ids = [addon_group.id for addon_group in addon_groups]
+        # addon_group_service = AddonGroupService()
+        # for dto in dtos:
+        #     addon_groups: List[AddonGroupDTO] = addon_group_service.get_addon_groups_from_menu_item(dto.id)
+        #     dto.addon_group_ids = [addon_group.id for addon_group in addon_groups]
         return dtos
 
     def get_menu_items_from_category(self, category_id: UUID) -> List[MenuItemDTO]:
@@ -63,10 +63,10 @@ class MenuItemService(BaseService):
             raise ObjectNotFound("Recipe id '{}' not found".format(menu_item_id))
         dto: MenuItemDTO = menu_item_dbo_to_dto(dbo)
 
-        # TODO: optimize query to join data across table
-        addon_groups: List[AddonGroupDTO] = AddonGroupService().get_addon_groups_from_menu_item(dto.id)
-
-        dto.addon_group_ids= [addon_group.id for addon_group in addon_groups]
+        # # TODO: optimize query to join data across table
+        # addon_groups: List[AddonGroupDTO] = AddonGroupService().get_addon_groups_from_menu_item(dto.id)
+        #
+        # dto.addon_group_ids= [addon_group.id for addon_group in addon_groups]
 
         return dto
 

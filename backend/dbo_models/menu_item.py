@@ -1,4 +1,6 @@
 from database import db
+from dbo_models.menu_item_to_addon_group import MenuItemToAddonGroupDBO
+from dbo_models.addon_group import AddonGroupDBO
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy import VARCHAR, Integer, DateTime, Boolean, Float, String, ForeignKey, UniqueConstraint
 from sqlalchemy.orm import relationship
@@ -6,7 +8,7 @@ from datetime import datetime
 from typing import Union
 from ._helper import GUID
 class MenuItemDBO(db.Model):
-    __tablename__ = "menu-item"
+    __tablename__ = "menuitem"
     category = relationship("CategoryDBO", backref="menu_items")
 
     category_id = db.Column(GUID, ForeignKey("category.id"), index=True, nullable=False)
@@ -18,6 +20,9 @@ class MenuItemDBO(db.Model):
     is_taxable = db.Column(Boolean, nullable=False)
     size = db.Column(VARCHAR(100), nullable=False)
     tax_rate = db.Column(Float, nullable=True)
+
+    addon_groups = relationship('AddonGroupDBO', secondary='menuitemtoaddongroup', lazy='subquery',
+                                       back_populates="menu_items")
 
     id = db.Column(GUID, primary_key=True)
     created_time = db.Column(DateTime(timezone=True), nullable=False, default=datetime.utcnow,)

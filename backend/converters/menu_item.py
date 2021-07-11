@@ -1,6 +1,6 @@
 from dbo_models.menu_item import MenuItemDBO
 from dto_models.menu_item import MenuItemDTO
-
+from converters.addon_group import addon_group_dbo_to_dto
 def menu_item_dto_to_dbo(dto: MenuItemDTO) -> MenuItemDBO:
     dbo = MenuItemDBO(
         name=dto.name,
@@ -32,5 +32,9 @@ def menu_item_dbo_to_dto(dbo: MenuItemDBO) -> MenuItemDTO:
     dto.updated_time = dbo.updated_time
     dto.created_time = dbo.created_time
     dto.id = dbo.id
+    if dbo.addon_groups:
+        dto.addon_group_ids = [addon_group_dbo_to_dto(ag_dbo).id for ag_dbo in dbo.addon_groups]
+    else:
+        dto.addon_group_ids = []
     return dto
 

@@ -39,7 +39,7 @@ class AddonService(BaseService):
         dtos = [addon_dbo_to_dto(dbo) for dbo in dbos]
         return dtos
 
-    def get_addons_from_group(self, group_id: UUID):
+    def get_addons_from_group(self, group_id: UUID) -> List[AddonDTO]:
         dbo_list = self.session.query(AddonDBO).filter_by(addon_group_id=group_id)\
             .order_by(desc(AddonDBO.created_time))
         if not dbo_list:

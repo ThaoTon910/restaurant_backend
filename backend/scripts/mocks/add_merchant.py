@@ -102,10 +102,10 @@ def create_menu_item_to_addon_group(merchant_name: str):
 
 def create_merchant_detail(merchant_name):
     # create_merchant(merchant_name)
-    # create_categories(merchant_name)
-    # create_addon_group(merchant_name)
-    # create_menu_item(merchant_name)
-    # create_addon(merchant_name)
+    create_categories(merchant_name)
+    create_addon_group(merchant_name)
+    create_menu_item(merchant_name)
+    create_addon(merchant_name)
     create_menu_item_to_addon_group(merchant_name)
 
 if __name__ == "__main__":
