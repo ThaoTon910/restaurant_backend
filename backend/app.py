@@ -57,7 +57,7 @@ def delete_category(category_id: UUID) -> Response:
     return {}#CategoryResource.delete(category_id)
 
 def update_category(category_id: UUID) -> Response:
-    return {}#CategoryResource.update(category_id)
+    return CategoryResource.update(category_id)
 
 #Menu Item
 def create_menu_item() -> Response:
@@ -73,10 +73,10 @@ def get_menu_item(menu_item_id: UUID) -> Response:
     return MenuItemResource.get_by_id(menu_item_id)
 
 def delete_menu_item(menu_item_id: UUID) -> Response:
-    return {}#MenuItemResource.delete(menu_item_id)
+    return MenuItemResource.delete(menu_item_id)
 
 def update_menu_item(menu_item_id: UUID) -> Response:
-    return {}#MenuItemResource.update(menu_item_id)
+    return MenuItemResource.update(menu_item_id)
 
 #Addon Group
 def create_addon_group() -> Response:
@@ -91,12 +91,11 @@ def get_addon_groups_from_menu_item(menu_item_id:UUID) -> Response:
 def get_addon_group(addon_group_id: UUID) -> Response:
     return AddonGroupResource.get_by_id(addon_group_id)
 
-
 def delete_addon_group(addon_group_id: UUID) -> Response:
-    return {}#AddonGroupSource.delete(menu_addon_group)
+    return {}#AddonGroupResource.delete(menu_addon_group)
 
-def update_addon_group(addon_group_id: UUID) -> Response:
-    return {}#AddonGroupSource.update(menu_addon_group)
+def update(addon_group_id: UUID) -> Response:
+    return AddonGroupResource.update(addon_group_id)
 
 #Addon
 def create_addon() -> Response:
@@ -111,6 +110,11 @@ def get_addons_from_group(addon_group_id:UUID) -> Response:
 def get_addon(addon_id: UUID) -> Response:
     return AddonResource.get_by_id(addon_id)
 
+def update_addon(addon_id: UUID) -> Response:
+    return AddonResource.update(addon_id)
+
+def delete_addon(addon_id: UUID) -> Response:
+    return AddonResource.delete(addon_id)
 #Menu Item to Addon Group
 
 def create_menu_item_to_addon_group() -> Response:

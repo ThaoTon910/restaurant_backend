@@ -2,7 +2,7 @@ from schemas.category import CategorySchema
 from dto_models.category import CategoryDTO
 from services.category import CategoryService
 from flask import request, Response, abort
-from utils.exceptions import ObjectAlreadyExists
+from utils.exceptions import ObjectAlreadyExists, ObjectNotFound
 from uuid import UUID
 import logging
 logger = logging.getLogger(__name__)
@@ -56,6 +56,9 @@ class CategoryResource:
             returned_dto = CategoryService().get_by_id(id)
         except ValueError as e:
             abort(400, {'message': str(e)})
+        except ObjectNotFound as e:
+            abort(400, {'message': str(e)})
+            logger.debug("CategoryResource post 400 {}".format(e))
         except Exception as e:
             abort(500, {'message': str(e)})
             logger.debug("CategoryResource get 500 {}".format(e))
@@ -67,11 +70,32 @@ class CategoryResource:
         return Response(response_data, status=200, headers={}, mimetype="application/json")
 
     @staticmethod
-    def update_category(id: UUID) -> Response:
-        pass
+    def update(id: UUID) -> Response:
+        try:
+            json = request.get_json(force=True)  # get from body
+            schema = CategorySchema()
+            validated_json = schema.load(json)  # Validated data from frontend
+            dto = CategoryDTO(**validated_json)  # transform to DTO OBJECT
+            dto.id = id
+            returned_dto = CategoryService().update(dto)
+
+        except ValueError as e:
+            abort(400, {'message': str(e)})
+            logger.debug("CategoryResource post 400 {}".format(e))
+        except ObjectNotFound as e:
+            abort(400, {'message': str(e)})
+            logger.debug("CategoryResource post 400 {}".format(e))
+        except Exception as e:
+            abort(500, {'message': str(e)})
+            logger.debug("CategoryResource post 500 {}".format(e))
+
+        # Dumps to UI format (json)
+        response_data = schema.dumps(returned_dto)
+
+        return Response(response_data, status=200, headers={}, mimetype="application/json")
     
     @staticmethod
-    def delete_category(id: UUID) -> Response:
+    def delete(id: UUID) -> Response:
         #call the delete method of the category resource, get back the deleted category object
 
         #serialize the category object into json

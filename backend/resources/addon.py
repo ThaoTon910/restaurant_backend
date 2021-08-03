@@ -3,7 +3,7 @@ from schemas.addon import AddonSchema
 from dto_models.addon import AddonDTO
 from services.addon import AddonService
 from flask import request, Response, abort
-from utils.exceptions import ObjectAlreadyExists
+from utils.exceptions import ObjectAlreadyExists, ObjectNotFound
 from uuid import UUID
 import logging
 logger = logging.getLogger(__name__)
@@ -71,6 +71,9 @@ class AddonResource:
             returned_dto = AddonService().get_by_id(id)
         except ValueError as e:
             abort(400, {'message': str(e)})
+        except ObjectNotFound as e:
+            abort(400, {'message': str(e)})
+            logger.debug("AddonResource post 400 {}".format(e))
         except Exception as e:
             abort(500, {'message': str(e)})
             logger.debug("AddonResource get 500 {}".format(e))
@@ -82,14 +85,45 @@ class AddonResource:
         return Response(response_data, status=200, headers={}, mimetype="application/json")
 
     @staticmethod
-    def update_addon(id: UUID) -> Response:
-        pass
+    def update(id: UUID) -> Response:
+        try:
+            json = request.get_json(force=True)  # get from body
+            schema = AddonSchema()
+            validated_json = schema.load(json)  # Validated data from frontend
+            dto = AddonDTO(**validated_json)  # transform to DTO OBJECT
+            dto.id = id
+            returned_dto = AddonService().update(dto)
+
+        except ValueError as e:
+            abort(400, {'message': str(e)})
+            logger.debug("AddonResource post 400 {}".format(e))
+        except ObjectNotFound as e:
+            abort(400, {'message': str(e)})
+            logger.debug("AddonResource post 400 {}".format(e))
+        except Exception as e:
+            abort(500, {'message': str(e)})
+            logger.debug("AddonResource post 500 {}".format(e))
+
+        # Dumps to UI format (json)
+        response_data = schema.dumps(returned_dto)
+
+        return Response(response_data, status=200, headers={}, mimetype="application/json")
 
     @staticmethod
-    def delete_addon(id: UUID) -> Response:
-        # call the delete method of the category resource, get back the deleted category object
+    def delete(id: UUID) -> Response:
+        try:
+            returned_dto = AddonService().delete(id)
+        except ValueError as e:
+            abort(400, {'message': str(e)})
+        except ObjectNotFound as e:
+            abort(400, {'message': str(e)})
+            logger.debug("AddonResource post 400 {}".format(e))
+        except Exception as e:
+            abort(500, {'message': str(e)})
+            logger.debug("AddonResource get 500 {}".format(e))
 
-        # serialize the category object into json
+            # Dumps to UI format (json)
+        schema = AddonSchema()
+        response_data = schema.dumps(returned_dto)
 
-        # return the response
-        pass
+        return Response(response_data, status=200, headers={}, mimetype="application/json")

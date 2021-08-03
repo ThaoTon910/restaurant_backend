@@ -14,8 +14,8 @@ def menu_item_dto_to_dbo(dto: MenuItemDTO) -> MenuItemDBO:
         tax_rate=dto.tax_rate,
         id=dto.id
     )
-    dbo.updated_time = dto.updated_time
-    dbo.created_time = dto.created_time
+    # dbo.updated_time = dto.updated_time
+    # dbo.created_time = dto.created_time
     return dbo
 
 def menu_item_dbo_to_dto(dbo: MenuItemDBO) -> MenuItemDTO:

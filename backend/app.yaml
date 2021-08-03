@@ -139,6 +139,11 @@ paths:
       operationId: app.update_category
       parameters:
         - $ref: "#components/parameters/category_id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/Category'
 
       responses:
         '200':
@@ -219,6 +224,44 @@ paths:
               schema:
                 $ref: '#components/schemas/MenuItem'
 
+    delete:
+      summary: "delete a menu item by id"
+      description: ""
+      operationId: app.delete_menu_item
+      parameters:
+        - $ref: "#components/parameters/menu_item_id"
+
+      responses:
+        '200':
+          description: |-
+            Deleted menu item object
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/MenuItem'
+
+    put:
+        summary: "update a menu item by id"
+        description: ""
+        operationId: app.update_menu_item
+        parameters:
+          - $ref: "#components/parameters/menu_item_id"
+        requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/MenuItem'
+
+        responses:
+          '200':
+            description: |-
+              updated menu item object
+            content:
+              application/json:
+                schema:
+                  $ref: '#components/schemas/MenuItem'
+
+
   /addon-group:
     post:
       summary: "create a new addon group"
@@ -269,6 +312,42 @@ paths:
             application/json:
               schema:
                 $ref: '#components/schemas/AddonGroup'
+    put:
+      summary: "update a addon group by id"
+      description: ""
+      operationId: app.update
+
+      parameters:
+        - $ref: "#components/parameters/addon_group_id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/AddonGroup'
+
+      responses:
+        '200':
+          description: |-
+            updated addon group object
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/AddonGroup'
+    delete:
+        summary: "delete a addon by id"
+        description: ""
+        operationId: app.delete_addon_group
+        parameters:
+          - $ref: "#components/parameters/addon_group_id"
+
+        responses:
+          '200':
+            description: |-
+              Deleted addon group object
+            content:
+              application/json:
+                schema:
+                  $ref: '#components/schemas/Addon'
 
   /addon-group/{addon_group_id}/addons:
     get:
@@ -287,6 +366,7 @@ paths:
                 type: array
                 items:
                   $ref: '#components/schemas/Addon'
+
 #addon
   /addon:
     post:
@@ -307,7 +387,6 @@ paths:
             application/json:
               schema:
                 $ref: '#components/schemas/Addon'
-
     get:
       summary: "get all add on"
       description: ""
@@ -322,6 +401,7 @@ paths:
                 type: array
                 items:
                   $ref: '#components/schemas/Addon'
+
   /addon/{addon_id}:
     get:
       summary: "get addon by id"
@@ -337,7 +417,42 @@ paths:
             application/json:
               schema:
                 $ref: '#components/schemas/Addon'
+    put:
+      summary: "update a addon by id"
+      description: ""
+      operationId: app.update_addon
+      parameters:
+        - $ref: "#components/parameters/addon_id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/Addon'
 
+      responses:
+        '200':
+          description: |-
+            updated addon object
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Addon'
+
+    delete:
+      summary: "delete a addon by id"
+      description: ""
+      operationId: app.delete_addon
+      parameters:
+        - $ref: "#components/parameters/addon_id"
+
+      responses:
+        '200':
+          description: |-
+            Deleted addon object
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Addon'
 
 #menu item to addon group
   /menu-item-to-addon-group:
@@ -456,7 +571,7 @@ components:
           format: date-time
           description: |-
             Datetime the merchant was created
-          readOnly: true
+          # readOnly: true
         name:
           type: string
           description: Name of the merchant
@@ -480,7 +595,7 @@ components:
           type: string
           format: uuid
           description: A unique identifier for a category.py
-          readOnly: True
+          # readOnly: true
         name:
           type: string
           description: Name of the category.py
@@ -496,13 +611,13 @@ components:
           format: date-time
           description: |-
             Datetime the category was created
-          readOnly: true
+          # readOnly: true
         updatedTime:
           type: string
           format: date-time
           description: |-
             Datetime the category was created
-          readOnly: true
+          # readOnly: true
 
     MenuItem:
       type: object
@@ -519,7 +634,7 @@ components:
           type: string
           format: uuid
           description: A unique identifier of a recipe
-          readOnly: True
+          # readOnly: true
         addonGroupIds:
           type: array
           items:
@@ -563,13 +678,13 @@ components:
           format: date-time
           description: |-
             Datetime the menu item was created
-          readOnly: true
+          # readOnly: true
         updatedTime:
           type: string
           format: date-time
           description: |-
             Datetime the menu item was created
-          readOnly: true
+          # readOnly: true
 
     AddonGroup:
       type: object
@@ -582,7 +697,7 @@ components:
           type: string
           format: uuid
           description: A unique identifier of a recipe
-          readOnly: True
+          # readOnly: true
         name:
           type: string
           description: Name of the add on group
@@ -601,14 +716,14 @@ components:
           format: date-time
           description: |-
             Datetime the add-on group was created
-          readOnly: true
+          # readOnly: true
 
         updatedTime:
           type: string
           format: date-time
           description: |-
             Datetime the add-on group was created
-          readOnly: true
+          # readOnly: true
 
     Addon:
       type: object
@@ -646,14 +761,14 @@ components:
           format: date-time
           description: |-
             Datetime the menu item was created
-          readOnly: true
+          # readOnly: true
 
         updatedTime:
           type: string
           format: date-time
           description: |-
             Datetime the menu item was created
-          readOnly: true
+          # readOnly: true
 
     MenuItemToAddonGroup:
       type: object
