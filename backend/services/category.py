@@ -55,7 +55,13 @@ class CategoryService(BaseService):
         # dto.menu_items = menu_items
         return category_dbo_to_dto(dbo)
 
-        
+    def update(self, dto: CategoryDTO) -> CategoryDTO:
+        dbo = category_dto_to_dbo(dto)
+        r = self.session.query(CategoryDBO).filter(CategoryDBO.id == dto.id).update(self.get_updated_key_value(dbo))
+        # self.session.merge(dbo)
+        self.session.commit()
+        return self.get_by_id(dto.id)
+
     def delete(self, category_id: UUID) -> CategoryDTO:
         #find category by id
         dbo = self.session.query(CategoryDBO).filter_by(id=category_id).first()
@@ -67,10 +73,3 @@ class CategoryService(BaseService):
         self.session.commit()
         #return the deleted category
         return category_dbo_to_dto(dbo)
-
-    def update(self, dto: CategoryDTO) -> CategoryDTO:
-        dbo = category_dto_to_dbo(dto)
-        r = self.session.query(CategoryDBO).filter(CategoryDBO.id == dto.id).update(self.get_updated_key_value(dbo))
-        # self.session.merge(dbo)
-        self.session.commit()
-        return self.get_by_id(dto.id)

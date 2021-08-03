@@ -52,3 +52,22 @@ class AddonService(BaseService):
             raise ObjectNotFound("Addon id '{}' not found".format(addon_id))
 
         return addon_dbo_to_dto(dbo)
+
+    def update(self, dto: AddonDTO) -> AddonDTO:
+        dbo = addon_dto_to_dbo(dto)
+        r = self.session.query(AddonDBO).filter(AddonDBO.id == dto.id).update(self.get_updated_key_value(dbo))
+        # self.session.merge(dbo)
+        self.session.commit()
+        return self.get_by_id(dto.id)
+
+    def delete(self, category_id: UUID) -> AddonDTO:
+        #find category by id
+        dbo = self.session.query(AddonDBO).filter_by(id=category_id).first()
+        if not dbo:
+            raise ObjectNotFound("Add on id '{}' not found".format(category_id))
+        #delete the category
+        self.session.delete(dbo)
+        #save the database
+        self.session.commit()
+        #return the deleted category
+        return addon_dbo_to_dto(dbo)

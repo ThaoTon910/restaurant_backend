@@ -10,8 +10,8 @@ def addon_dto_to_dbo(dto: AddonDTO) -> AddonDBO:
         is_taxable = dto.is_taxable,
         id = dto.id
     )
-    dbo.updated_time = dto.updated_time
-    dbo.created_time = dto.created_time
+    # dbo.updated_time = dto.updated_time
+    # dbo.created_time = dto.created_time
     return dbo
 
 def addon_dbo_to_dto(dbo: AddonDBO) -> AddonDTO:

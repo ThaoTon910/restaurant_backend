@@ -9,8 +9,8 @@ def addon_group_dto_to_dbo(dto:AddonGroupDTO) -> AddonGroupDBO:
         min_quantity=dto.min_quantity,
         id = dto.id
     )
-    dbo.updated_time = dto.updated_time
-    dbo.created_time = dto.created_time
+    # dbo.updated_time = dto.updated_time
+    # dbo.created_time = dto.created_time
     return dbo
 
 def addon_group_dbo_to_dto(dbo: AddonGroupDBO) -> AddonGroupDTO:
