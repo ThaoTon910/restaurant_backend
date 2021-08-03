@@ -57,7 +57,7 @@ def delete_category(category_id: UUID) -> Response:
     return {}#CategoryResource.delete(category_id)
 
 def update_category(category_id: UUID) -> Response:
-    return {}#CategoryResource.update(category_id)
+    return CategoryResource.update(category_id)
 
 #Menu Item
 def create_menu_item() -> Response:

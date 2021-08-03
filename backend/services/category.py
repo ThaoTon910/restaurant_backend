@@ -32,7 +32,7 @@ class CategoryService(BaseService):
 
         self.session.add(dbo)
         self.session.commit()
-        return category_dbo_to_dto(dbo)
+        return self.get_by_id(dto.id)
 
     # We get all categories from database (DBO) -> return DT
     # We use the ".query" in DBO database to get all
@@ -56,7 +56,7 @@ class CategoryService(BaseService):
         return category_dbo_to_dto(dbo)
 
         
-    def delete_category(self, category_id: UUID) -> CategoryDTO:
+    def delete(self, category_id: UUID) -> CategoryDTO:
         #find category by id
         dbo = self.session.query(CategoryDBO).filter_by(id=category_id).first()
         if not dbo:
@@ -68,12 +68,9 @@ class CategoryService(BaseService):
         #return the deleted category
         return category_dbo_to_dto(dbo)
 
-    def update_category(self, dto: CategoryDTO) -> CategoryDTO:
-        pass
-    #     dbo = self.session.query(CategoryDBO).filter_by(id=dto.id).first()
-    #     if not dbo:
-    #         raise ObjectNotFound("Category id '{}' not found".format(dto.id))
-    #     dbo.name = dto.name
-    #     dbo.index = dto.index
-    #     self.session.commit()
-    #     return category_dbo_to_dto(dbo)
+    def update(self, dto: CategoryDTO) -> CategoryDTO:
+        dbo = category_dto_to_dbo(dto)
+        r = self.session.query(CategoryDBO).filter(CategoryDBO.id == dto.id).update(self.get_updated_key_value(dbo))
+        # self.session.merge(dbo)
+        self.session.commit()
+        return self.get_by_id(dto.id)

@@ -139,6 +139,11 @@ paths:
       operationId: app.update_category
       parameters:
         - $ref: "#components/parameters/category_id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/Category'
 
       responses:
         '200':
