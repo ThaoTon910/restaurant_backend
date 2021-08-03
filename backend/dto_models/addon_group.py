@@ -44,7 +44,7 @@ class AddonGroupDTO(object):
         init=False,
         type=List[AddonDTO],
         default=[],
-        # validator=validators.instance_of(List[MenuItemDTO])
+        validator=validators.instance_of(list)
     )
 
 if __name__== '__main__':

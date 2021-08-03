@@ -386,9 +386,9 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-#                items:
-#                  $ref: '#components/schemas/Addon'
+                $ref: '#components/schemas/Menu'
+
+
 components:
   parameters:
     merchant_id:
@@ -487,6 +487,10 @@ components:
         index:
           type: integer
           description: order to display index
+        menuItems:
+          type: array
+          items:
+            $ref: '#components/schemas/MenuItem'
         createdTime:
           type: string
           format: date-time
@@ -516,6 +520,11 @@ components:
           format: uuid
           description: A unique identifier of a recipe
           readOnly: True
+        addonGroupIds:
+          type: array
+          items:
+            type: string
+            format: uuid
         name:
           type: string
           description: Name of the  add on group
@@ -660,5 +669,20 @@ components:
           type: string
           format: uuid
           description: A foreign key menu item id from menu item group
+
+    Menu:
+      type: object
+      properties:
+        categories:
+          description: List of all categories
+          type: array
+          items:
+            $ref: '#components/schemas/Category'
+        addonGroups:
+          description: List of all addon groups
+          type: array
+          items:
+            $ref: '#components/schemas/AddonGroup'
+
 
 

@@ -77,5 +77,5 @@ class MenuItemDTO(object):
         init=False,
         type=List[UUID],
         default=[],
-        # validator=validators.instance_of(List[UUID])
+        validator=validators.instance_of(list)
     )
