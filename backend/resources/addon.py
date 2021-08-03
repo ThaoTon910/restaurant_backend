@@ -71,6 +71,9 @@ class AddonResource:
             returned_dto = AddonService().get_by_id(id)
         except ValueError as e:
             abort(400, {'message': str(e)})
+        except ObjectNotFound as e:
+            abort(400, {'message': str(e)})
+            logger.debug("AddonResource post 400 {}".format(e))
         except Exception as e:
             abort(500, {'message': str(e)})
             logger.debug("AddonResource get 500 {}".format(e))
@@ -107,10 +110,20 @@ class AddonResource:
         return Response(response_data, status=200, headers={}, mimetype="application/json")
 
     @staticmethod
-    def delete_addon(id: UUID) -> Response:
-        # call the delete method of the category resource, get back the deleted category object
+    def delete(id: UUID) -> Response:
+        try:
+            returned_dto = AddonService().delete(id)
+        except ValueError as e:
+            abort(400, {'message': str(e)})
+        except ObjectNotFound as e:
+            abort(400, {'message': str(e)})
+            logger.debug("AddonResource post 400 {}".format(e))
+        except Exception as e:
+            abort(500, {'message': str(e)})
+            logger.debug("AddonResource get 500 {}".format(e))
 
-        # serialize the category object into json
+            # Dumps to UI format (json)
+        schema = AddonSchema()
+        response_data = schema.dumps(returned_dto)
 
-        # return the response
-        pass
+        return Response(response_data, status=200, headers={}, mimetype="application/json")

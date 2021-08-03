@@ -58,23 +58,23 @@ class AddonGroupService(BaseService):
             raise ObjectNotFound("Addon Group '{}' not found".format(addon_group_id))
         return addon_group_dbo_to_dto(dbo)
 
-    #Delete all
-    def delete_all(self):
-        dbo_list = self.session.query(AddonGroupDBO).all()
-        if not dbo_list:
-            raise ObjectNotFound("Addon Group fetch failed")
-        self.session.delete(dbo_list)  # delete addon group bu id
-        self.session.commit()  # save to database
-        return [addon_group_dbo_to_dto(dbo) for dbo in dbo_list]
+    # #Delete all
+    # def delete_all(self):
+    #     dbo_list = self.session.query(AddonGroupDBO).all()
+    #     if not dbo_list:
+    #         raise ObjectNotFound("Addon Group fetch failed")
+    #     self.session.delete(dbo_list)  # delete addon group bu id
+    #     self.session.commit()  # save to database
+    #     return [addon_group_dbo_to_dto(dbo) for dbo in dbo_list]
 
-    #Delete by id
-    def delete(self, addon_group_id:UUID)-> AddonGroupDTO:
-        dbo = self.session.query(AddonGroupDBO).filter_by(id=addon_group_id).first()
-        if not dbo:
-            raise ObjectNotFound("Addon Group '{}' not found".format(addon_group_id))
-        self.session.delete(dbo) #delete addon group by id
-        self.session.commit() #save to database
-        return addon_group_dbo_to_dto(dbo)
+    # #Delete by id
+    # def delete(self, addon_group_id:UUID)-> AddonGroupDTO:
+    #     dbo = self.session.query(AddonGroupDBO).filter_by(id=addon_group_id).first()
+    #     if not dbo:
+    #         raise ObjectNotFound("Addon Group '{}' not found".format(addon_group_id))
+    #     self.session.delete(dbo) #delete addon group by id
+    #     self.session.commit() #save to database
+    #     return addon_group_dbo_to_dto(dbo)
 
     #Update
     def update(self, dto: AddonGroupDTO) -> AddonGroupDTO:

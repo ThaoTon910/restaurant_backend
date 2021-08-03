@@ -62,14 +62,14 @@ class CategoryService(BaseService):
         self.session.commit()
         return self.get_by_id(dto.id)
 
-    def delete(self, category_id: UUID) -> CategoryDTO:
-        #find category by id
-        dbo = self.session.query(CategoryDBO).filter_by(id=category_id).first()
-        if not dbo:
-            raise ObjectNotFound("Category id '{}' not found".format(category_id))
-        #delete the category
-        self.session.delete(dbo)
-        #save the database
-        self.session.commit()
-        #return the deleted category
-        return category_dbo_to_dto(dbo)
+    # def delete(self, category_id: UUID) -> CategoryDTO:
+    #     #find category by id
+    #     dbo = self.session.query(CategoryDBO).filter_by(id=category_id).first()
+    #     if not dbo:
+    #         raise ObjectNotFound("Category id '{}' not found".format(category_id))
+    #     #delete the category
+    #     self.session.delete(dbo)
+    #     #save the database
+    #     self.session.commit()
+    #     #return the deleted category
+    #     return category_dbo_to_dto(dbo)

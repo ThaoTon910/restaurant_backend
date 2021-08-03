@@ -73,7 +73,7 @@ def get_menu_item(menu_item_id: UUID) -> Response:
     return MenuItemResource.get_by_id(menu_item_id)
 
 def delete_menu_item(menu_item_id: UUID) -> Response:
-    return {}#MenuItemResource.delete(menu_item_id)
+    return MenuItemResource.delete(menu_item_id)
 
 def update_menu_item(menu_item_id: UUID) -> Response:
     return MenuItemResource.update(menu_item_id)
@@ -114,7 +114,7 @@ def update_addon(addon_id: UUID) -> Response:
     return AddonResource.update(addon_id)
 
 def delete_addon(addon_id: UUID) -> Response:
-    return {}#AddonResource.delete(addon_id)
+    return AddonResource.delete(addon_id)
 #Menu Item to Addon Group
 
 def create_menu_item_to_addon_group() -> Response:

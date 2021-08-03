@@ -77,14 +77,14 @@ class MenuItemService(BaseService):
         self.session.commit()
         return self.get_by_id(dto.id)
 
-    def delete(self, category_id: UUID) -> MenuItemDTO:
-        #find category by id
-        dbo = self.session.query(MenuItemDBO).filter_by(id=category_id).first()
+    def delete(self, id: UUID) -> MenuItemDTO:
+        #find menu item by id
+        dbo = self.session.query(MenuItemDBO).filter_by(id=id).first()
         if not dbo:
-            raise ObjectNotFound("Category id '{}' not found".format(category_id))
-        #delete the category
+            raise ObjectNotFound("Menu Item id '{}' not found".format(id))
+        #delete the menu item
         self.session.delete(dbo)
         #save the database
         self.session.commit()
-        #return the deleted category
+        #return the deleted menu item
         return menu_item_dbo_to_dto(dbo)
