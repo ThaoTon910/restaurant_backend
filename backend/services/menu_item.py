@@ -83,3 +83,14 @@ class MenuItemService(BaseService):
         return menu_item_dbo_to_dto(dbo)
 
 
+    def delete(self, id: UUID) -> MenuItemDTO:
+        #find menu item by id
+        dbo = self.session.query(MenuItemDBO).filter_by(id=id).first()
+        if not dbo:
+            raise ObjectNotFound("Menu Item id '{}' not found".format(id))
+        #delete the menu item
+        self.session.delete(dbo)
+        #save the database
+        self.session.commit()
+        #return the deleted menu item
+        return menu_item_dbo_to_dto(dbo)
