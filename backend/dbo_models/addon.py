@@ -1,14 +1,14 @@
 from database import db
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy import VARCHAR, Integer, DateTime, Boolean, Float, String, ForeignKey, UniqueConstraint
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, backref
 from datetime import datetime
 from typing import Union
 from ._helper import GUID
 
 class AddonDBO(db.Model):
     __tablename__ = "addon"
-    addon_group = relationship("AddonGroupDBO", backref="addons")
+    addon_group = relationship("AddonGroupDBO", backref=backref("addons", cascade="all,delete"))
 
     addon_group_id = db.Column(GUID, ForeignKey("addongroup.id"), index=True, nullable=False)
     id = db.Column(GUID, primary_key=True)

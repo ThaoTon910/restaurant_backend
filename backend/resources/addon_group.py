@@ -3,7 +3,7 @@ from dto_models.addon_group import AddonGroupDTO
 from services.addon_group import AddonGroupService
 from flask import Response, request, abort
 from uuid import UUID
-from utils.exceptions import ObjectAlreadyExists, ObjectNotFound
+from utils.exceptions import ObjectAlreadyExists, ObjectNotFound, InvalidOperation
 import logging
 logger = logging.getLogger(__name__)
 class AddonGroupResource:
@@ -15,7 +15,7 @@ class AddonGroupResource:
             validated_schema = schema.load(json) #Validated data from frontend
             dto = AddonGroupDTO(**validated_schema) #transform to DTO OBJECT
 
-            #After done Services, we call AddonService class to reture DTO
+            #After done Services, we call AddonService class to return DTO
             returned_dto = AddonGroupService().create(dto)
 
         except ValueError as e:
@@ -27,10 +27,9 @@ class AddonGroupResource:
             abort(500, {'message': str(e)})
             logger.debug("CategoryResource post 500 {}".format(e))
 
-            #After donne Serivecs, we send back to UI by .dump from returned_dto above
+            #After done Sercives, we send back to UI by .dump from returned_dto above
             #Dumps to UI format(json)
         response_data = schema.dumps(returned_dto)
-
         return Response(response_data, status=200, headers={}, mimetype="application/json")
 
     @staticmethod
@@ -109,12 +108,25 @@ class AddonGroupResource:
 
     @staticmethod
     def delete(id: UUID) -> Response:
-        # call the delete method of the category resource, get back the deleted category object
+        try:
+            returned_dto = AddonGroupService().delete(id)
+        except ValueError as e:
+            abort(400, {'message': str(e)})
+        except ObjectNotFound as e:
+            abort(400, {'message': str(e)})
+            logger.debug("AddonGroupResource post 400 {}".format(e))
+        except InvalidOperation as e:
+            abort(400, {'message': str(e)})
+            logger.debug("AddonGroupResource delete 400 {}".format(e))
+        except Exception as e:
+            abort(500, {'message': str(e)})
+            logger.debug("AddonGroupResource get 500 {}".format(e))
 
-        # serialize the category object into json
+            # Dumps to UI format (json)
+        schema = AddonGroupSchema()
+        response_data = schema.dumps(returned_dto)
 
-        # return the response
-        pass
+        return Response(response_data, status=200, headers={}, mimetype="application/json")
 
 
 #Test

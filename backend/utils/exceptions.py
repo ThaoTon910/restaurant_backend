@@ -4,3 +4,7 @@ class ObjectNotFound(Exception):
 
 class ObjectAlreadyExists(Exception):
     pass
+
+
+class InvalidOperation(Exception):
+    pass

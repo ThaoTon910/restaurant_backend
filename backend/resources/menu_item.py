@@ -106,7 +106,6 @@ class MenuItemResource:
 
     @staticmethod
     def delete(id: UUID) -> Response:
-
         try:
             returned_dto = MenuItemService().delete(id)
         except ValueError as e:
