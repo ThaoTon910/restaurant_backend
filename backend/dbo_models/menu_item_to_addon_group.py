@@ -10,10 +10,10 @@ class MenuItemToAddonGroupDBO(db.Model):
     __tablename__ = "menuitemtoaddongroup"
 
     # menu_item = relationship("MenuItemDBO", backref="menu_item_to_addon_group")
-    menu_item_id = db.Column(GUID, ForeignKey("menuitem.id", ondelete='CASCADE'), primary_key=True, index=True, nullable=False)
+    menu_item_id = db.Column(GUID, ForeignKey("menuitem.id"), primary_key=True, index=True, nullable=False)
 
     # addon_group = relationship("AddonGroupDBO", backref="addon_group_to_menu_item")
-    addon_group_id = db.Column(GUID, ForeignKey("addongroup.id", ondelete='CASCADE'), primary_key=True, index=True, nullable=False)
+    addon_group_id = db.Column(GUID, ForeignKey("addongroup.id"), primary_key=True, index=True, nullable=False)
 
 
     def __init__(self,

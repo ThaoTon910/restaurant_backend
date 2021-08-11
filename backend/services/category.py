@@ -4,6 +4,7 @@ from dto_models.menu_item import MenuItemDTO
 from services.menu_item import MenuItemService
 from converters.category import category_dbo_to_dto, category_dto_to_dbo
 from services._base import BaseService
+from flask import abort
 from utils.exceptions import *
 from uuid import UUID
 from typing import List
@@ -38,10 +39,6 @@ class CategoryService(BaseService):
     # We use the ".query" in DBO database to get all
     def get_all_categories(self) -> List[CategoryDTO]:
         dbo_list = self.session.query(CategoryDBO).all()
-        menu_item_service = MenuItemService()
-        if not dbo_list:
-            raise ObjectNotFound("Categories fetch failed")
-
         return [category_dbo_to_dto(dbo) for dbo in dbo_list]
 
     def get_by_id(self, category_id: UUID) -> CategoryDTO:
@@ -62,14 +59,17 @@ class CategoryService(BaseService):
         self.session.commit()
         return self.get_by_id(dto.id)
 
-    # def delete(self, category_id: UUID) -> CategoryDTO:
-    #     #find category by id
-    #     dbo = self.session.query(CategoryDBO).filter_by(id=category_id).first()
-    #     if not dbo:
-    #         raise ObjectNotFound("Category id '{}' not found".format(category_id))
-    #     #delete the category
-    #     self.session.delete(dbo)
-    #     #save the database
-    #     self.session.commit()
-    #     #return the deleted category
-    #     return category_dbo_to_dto(dbo)
+    def delete(self, category_id: UUID) -> CategoryDTO:
+        #find category by id
+        dbo = self.session.query(CategoryDBO).filter_by(id=category_id).first()
+        if not dbo:
+            raise ObjectNotFound("Category id '{}' not found".format(category_id))
+        dto: CategoryDTO = category_dbo_to_dto(dbo)
+        if len(dto.menu_items) > 0:
+            raise InvalidOperation("Please delete all menu items under {} first".format(dto.name))
+        #delete the category
+        self.session.delete(dbo)
+        #save the database
+        self.session.commit()
+        #return the deleted category
+        return dto

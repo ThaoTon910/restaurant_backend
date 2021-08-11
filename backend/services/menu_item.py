@@ -46,14 +46,7 @@ class MenuItemService(BaseService):
     def get_menu_items_from_category(self, category_id: UUID) -> List[MenuItemDTO]:
         dbo_list = self.session.query(MenuItemDBO).filter(MenuItemDBO.category_id==category_id)\
             .order_by(desc(MenuItemDBO.created_time))
-        if not dbo_list:
-            raise ObjectNotFound("Menu Items fetch failed")
         dtos = [menu_item_dbo_to_dto(dbo) for dbo in dbo_list]
-
-        addon_group_service = AddonGroupService()
-        for dto in dtos:
-            addon_groups: List[AddonGroupDTO] = addon_group_service.get_addon_groups_from_menu_item(dto.id)
-            dto.addon_group_ids = [addon_group.id for addon_group in addon_groups]
 
         return dtos
 
@@ -76,6 +69,19 @@ class MenuItemService(BaseService):
         # self.session.merge(dbo)
         self.session.commit()
         return self.get_by_id(dto.id)
+
+    def delete(self, menu_item_id: UUID) -> MenuItemDTO:
+        #find
+        dbo = self.session.query(MenuItemDBO).filter_by(id=menu_item_id).first()
+        if not dbo:
+            raise ObjectNotFound("Menu Item id '{}' not found".format(menu_item_id))
+        #delete
+        self.session.delete(dbo)
+        #save to database
+        self.session.commit()
+        #return
+        return menu_item_dbo_to_dto(dbo)
+
 
     def delete(self, id: UUID) -> MenuItemDTO:
         #find menu item by id

@@ -4,6 +4,7 @@ from dbo_models.menu_item_to_addon_group import MenuItemToAddonGroupDBO
 from converters.addon_group import addon_group_dto_to_dbo, addon_group_dbo_to_dto
 from services._base import BaseService
 from sqlalchemy import desc
+from flask import abort
 from utils.exceptions import *
 from uuid import UUID
 import logging
@@ -33,8 +34,6 @@ class AddonGroupService(BaseService):
 
     def get_all_addon_groups(self) -> List[AddonGroupDTO]:
         dbo_list = self.session.query(AddonGroupDBO).all()
-        if not dbo_list:
-            raise ObjectNotFound("Addon Group fetch failed")
         return [addon_group_dbo_to_dto(dbo) for dbo in dbo_list]
 
     def get_addon_groups_from_menu_item(self, menu_item_id: UUID) -> List[AddonGroupDTO]:
@@ -82,3 +81,18 @@ class AddonGroupService(BaseService):
         r = self.session.query(AddonGroupDBO).filter(AddonGroupDBO.id == dto.id).update(self.get_updated_key_value(dbo))
         self.session.commit()
         return self.get_by_id(dto.id)
+
+    #Delete
+    def delete(self, addon_group_id: UUID) -> AddonGroupDTO:
+        dbo = self.session.query(AddonGroupDBO).filter_by(id=addon_group_id).first()
+        if not dbo:
+            raise ObjectNotFound("Add on group id '{}' not found".format(addon_group_id))
+        dto: AddonGroupDTO = addon_group_dbo_to_dto(dbo)
+        if len(dto.addons) > 0:
+            raise InvalidOperation("Please delete all addons under {} first".format(dto.name))
+        #delete
+        self.session.delete(dbo)
+        #save the database
+        self.session.commit()
+        #return the deleted addon group
+        return dto

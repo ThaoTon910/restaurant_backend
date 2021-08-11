@@ -3,13 +3,13 @@ from dbo_models.menu_item_to_addon_group import MenuItemToAddonGroupDBO
 from dbo_models.addon_group import AddonGroupDBO
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy import VARCHAR, Integer, DateTime, Boolean, Float, String, ForeignKey, UniqueConstraint
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, backref
 from datetime import datetime
 from typing import Union
 from ._helper import GUID
 class MenuItemDBO(db.Model):
     __tablename__ = "menuitem"
-    category = relationship("CategoryDBO", backref="menu_items")
+    category = relationship("CategoryDBO", backref=backref("menu_items", cascade="all,delete"))
 
     category_id = db.Column(GUID, ForeignKey("category.id"), index=True, nullable=False)
     name = db.Column(VARCHAR(100), nullable=False)

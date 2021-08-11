@@ -55,21 +55,23 @@ def create_menu_item(merchant_name: str):
                     print(r.text)
 
 def create_addon(merchant_name: str):
-    addOn_file = os.path.join(CURRENT_DIR, merchant_name, 'addsOn.json')
+    addon_file = os.path.join(CURRENT_DIR, merchant_name, 'addsOn.json')
     actual_addon_groups = requests.get(BASE_URL + '/addon-group').json()  # get real category in database
     mapping = {}
     for item in actual_addon_groups:
-        mapping[item['name']] = item['id']
+        addon_names = list(map(lambda a: a['name'], item['addons']))
+        mapping[item['name']] = {'id': item['id'], 'addon_names': addon_names}
         #get addongroupID and groupname
 
-    with open(addOn_file, 'r') as fp:
+    with open(addon_file, 'r') as fp:
         addOns = json.load(fp)
         for key, values in addOns.items():
             for addon in values:
-                addon['addonGroupId'] = mapping[key]
-                r = requests.post(BASE_URL + '/addon', json=addon)
-                if(r.status_code == 500):
-                    print(r.text)
+                addon['addonGroupId'] = mapping[key]['id']
+                if addon['name'] not in mapping[key]['addon_names']:
+                    r = requests.post(BASE_URL + '/addon', json=addon)
+                    if(r.status_code == 500):
+                        print(r.text)
 
 def create_menu_item_to_addon_group(merchant_name: str):
     recipeToAddOnGroup_file = os.path.join(CURRENT_DIR, merchant_name, 'recipeToAddOnGroup.json') # open
@@ -78,7 +80,8 @@ def create_menu_item_to_addon_group(merchant_name: str):
     mapping_recipe= {}
     mapping_addOnGroup= {}
     for recipe in actual_recipe:
-        mapping_recipe[recipe['name']] = recipe['id']
+        addon_group_ids = recipe['addonGroupIds']
+        mapping_recipe[recipe['name']] = {'id': recipe['id'], 'addon_group_ids': addon_group_ids}
 
     for addOnGroup in actual_addOnGroup:
         mapping_addOnGroup[addOnGroup['name']] = addOnGroup['id']
@@ -86,19 +89,22 @@ def create_menu_item_to_addon_group(merchant_name: str):
     with open(recipeToAddOnGroup_file, 'r') as fp:
         recipeToAddOnGroup = json.load(fp)
         for recipe_name, addon_groups in recipeToAddOnGroup.items():
-            recipe_id = mapping_recipe[recipe_name]
+            recipe_id = mapping_recipe[recipe_name]['id']
+            addon_group_ids = mapping_recipe[recipe_name]['addon_group_ids']
+
             for group_name in addon_groups:
-
                 group_id = mapping_addOnGroup[group_name]
-                data = {
-                    'menuItemId': recipe_id,
-                    'addonGroupId': group_id
-                }
 
-                r = requests.post(BASE_URL + '/menu-item-to-addon-group', json=data)
-                print(r.text)
-                if(r.status_code == 500):
+                if group_id not in addon_group_ids:
+                    data = {
+                        'menuItemId': recipe_id,
+                        'addonGroupId': group_id
+                    }
+
+                    r = requests.post(BASE_URL + '/menu-item-to-addon-group', json=data)
                     print(r.text)
+                    if(r.status_code == 500):
+                        print(r.text)
 
 def create_merchant_detail(merchant_name):
     # create_merchant(merchant_name)
