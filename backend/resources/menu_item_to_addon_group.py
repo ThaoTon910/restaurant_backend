@@ -2,7 +2,7 @@ from schemas.menu_item_to_addon_group import MenuItemToAddonGroupSchema
 from dto_models.menu_item_to_addon_group import MenuItemToAddonGroupDTO
 from services.menu_item_to_addon_group import MenuItemToAddonGroupService
 from flask import request, Response, abort
-from utils.exceptions import ObjectAlreadyExists
+from utils.exceptions import ObjectNotFound, ObjectAlreadyExists, InvalidOperation
 from uuid import UUID
 import logging
 logger = logging.getLogger(__name__)
@@ -34,7 +34,7 @@ class MenuItemToAddonGroupResource:
 
         return Response(response_data, status=200, headers={}, mimetype="application/json")
     @staticmethod
-    def get_all_menu_item_to_addon_groups() -> Response:
+    def get_all_menu_item_to_addon_group() -> Response:
         try:
             returned_dto = MenuItemToAddonGroupService().get_all_menu_item_to_addon_groups()
         except ValueError as e:
@@ -48,6 +48,31 @@ class MenuItemToAddonGroupResource:
         response_data = schema.dumps(returned_dto)
 
         return Response(response_data, status=200, headers={}, mimetype="application/json")
+
+    @staticmethod
+    def delete(menu_item_id: UUID, addon_group_id: UUID) -> Response:
+        try:
+            returned_dto = MenuItemToAddonGroupService().delete(menu_item_id, addon_group_id )
+        except ValueError as e:
+            abort(400, {'message': str(e)})
+        except ObjectNotFound as e:
+            abort(400, {'message': str(e)})
+            logger.debug("MenuItemToAddonGroupResource delete 400 {}".format(e))
+        except InvalidOperation as e:
+            abort(400, {'message': str(e)})
+            logger.debug("MenuItemToAddonGroupResource delete 400 {}".format(e))
+        except Exception as e:
+            abort(500, {'message': str(e)})
+            logger.debug("MenuItemToAddonGroupResource get 500 {}".format(e))
+
+        # Dumps to UI format (json)
+        schema = MenuItemToAddonGroupSchema()
+        response_data = schema.dumps(returned_dto)
+
+        return Response(response_data, status=200, headers={}, mimetype="application/json")
+
+
+
     # @staticmethod
     # def get_by_id(id: UUID) -> Response:
     #     try:

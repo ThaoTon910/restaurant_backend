@@ -120,8 +120,12 @@ def delete_addon(addon_id: UUID) -> Response:
 def create_menu_item_to_addon_group() -> Response:
     return MenuItemToAddonGroupResource.post()
 
-def get_all_menu_item_to_addon_groups() -> Response:
-    return MenuItemToAddonGroupResource.get_all_menu_item_to_addon_groups()
+def get_all_menu_item_to_addon_group() -> Response:
+    return MenuItemToAddonGroupResource.get_all_menu_item_to_addon_group()
+
+
+def delete_menu_item_to_addon_group(menu_item_id: UUID, addon_group_id: UUID) -> Response:
+    return MenuItemToAddonGroupResource.delete(menu_item_id, addon_group_id)
 
 #menu
 def get_menu()->Response:

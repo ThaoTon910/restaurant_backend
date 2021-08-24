@@ -457,7 +457,7 @@ paths:
 #menu item to addon group
   /menu-item-to-addon-group:
     post:
-      summary: "create a new menu item to addon group"
+      summary: "create a new menu item to addon groups"
       description: ""
       operationId: app.create_menu_item_to_addon_group
       requestBody:
@@ -469,7 +469,7 @@ paths:
       responses:
         '200':
           description: |-
-            New Addon Information
+            New menu item to addon groups Information
           content:
             application/json:
               schema:
@@ -478,7 +478,7 @@ paths:
     get:
       summary: "get all menu item to addon groups"
       description: ""
-      operationId: app.get_all_menu_item_to_addon_groups
+      operationId: app.get_all_menu_item_to_addon_group
       responses:
         '200':
           description: |-
@@ -489,6 +489,27 @@ paths:
                 type: array
                 items:
                   $ref: '#components/schemas/MenuItemToAddonGroup'
+  /menu-item-to-addon-group/{menu_item_id}/{addon_group_id}:
+    delete:
+      summary: "delete a menu item to addon group"
+      description: ""
+      operationId: app.delete_menu_item_to_addon_group
+      parameters:
+        - $ref: "#components/parameters/menu_item_id"
+        - $ref: "#components/parameters/addon_group_id"
+
+      responses:
+        '200':
+          description: |-
+            Deleted menu item to addon groups object
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/MenuItemToAddonGroup'
+
+
+
+#menu
   /menu:
     get:
       summary: "get menu"
@@ -540,14 +561,6 @@ components:
 
     addon_id:
       name: addon_id
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
-
-    menu_item_to_addon_group_id:
-      name: menu_item_to_addon_group_id
       in: path
       required: true
       schema:

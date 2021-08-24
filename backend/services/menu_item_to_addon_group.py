@@ -4,6 +4,7 @@ from converters.menu_item_to_addon_group import menu_item_to_addon_group_dbo_to_
 from services._base import BaseService
 from utils.exceptions import *
 from uuid import UUID
+from sqlalchemy import and_
 from typing import List
 import logging
 
@@ -31,6 +32,19 @@ class MenuItemToAddonGroupService(BaseService):
         if not dbo_list:
             raise ObjectNotFound("Menu Item to Addon Group fetch failed")
         return [menu_item_to_addon_group_dbo_to_dto(dbo) for dbo in dbo_list]
+
+    def delete(self, menu_item_id: UUID, addon_group_id: UUID) -> MenuItemToAddonGroupDTO:
+        #find menu item to addon group
+        dbo = self.session.query(MenuItemToAddonGroupDBO).filter(and_(MenuItemToAddonGroupDBO.menu_item_id==menu_item_id, MenuItemToAddonGroupDBO.addon_group_id==addon_group_id)).first()
+        if not dbo:
+            raise ObjectNotFound("MenuItemToAddonGroup id '{}' not found".format())
+        dto: MenuItemToAddonGroupDTO = menu_item_to_addon_group_dbo_to_dto(dbo)
+        #delete menu item to addon group
+        self.session.delete(dbo)
+        #save the database
+        self.session.commit()
+        #return the deleted menu item to addon group
+        return dto
 
     # def get_by_id(self,addon_group_id: UUID)-> MenuItemToAddonGroupDTO:
     #     dbo = self.session.query(MenuItemToAddonGroupDBO).filter_by(id=).first()
