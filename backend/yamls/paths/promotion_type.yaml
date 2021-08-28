@@ -1,0 +1,54 @@
+# paths/promotion_type.yaml
+
+delete:
+  summary: "delete a promotion type by id"
+  description: ""
+  operationId: app.delete_promotion_type
+  parameters:
+    - $ref: "../parameters/_index.yaml#/promotiontype"
+
+  responses:
+    '200':
+      description: ' '
+      content:
+        application/json:
+          schema:
+            items:
+              $ref: "../schemas/_index.yaml#/promotiontype"
+
+put:
+  summary: "update a promotion type by id"
+  description: "Update a promotion type"
+  operationId: app.update_promotion_type
+  parameters:
+    - $ref: "../parameters/_index.yaml#/promotiontype"
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: "../schemas/_index.yaml#/promotiontype"
+
+  responses:
+    '200':
+      description: ' '
+      content:
+        application/json:
+          schema:
+            items:
+              $ref: "../schemas/_index.yaml#/promotiontype"
+
+get:
+  summary: "get promotion type  by id"
+  description: ""
+  operationId: app.get_promotion_type
+  parameters:
+    - $ref: "../parameters/_index.yaml#/promotiontype"
+
+  responses:
+    '200':
+      description: ' '
+      content:
+        application/json:
+          schema:
+            items:
+              $ref: "../schemas/_index.yaml#/promotiontype"

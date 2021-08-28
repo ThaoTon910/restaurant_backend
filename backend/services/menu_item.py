@@ -29,7 +29,9 @@ class MenuItemService(BaseService):
 
         self.session.add(dbo)
         self.session.commit()
-        return menu_item_dto_to_dbo(dbo)
+        # return menu_item_dto_to_dbo(dbo)
+        return menu_item_dbo_to_dto(dbo)
+
 
     def get_all_menu_items(self) -> List[MenuItemDTO]:
         base_query = self.session.query(MenuItemDBO)

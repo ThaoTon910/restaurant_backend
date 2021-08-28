@@ -1,0 +1,30 @@
+# schemas/promocode.yaml
+type: object
+required:
+  - order_id
+  - promo_code
+  - sub_total
+  - total_discount
+  - shipping_fee
+  - shipping_discount
+
+properties:
+  order_id:
+    type: string
+    format: uuid
+    description: A unique identifier for a each order
+  promo_code:
+    type: string
+    description: promo code
+  sub_total:
+    type: number
+    description: sub total of the order
+  total_discount:
+    type: number
+    description:   total discount for this order
+  shipping_fee:
+    type: number
+    description: shipping cost for this order
+  shipping_discount:
+    type: number
+    description: shipping discount for this order

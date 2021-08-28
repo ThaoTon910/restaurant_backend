@@ -1,0 +1,10 @@
+# paths/merchant.yaml
+get:
+  summary: "get business information"
+  description: ""
+  operationId: app.get_merchant
+  parameters:
+    - $ref: "../parameters/merchant.yaml"
+  responses:
+    $ref: "../responses/merchant.yaml"
+

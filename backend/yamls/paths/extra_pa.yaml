@@ -1,0 +1,36 @@
+# paths/extra_pa.yaml
+
+post:
+  summary: "Create a new extra percentage for all items"
+  description: ""
+  operationId: app.create_extra_percentage_all
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: "../schemas/_index.yaml#/extra_pa"
+
+  responses:
+    '200':
+      description:  "New promotion: extra percentages off for all items"
+      content:
+        application/json:
+          schema:
+            items:
+              $ref: "../schemas/_index.yaml#/extra_pa"
+
+get:
+  summary: "to get all promotion type: extra percentage  "
+  description: ""
+  operationId: app.get_extra_percentage_all
+
+  responses:
+    '200':
+      description:  "List of all promotion type: extra percentage for all items "
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+               $ref: "../schemas/_index.yaml#/extra_pa"
+

@@ -1,0 +1,44 @@
+openapi: 3.0.3
+info:
+  description: "Restaurant service api"
+  version: "1.0.0"
+  title: "Restaurant Service"
+
+servers:
+  - url: "/v0"
+
+paths:
+#  /merchant:
+#    $ref: "./yamls/paths/merchants.yaml"
+#
+#  /merchant/{merchant_id}:
+#    $ref: "./yamls/paths/merchant.yaml"
+
+  /order/promocode:
+    $ref: "./yamls/paths/promocode.yaml"
+
+
+  /promotion:
+    $ref: "./yamls/paths/promotions.yaml"
+
+  /promotion/{promotion_id}:
+    $ref: "./yamls/paths/promotion.yaml"
+
+  /promotiontype:
+    $ref: "./yamls/paths/promotion_types.yaml"
+
+  /promotiontype/{promotiontype_id}:
+    $ref: "./yamls/paths/promotion_type.yaml"
+
+  /promotiontype/extra_pa:
+    $ref: "./yamls/paths/extra_pa.yaml"
+
+  /promotiontype/extra_pa/{extra_pa_id}:
+    $ref: "./yamls/paths/extra_pa_id.yaml"
+
+components:
+  parameters:
+    $ref: "./yamls/parameters/_index.yaml"
+  schemas:
+    $ref: "./yamls/schemas/_index.yaml"
+

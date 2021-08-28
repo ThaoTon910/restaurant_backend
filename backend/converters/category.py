@@ -11,6 +11,8 @@ def category_dto_to_dbo(dto: CategoryDTO) -> CategoryDBO:
     )
     dbo.updated_time = dto.updated_time
     dbo.created_time = dto.created_time
+    promotion_type
+    print(f"\nCateGory COnvert DONE `````````````````````````````\n")
     return dbo
 
 def category_dbo_to_dto(dbo: CategoryDBO) -> CategoryDTO:

@@ -1,0 +1,38 @@
+#path/promotions.yaml
+
+post:
+  summary: "Create a new promotion"
+  description: ""
+  operationId: app.create_promotion
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: "../schemas/_index.yaml#/promotion"
+
+  responses:
+    '200':
+      description:  "New promotion"
+      content:
+        application/json:
+          schema:
+            items:
+              $ref: "../schemas/_index.yaml#/promotion"
+
+
+
+get:
+  summary: "get all promotion "
+  description: ""
+  operationId: app.get_all_promotion
+
+  responses:
+    '200':
+      description:  "Get get all promotion"
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+               $ref: "../schemas/_index.yaml#/promotion"
+

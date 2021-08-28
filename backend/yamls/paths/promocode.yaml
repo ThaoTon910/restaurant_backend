@@ -1,0 +1,20 @@
+# paths/promocode.yaml
+
+post:
+  summary: "Validate  a promotion code from an order"
+  description: ""
+  operationId: app.validate_promo_code
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: "../schemas/_index.yaml#/promocode"
+
+  responses:
+    '200':
+      description:  "New promotion"
+      content:
+        application/json:
+          schema:
+            items:
+              $ref: "../schemas/_index.yaml#/promocode"

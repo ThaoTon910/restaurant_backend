@@ -1,3 +1,4 @@
+#swagger-cli bundle app.yaml --outfile app_run.yaml --type yaml
 openapi: 3.0.3
 info:
   description: "Restaurant service api"
@@ -8,7 +9,7 @@ servers:
   - url: "/v0"
 
 paths:
-#Merchant
+#Merchant ok
   /merchant:
     post:
       summary: "create a new merchant"
@@ -65,8 +66,6 @@ paths:
             application/json:
               schema:
                 $ref: '#components/schemas/Category'
-    
-
 
     get:
       summary: "get all categories"
@@ -287,6 +286,7 @@ paths:
                 type: array
                 items:
                   $ref: '#components/schemas/Addon'
+
 #addon
   /addon:
     post:
@@ -338,7 +338,6 @@ paths:
               schema:
                 $ref: '#components/schemas/Addon'
 
-
 #menu item to addon group
   /menu-item-to-addon-group:
     post:
@@ -389,6 +388,8 @@ paths:
                 type: object
 #                items:
 #                  $ref: '#components/schemas/Addon'
+
+
 components:
   parameters:
     merchant_id:
@@ -660,5 +661,7 @@ components:
           type: string
           format: uuid
           description: A foreign key menu item id from menu item group
+
+
 
 

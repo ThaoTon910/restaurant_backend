@@ -1,0 +1,14 @@
+# parameters/_index.yaml
+
+merchant:
+  $ref: "./merchant.yaml"
+
+promotion:
+  $ref: "./promotion.yaml"
+
+promotiontype:
+  $ref: "./promotion_type.yaml"
+
+extra_pa:
+  $ref: "./extra_pa.yaml"
+
