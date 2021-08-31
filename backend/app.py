@@ -11,6 +11,7 @@ from resources.menu_item import MenuItemResource
 from resources.addon_group import AddonGroupResource
 from resources.addon import AddonResource
 from resources.menu import MenuResource
+from resources.merchant import MerchantResource
 from resources.menu_item_to_addon_group import MenuItemToAddonGroupResource
 import logging
 
@@ -37,11 +38,16 @@ def create_app():
 
 # Merchant
 def create_merchant() -> Response:
-    return {}#MerchantResource.post()
+    return MerchantResource.post()
 
 def get_merchant(merchant_id: UUID) -> Response:
-    return {}#MerchantResource.get(merchant_id)
+    return MerchantResource.get_by_id(merchant_id)
 
+def delete_merchant(merchant_id: UUID) -> Response:
+    return MerchantResource.delete(merchant_id)
+
+def update_merchant(merchant_id: UUID) -> Response:
+    return MerchantResource.update(merchant_id)
 
 #Category
 def create_category() -> Response:

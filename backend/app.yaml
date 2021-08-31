@@ -45,6 +45,43 @@ paths:
               schema:
                 $ref: '#components/schemas/Merchant'
 
+    delete:
+      summary: "delete a merchant by id"
+      description: ""
+      operationId: app.delete_merchant
+      parameters:
+        - $ref: "#components/parameters/merchant_id"
+
+      responses:
+        '200':
+          description: |-
+            Deleted merchant object
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Merchant'
+
+    put:
+      summary: "update a merchant by id"
+      description: ""
+      operationId: app.update_merchant
+      parameters:
+        - $ref: "#components/parameters/merchant_id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/Merchant'
+
+      responses:
+        '200':
+          description: |-
+            updated merchant object
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Merchant'
+
 #category (create, get all, get by id, delete, update)
   /category:
     post:
@@ -571,9 +608,10 @@ components:
     Merchant:
       type: object
       required:
-        - createdTime
         - name
         - address
+        - phone
+        - hours
       properties:
         id:
           type: string
@@ -595,8 +633,10 @@ components:
           type: string
           description: Business address
         hours:
-          type: object
-          description: Hours
+          description: List of all hours
+          type: array
+          items:
+            $ref: '#components/schemas/Hour'
 
     Category:
       type: object
@@ -811,6 +851,27 @@ components:
           type: array
           items:
             $ref: '#components/schemas/AddonGroup'
+
+    Hour:
+      type: object
+      required:
+        - start
+        - end
+        - day
+#        - off
+      properties:
+        start:
+          type: string
+          description: ...
+        end:
+          type: string
+          description: ...
+        day:
+          type: string
+          description: ...
+        off:
+          type: boolean
+          description: day off
 
 
 

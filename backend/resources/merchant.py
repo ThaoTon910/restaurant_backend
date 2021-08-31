@@ -1,6 +1,7 @@
-from schemas.category import CategorySchema
-from dto_models.category import CategoryDTO
-from services.category import CategoryService
+from schemas.merchant import MerchantSchema
+from dto_models.merchant import MerchantDTO
+from dto_models.hour import HourDTO
+from services.merchant import MerchantService
 from flask import request, Response, abort
 from utils.exceptions import ObjectAlreadyExists, ObjectNotFound, InvalidOperation
 from uuid import UUID
@@ -9,27 +10,28 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class CategoryResource:
+class MerchantResource:
     # create(post), get_by_id, get_all, update, delete
     @staticmethod
     def post() -> Response:
         try:
             json = request.get_json(force=True)  # get from body
-            schema = CategorySchema()
+            schema = MerchantSchema()
             validated_json = schema.load(json)  # Validated data from frontend
-            dto = CategoryDTO(**validated_json)  # transform to DTO OBJECT
+            validated_json['hours'] = [HourDTO(**hour) for hour in validated_json['hours']]
+            dto = MerchantDTO(**validated_json)  # transform to DTO OBJECT
 
-            returned_dto = CategoryService().create(dto)
+            returned_dto = MerchantService().create(dto)
 
         except ValueError as e:
             abort(400, {'message': str(e)})
-            logger.debug("CategoryResource post 400 {}".format(e))
+            logger.debug("MerchantResource post 400 {}".format(e))
         except ObjectAlreadyExists as e:
             abort(400, {'message': str(e)})
-            logger.debug("CategoryResource post 400 {}".format(e))
+            logger.debug("MerchantResource post 400 {}".format(e))
         except Exception as e:
             abort(500, {'message': str(e)})
-            logger.debug("CategoryResource post 500 {}".format(e))
+            logger.debug("MerchantResource post 500 {}".format(e))
 
         # Dumps to UI format (json)
         response_data = schema.dumps(returned_dto)
@@ -37,17 +39,17 @@ class CategoryResource:
         return Response(response_data, status=200, headers={}, mimetype="application/json")
 
     @staticmethod
-    def get_all_categories() -> Response:
+    def get_all_merchants() -> Response:
         try:
-            returned_dto = CategoryService().get_all_categories()
+            returned_dto = MerchantService().get_all_merchants()
         except ValueError as e:
             abort(400, {'message': str(e)})
         except Exception as e:
             abort(500, {'message': str(e)})
-            logger.debug("CategoryResource get 500 {}".format(e))
+            logger.debug("MerchantResource get 500 {}".format(e))
 
             # Dumps to UI format (json)
-        schema = CategorySchema(many=True)
+        schema = MerchantSchema(many=True)
         response_data = schema.dumps(returned_dto)
 
         return Response(response_data, status=200, headers={}, mimetype="application/json")
@@ -55,18 +57,18 @@ class CategoryResource:
     @staticmethod
     def get_by_id(id: UUID) -> Response:
         try:
-            returned_dto = CategoryService().get_by_id(id)
+            returned_dto = MerchantService().get_by_id(id)
         except ValueError as e:
             abort(400, {'message': str(e)})
         except ObjectNotFound as e:
             abort(400, {'message': str(e)})
-            logger.debug("CategoryResource post 400 {}".format(e))
+            logger.debug("MerchantResource post 400 {}".format(e))
         except Exception as e:
             abort(500, {'message': str(e)})
-            logger.debug("CategoryResource get 500 {}".format(e))
+            logger.debug("MerchantResource get 500 {}".format(e))
 
             # Dumps to UI format (json)
-        schema = CategorySchema()
+        schema = MerchantSchema()
         response_data = schema.dumps(returned_dto)
 
         return Response(response_data, status=200, headers={}, mimetype="application/json")
@@ -75,21 +77,22 @@ class CategoryResource:
     def update(id: UUID) -> Response:
         try:
             json = request.get_json(force=True)  # get from body
-            schema = CategorySchema()
+            schema = MerchantSchema()
             validated_json = schema.load(json)  # Validated data from frontend
-            dto = CategoryDTO(**validated_json)  # transform to DTO OBJECT
+            validated_json['hours'] = [HourDTO(**hour) for hour in validated_json['hours']]
+            dto = MerchantDTO(**validated_json)  # transform to DTO OBJECT
             dto.id = id
-            returned_dto = CategoryService().update(dto)
+            returned_dto = MerchantService().update(dto)
 
         except ValueError as e:
             abort(400, {'message': str(e)})
-            logger.debug("CategoryResource post 400 {}".format(e))
+            logger.debug("MerchantResource post 400 {}".format(e))
         except ObjectNotFound as e:
             abort(400, {'message': str(e)})
-            logger.debug("CategoryResource post 400 {}".format(e))
+            logger.debug("MerchantResource post 400 {}".format(e))
         except Exception as e:
             abort(500, {'message': str(e)})
-            logger.debug("CategoryResource post 500 {}".format(e))
+            logger.debug("MerchantResource post 500 {}".format(e))
 
         # Dumps to UI format (json)
         response_data = schema.dumps(returned_dto)
@@ -99,21 +102,21 @@ class CategoryResource:
     @staticmethod
     def delete(id: UUID) -> Response:
         try:
-            returned_dto = CategoryService().delete(id)
+            returned_dto = MerchantService().delete(id)
         except ValueError as e:
             abort(400, {'message': str(e)})
         except ObjectNotFound as e:
             abort(400, {'message': str(e)})
-            logger.debug("CategoryResource delete 400 {}".format(e))
+            logger.debug("MerchantResource post 400 {}".format(e))
         except InvalidOperation as e:
             abort(400, {'message': str(e)})
-            logger.debug("CategoryResource delete 400 {}".format(e))
+            logger.debug("MerchantResource delete 400 {}".format(e))
         except Exception as e:
             abort(500, {'message': str(e)})
-            logger.debug("MenuItemResource get 500 {}".format(e))
+            logger.debug("MerchantResource get 500 {}".format(e))
 
         # Dumps to UI format (json)
-        schema = CategorySchema()
+        schema = MerchantSchema()
         response_data = schema.dumps(returned_dto)
 
         return Response(response_data, status=200, headers={}, mimetype="application/json")
