@@ -29,29 +29,23 @@ paths:
               schema:
                 $ref: '#components/schemas/Merchant'
 
-  /merchant/{merchant_id}:
     get:
-      summary: "get business information"
+      summary: "get all merchant"
       description: ""
       operationId: app.get_merchant
-      parameters:
-        - $ref: "#components/parameters/merchant_id"
       responses:
         '200':
           description: |-
-            Get merchant information
+            Get all Merchants
           content:
             application/json:
               schema:
                 $ref: '#components/schemas/Merchant'
 
     delete:
-      summary: "delete a merchant by id"
+      summary: "delete a merchant"
       description: ""
       operationId: app.delete_merchant
-      parameters:
-        - $ref: "#components/parameters/merchant_id"
-
       responses:
         '200':
           description: |-
@@ -62,11 +56,9 @@ paths:
                 $ref: '#components/schemas/Merchant'
 
     put:
-      summary: "update a merchant by id"
+      summary: "put all merchant"
       description: ""
       operationId: app.update_merchant
-      parameters:
-        - $ref: "#components/parameters/merchant_id"
       requestBody:
         content:
           application/json:
@@ -76,11 +68,12 @@ paths:
       responses:
         '200':
           description: |-
-            updated merchant object
+            update all Merchants
           content:
             application/json:
               schema:
-                $ref: '#components/schemas/Merchant'
+                items:
+                  $ref: '#components/schemas/Merchant'
 
 #category (create, get all, get by id, delete, update)
   /category:
@@ -613,10 +606,10 @@ components:
         - phone
         - hours
       properties:
-        id:
-          type: string
-          format: uuid
-          description: A unique identifier for a merchant
+#        id:
+#          type: string
+#          format: uuid
+#          description: A unique identifier for a merchant
         createdTime:
           type: string
           format: date-time

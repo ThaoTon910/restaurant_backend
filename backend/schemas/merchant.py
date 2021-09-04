@@ -12,7 +12,7 @@ class MerchantSchema(BaseSchema):
      hours = fields.List(fields.Nested(HourSchema), required=True)
 
      # Dump to UI
-     id = fields.UUID(dump_only=True)
+     # id = fields.UUID(dump_only=True)
      createdTime = fields.DateTime(dump_only=True, format='iso8601', attribute="created_time")
      updatedTime = fields.DateTime(dump_only=True, format='iso8601', attribute="updated_time")
 
@@ -39,6 +39,7 @@ if __name__ == '__main__':
 
      print(merchant_schemas.load(merchant_json))
 
+     #Test on http://192.168.1.43:8080/v0/ui/#/default/app.create_merchant
      # {
      #     "address": "my address",
      #     "phone": "my phone",

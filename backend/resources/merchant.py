@@ -39,25 +39,9 @@ class MerchantResource:
         return Response(response_data, status=200, headers={}, mimetype="application/json")
 
     @staticmethod
-    def get_all_merchants() -> Response:
+    def get_merchant() -> Response:
         try:
-            returned_dto = MerchantService().get_all_merchants()
-        except ValueError as e:
-            abort(400, {'message': str(e)})
-        except Exception as e:
-            abort(500, {'message': str(e)})
-            logger.debug("MerchantResource get 500 {}".format(e))
-
-            # Dumps to UI format (json)
-        schema = MerchantSchema(many=True)
-        response_data = schema.dumps(returned_dto)
-
-        return Response(response_data, status=200, headers={}, mimetype="application/json")
-
-    @staticmethod
-    def get_by_id(id: UUID) -> Response:
-        try:
-            returned_dto = MerchantService().get_by_id(id)
+            returned_dto = MerchantService().get_merchant()
         except ValueError as e:
             abort(400, {'message': str(e)})
         except ObjectNotFound as e:
@@ -74,14 +58,14 @@ class MerchantResource:
         return Response(response_data, status=200, headers={}, mimetype="application/json")
 
     @staticmethod
-    def update(id: UUID) -> Response:
+    def update() -> Response:
         try:
             json = request.get_json(force=True)  # get from body
             schema = MerchantSchema()
             validated_json = schema.load(json)  # Validated data from frontend
             validated_json['hours'] = [HourDTO(**hour) for hour in validated_json['hours']]
             dto = MerchantDTO(**validated_json)  # transform to DTO OBJECT
-            dto.id = id
+            # dto.id = id
             returned_dto = MerchantService().update(dto)
 
         except ValueError as e:
@@ -100,9 +84,9 @@ class MerchantResource:
         return Response(response_data, status=200, headers={}, mimetype="application/json")
 
     @staticmethod
-    def delete(id: UUID) -> Response:
+    def delete() -> Response:
         try:
-            returned_dto = MerchantService().delete(id)
+            returned_dto = MerchantService().delete()
         except ValueError as e:
             abort(400, {'message': str(e)})
         except ObjectNotFound as e:

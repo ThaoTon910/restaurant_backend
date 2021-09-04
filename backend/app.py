@@ -40,14 +40,14 @@ def create_app():
 def create_merchant() -> Response:
     return MerchantResource.post()
 
-def get_merchant(merchant_id: UUID) -> Response:
-    return MerchantResource.get_by_id(merchant_id)
+def get_merchant() -> Response:
+    return MerchantResource.get_merchant()
 
-def delete_merchant(merchant_id: UUID) -> Response:
-    return MerchantResource.delete(merchant_id)
+def delete_merchant() -> Response:
+    return MerchantResource.delete()
 
-def update_merchant(merchant_id: UUID) -> Response:
-    return MerchantResource.update(merchant_id)
+def update_merchant() -> Response:
+    return MerchantResource.update()
 
 #Category
 def create_category() -> Response:

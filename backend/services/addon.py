@@ -32,10 +32,8 @@ class AddonService(BaseService):
 
     def get_all_addons(self) -> List[AddonDTO]:
         base_query = self.session.query(AddonDBO)
-
         # sort by created_time
         dbos = base_query.order_by(AddonDBO.created_time)
-
         dtos = [addon_dbo_to_dto(dbo) for dbo in dbos]
         return dtos
 
