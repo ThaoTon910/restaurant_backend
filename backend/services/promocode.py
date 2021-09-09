@@ -28,7 +28,8 @@ class PromoCodeService(BaseService):
                     return True
         return False
 
-    def get_extra_percentage_all(self, order: PromoCodeDTO) -> PromoCodeDTO:
+    @staticmethod
+    def get_extra_percentage_all(order: PromoCodeDTO) -> PromoCodeDTO:
         extra_pc = ExtraPercentageAllService().get_percent_off()
         total_discount = round(order.sub_total * extra_pc, 2)
         order.total_discount = total_discount
@@ -49,8 +50,6 @@ class PromoCodeService(BaseService):
                 print(f"NO THING CATCH \n")
 
         else:
-
-
             return dto
 
         """

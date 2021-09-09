@@ -14,6 +14,11 @@ paths:
 #  /merchant/{merchant_id}:
 #    $ref: "./yamls/paths/merchant.yaml"
 
+  /order:
+    $ref: "./yamls/paths/order.yaml#/noParameter"
+  /order/{order_id}:
+    $ref: "./yamls/paths/order.yaml#/withParameter"
+
   /order/promocode:
     $ref: "./yamls/paths/promocode.yaml"
 

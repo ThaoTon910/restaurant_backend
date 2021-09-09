@@ -1,117 +1,117 @@
-# resources/promotion_type.py
-from schemas.promotion_type import PromotionTypeSchema
-from dto_models.promotion_type import PromotionTypeDTO
+# resources/customer.py
 from services.promotion_type import PromotionTypeService
 from flask import request, Response, abort, jsonify
 from utils.exceptions import ObjectAlreadyExists
 from uuid import UUID
+from schemas.customer import CustomerSchema
+from dto_models.customer import CustomerDTO
+from services.customer import CustomerService
 import logging
 
 logger = logging.getLogger(__name__)
 
-class PromotionTypeResource:
+
+class CustomerResource:
     # create(post), get_by_id, get_all, update, delete
     @staticmethod
     def post() -> Response:
         try:
             json = request.get_json(force=True)  # get from body
-            schema = PromotionTypeSchema()
-            validated_json = schema.load(json)  # Validated data from frontend
-            dto = PromotionTypeDTO(**validated_json)  # transform to DTO OBJECT
-            returned_dto = PromotionTypeService().create(dto)
+            schema = CustomerSchema()
+            validated_json = schema.load(json)  # load data from front end
+            customer_dto = CustomerDTO(**validated_json)  # validation data
+            returned_customer_dto = CustomerService().create(customer_dto)
 
         except ValueError as e:
             abort(400, {'message': str(e)})
-            logger.debug("Promotion Type Resource post 400 {}".format(e))
+            logger.debug("Customer Resource post 400 {}".format(e))
         except ObjectAlreadyExists as e:
             abort(400, {'message': str(e)})
-            logger.debug("Promotion Type Resource  post 400 {}".format(e))
+            logger.debug("Customer Resource  post 400 {}".format(e))
         except Exception as e:
             abort(500, {'message': str(e)})
-            logger.debug("Promotion Type Resource  post 500 {}".format(e))
+            logger.debug("Customer Resource  post 500 {}".format(e))
 
         # Dumps to UI format (json)
-        response_data = schema.dumps(returned_dto)
-
+        response_data = schema.dumps(returned_customer_dto)
         return Response(response_data, status=200, headers={}, mimetype="application/json")
 
     @staticmethod
-    def get_all_promotion_type() -> Response:
+    def get_all_customer() -> Response:
         try:
-            returned_dto = PromotionTypeService().get_all_promotion_type()
+            returned_customer_dto = CustomerService().get_all_customer()
         except ValueError as e:
             abort(400, {'message': str(e)})
         except Exception as e:
             abort(500, {'message': str(e)})
-            logger.debug("Get all promotion type 500 {}".format(e))
+            logger.debug("Get all customers, error 500 {}".format(e))
 
             # Dumps to UI format (json)
-        schema = PromotionTypeSchema(many=True)
-        response_data = schema.dumps(returned_dto)
+        schema = CustomerSchema(many=True)
+        response_data = schema.dumps(returned_customer_dto)
 
         return Response(response_data, status=200, headers={}, mimetype="application/json")
 
     @staticmethod
-    def get_by_id(promotion_type_id: UUID) -> Response:
+    def get_by_id(customer_id: UUID) -> Response:
         try:
-            returned_dto = PromotionTypeService().get_by_id(promotion_type_id)
+            returned_customer_dto = CustomerService().get_by_id(customer_id)
 
         except ValueError as e:
             abort(400, {'message': str(e)})
         except Exception as e:
-            #abort(500, {'message': str(e)})
+            # abort(500, {'message': str(e)})
             logger.debug("Promotion Type Resource get 500 {}".format(e))
             return jsonify({'promotion_type': 'None',
                             'description': 'None',
                             'message':  str(e)})
 
             # Dumps to UI format (json)
-        schema = PromotionTypeSchema()
-        response_data = schema.dumps(returned_dto)
+        schema = CustomerSchema()
+        response_data = schema.dumps(returned_customer_dto)
 
         return Response(response_data, status=200, headers={}, mimetype="application/json")
 
     @staticmethod
-    def update_promotion_type(promotiontype_id: UUID) -> Response:
+    def update_customer(customer_id: UUID) -> Response:
         try:
             json = request.get_json(force=True)  # get from body
-            schema = PromotionTypeSchema()
+            schema = CustomerSchema()
             validated_json = schema.load(json)  # Validated data from frontend
-            dto = PromotionTypeDTO(**validated_json)  # transform to DTO OBJECT
-            dto.id = promotiontype_id
+            customer_dto = CustomerDTO(**validated_json)  # transform to DTO OBJECT
+            customer_dto.id = customer_dto
 
-            returned_dto = PromotionTypeService().update(dto)
+            returned_customer_dto = PromotionTypeService().update(customer_dto)
 
         except ValueError as e:
             abort(400, {'message': str(e)})
-            logger.debug("Promotion Type Resource post 400 {}".format(e))
+            logger.debug("Customer at -Resource- update 400 {}".format(e))
         except ObjectAlreadyExists as e:
             abort(400, {'message': str(e)})
-            logger.debug("Promotion Type Resource  post 400 {}".format(e))
+            logger.debug("Customer at -Resource- update  400 {}".format(e))
         except Exception as e:
             abort(500, {'message': str(e)})
-            logger.debug("Promotion Type Resource  post 500 {}".format(e))
+            logger.debug("Customer at -Resource- update  500 {}".format(e))
 
         # Dumps to UI format (json)
-        response_data = schema.dumps(returned_dto)
-
+        response_data = schema.dumps(returned_customer_dto)
         return Response(response_data, status=200, headers={}, mimetype="application/json")
 
     @staticmethod
-    def delete_promotion_type(promotion_type_id: UUID) -> Response:
-        returned_dto = None
+    def delete_customer(customer_id: UUID) -> Response:
+        returned_customer_dto = None
         try:
-            returned_dto = PromotionTypeService().delete(promotion_type_id)
+            returned_customer_dto = PromotionTypeService().delete(customer_id)
         except ValueError as e:
             abort(400, {'message': str(e)})
         except Exception as e:
             abort(500, {'message': str(e)})
-            logger.debug("Promotion Type Resource get 500 {}".format(e))
+            logger.debug("Customer at -Resource- delete 500 {}".format(e))
 
-        if returned_dto is None:
-            return Response(returned_dto, status=500, headers={}, mimetype="application/json")
+        if returned_customer_dto is None:
+            return Response(returned_customer_dto, status=500, headers={}, mimetype="application/json")
         # Dumps to UI format (json)
-        schema = PromotionTypeSchema()
-        response_data = schema.dumps(returned_dto)
+        schema = CustomerSchema()
+        response_data = schema.dumps(returned_customer_dto)
         return Response(response_data, status=200, headers={}, mimetype="application/json")
 

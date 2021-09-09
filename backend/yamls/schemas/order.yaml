@@ -1,0 +1,123 @@
+# schemas/order.yaml
+order:
+  type: object
+  required:
+    - customer
+    - items
+    - delivery
+    - taxMultiplier
+    - tipMultiplier
+    - paymentToken
+
+  properties:
+    customer:
+      $ref: "#components/schemas/customer"
+    paymentToken:
+      type: string
+      description: payment token
+    items:
+      type: array
+      items:
+        $ref: "#components/schemas/order_item"
+    delivery:
+      $ref: "#components/schemas/delivery"
+    taxMultiplier:
+      type: number
+    tipMultiplier:
+      type: number
+    promoCode:
+      type: string
+
+
+createdOrder:
+  allOf:
+    - $ref: "#components/schemas/order"
+    - type: object
+      properties:
+        status:
+          type: string
+          enum: [pending, processing, shipping, completed, canceled]
+        subTotal:
+          type: number
+        discount:
+          type: number
+        id:
+          type: string
+          format: uuid
+        createdTime:
+          type: string
+          format: date-time
+        updatedTime:
+          type: string
+          format: date-time
+
+customer:
+  type: object
+  required:
+    - firstName
+    - surname
+    - phone
+    - email
+  properties:
+    email:
+      type: string
+      description: customer's email
+    firstName:
+      type: string
+      description: customer's first_name
+    surname:
+      type: string
+      description: customer's surname
+    phone:
+      type: string
+      description: customer's phone
+
+order_item:
+  type: object
+  required:
+    - menuItemId
+    - quantity
+  properties:
+    menuItemId:
+      type: string
+      format: uuid
+      description: A unique identifier for a item
+    quantity:
+      type: integer
+      description: number of item
+    specialInstruction:
+      type: string
+      description: note from customer
+    addOns:
+      type: array
+      items:
+        type: string
+        format: uuid
+
+delivery:
+  type: object
+  required:
+    - deliveryType
+  properties:
+    deliveryFee:
+      type: number
+    deliveryType:
+      type: string
+
+pickup:
+  type: object
+  required:
+    - deliveryType
+  properties:
+    deliveryType:
+      type: string
+    locationId:
+      type: string
+      format: uuid
+    time:
+      type: string
+      format: date-time
+
+
+
+

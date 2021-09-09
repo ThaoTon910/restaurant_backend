@@ -16,6 +16,7 @@ from resources.promotion import PromotionResource
 from resources.promotion_type import PromotionTypeResource
 from resources.promocode import  PromoCodeResource
 from resources.extra_percentage_all import  ExtraPercentageAllResource
+from resources.order_resource import OrderResource
 
 from dbo_models.extra_percentage_all import ExtraPercentageAllDBO
 
@@ -54,6 +55,16 @@ def create_merchant() -> Response:
 def get_merchant(merchant_id: UUID) -> Response:
     return {} # MerchantResource.get(merchant_id)
 
+#order
+def create_order():
+    return OrderResource.post()
+
+def update_order(order_id: UUID):
+    return " update order"
+
+
+def get_all_order():
+    return "get all order"
 
 # Category
 def create_category() -> Response:

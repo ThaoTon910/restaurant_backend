@@ -14,8 +14,8 @@ class CategoryResource:
         try:
             json = request.get_json(force=True) #get from body
             schema = CategorySchema()
-            validated_json = schema.load(json) #Validated data from frontend
-            dto = CategoryDTO(**validated_json) #transform to DTO OBJECT
+            validated_json = schema.load(json) # Validated data from frontend
+            dto = CategoryDTO(**validated_json) # transform to DTO OBJECT
 
             returned_dto = CategoryService().create(dto)
 

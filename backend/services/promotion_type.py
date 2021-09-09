@@ -60,8 +60,8 @@ class PromotionTypeService(BaseService):
                 raise  ChildProcessError(f"FAIL! There is at least one event is still in active mode! "
                                          f"{db.description}")
 
-        #self.session.delete(dbo)
-        #self.session.commit()
+        self.session.delete(dbo)
+        self.session.commit()
         return promotion_type_dbo_to_dto(dbo)
 
     def update(self, dto: PromotionTypeDTO) -> PromotionTypeDTO:

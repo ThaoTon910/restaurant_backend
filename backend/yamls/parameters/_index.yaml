@@ -1,5 +1,4 @@
 # parameters/_index.yaml
-
 merchant:
   $ref: "./merchant.yaml"
 
