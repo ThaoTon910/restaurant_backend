@@ -4,7 +4,6 @@ order:
   required:
     - customer
     - items
-    - delivery
     - taxMultiplier
     - tipMultiplier
     - paymentToken
@@ -55,7 +54,7 @@ customer:
   type: object
   required:
     - firstName
-    - surname
+    - lastName
     - phone
     - email
   properties:
@@ -65,7 +64,7 @@ customer:
     firstName:
       type: string
       description: customer's first_name
-    surname:
+    lastName:
       type: string
       description: customer's surname
     phone:
@@ -96,8 +95,6 @@ order_item:
 
 delivery:
   type: object
-  required:
-    - deliveryType
   properties:
     deliveryFee:
       type: number

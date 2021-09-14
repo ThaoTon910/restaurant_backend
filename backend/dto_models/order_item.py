@@ -9,7 +9,7 @@ from schemas import BaseSchema
 @attrs
 class OrderItemDTO(object):
     special_instruction = attrib(
-        init=False,
+        init=True,
         type=str,
         validator=validators.instance_of(str),
     )
@@ -23,7 +23,7 @@ class OrderItemDTO(object):
         type=UUID,
         validator=validators.instance_of(UUID),
     )
-    addons = attrib(
+    add_ons = attrib(
         init=True,
         type=List[UUID]
     )

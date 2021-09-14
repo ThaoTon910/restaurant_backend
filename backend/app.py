@@ -60,11 +60,13 @@ def create_order():
     return OrderResource.post()
 
 def update_order(order_id: UUID):
-    return " update order"
+    return OrderResource.update_order(order_id)
 
+def get_order(order_id: UUID):
+    return  OrderResource.get_order(order_id)
 
 def get_all_order():
-    return "get all order"
+    return  OrderResource.get_all_order()
 
 # Category
 def create_category() -> Response:

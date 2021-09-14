@@ -1,4 +1,5 @@
 from database import db
+import uuid
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy import VARCHAR, Integer, DateTime, Boolean, Float, String, ForeignKey, UniqueConstraint
 from sqlalchemy.orm import relationship
@@ -22,29 +23,16 @@ class OrderItemDBO(db.Model):
     menu_item_id = db.Column(GUID, ForeignKey("menuitem.id"), index=True, nullable=False)
 
     add_ons = relationship('AddonDBO', secondary='addontoorderitem', lazy='subquery',
-                              back_populates="order_item")
+                           back_populates="order_item")
 
-    id = db.Column(GUID, primary_key=True)
-    created_time = db.Column(DateTime(timezone=True), nullable=False, default=datetime.utcnow,)
+    id = db.Column(GUID, primary_key=True, default=uuid.uuid4 )
+    created_time = db.Column(DateTime(timezone=True), nullable=False, default=datetime.utcnow, )
 
-    def __init__(self,
-                 id: Union[UUID, GUID],
-                 name: str,
-                 category_id: int,
-                 description: str,
-                 price: float,
-                 size: str,
-                 image_url: str,
-                 active: bool,
-                 is_taxable: bool,
-                 tax_rate: float):
-        self.id = id
-        self.name = name
-        self.category_id = category_id
-        self.description = description
-        self.price = price
-        self.size = size
-        self.image_url = image_url
-        self.active = active
-        self.is_taxable = is_taxable
-        self.tax_rate = tax_rate
+    def __init__(self, order: OrderDBO, menu_item: MenuItemDBO, quantity: Integer = 0, special_instruction=""):
+        self.order_id = order.id
+        self.order = order
+        self.menu_item_id = menu_item.id
+        self.menu_item = menu_item
+        self.price = 0
+        self.quantity = quantity
+        self.special_instruction=special_instruction

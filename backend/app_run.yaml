@@ -38,6 +38,24 @@ paths:
                 items:
                   $ref: '#/components/schemas/createdOrder'
   '/order/{order_id}':
+    get:
+      summary: Get order by ID
+      description: 'Get an order '
+      operationId: app.get_order
+      parameters:
+        - in: path
+          name: order_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'response order '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createdOrder'
     put:
       summary: update  order's status
       description: 'Update order '
@@ -409,7 +427,6 @@ components:
       required:
         - customer
         - items
-        - delivery
         - taxMultiplier
         - tipMultiplier
         - paymentToken
@@ -435,7 +452,7 @@ components:
       type: object
       required:
         - firstName
-        - surname
+        - lastName
         - phone
         - email
       properties:
@@ -445,7 +462,7 @@ components:
         firstName:
           type: string
           description: customer's first_name
-        surname:
+        lastName:
           type: string
           description: customer's surname
         phone:
@@ -474,8 +491,6 @@ components:
             format: uuid
     delivery:
       type: object
-      required:
-        - deliveryType
       properties:
         deliveryFee:
           type: number

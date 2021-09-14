@@ -37,9 +37,23 @@ class OrderDTO(object):
         init=True,
         type=float
     )
+    discount = attrib(
+        init=False,
+        type=float
+    )
     delivery = attrib(
         init=True,
         type=DeliveryDTO
+    )
+    status = attrib(
+        init=False,
+        type=str
+    )
+    id = attrib(
+        init=True,
+        type=UUID,
+        default=Factory(uuid4),
+        validator=validators.instance_of(UUID),
     )
 
 

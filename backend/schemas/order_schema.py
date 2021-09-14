@@ -14,3 +14,7 @@ class OrderSchema(BaseSchema):
     promoCode = fields.String(required=False, attribute="promo_code")
     taxMultiplier = fields.Float(required=True, attribute="tax_multiplier")
     tipMultiplier = fields.Float(required=True, attribute="tip_multiplier")
+
+    status = fields.String(required=True, dump_only=True)
+    discount = fields.Float(required=True, dump_only=True)
+    id = fields.UUID(dump_only=True)

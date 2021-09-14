@@ -34,6 +34,24 @@ noParameter:
                  $ref: "../schemas/_index.yaml#/createdOrder"
 
 withParameter:
+  get:
+    summary: "Get order by ID"
+    description: "Get an order "
+    operationId: app.get_order
+    parameters:
+      - in: path
+        name: order_id
+        required: true
+        schema:
+          type: string
+          format: uuid
+    responses:
+      '200':
+        description:  "response order "
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/createdOrder"
   put:
     summary: "update  order's status"
     description: "Update order "

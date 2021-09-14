@@ -5,10 +5,11 @@ from schemas import BaseSchema
 
 class CustomerSchema(BaseSchema):
     # Resource
-    firstName = fields.String(required=True)
-    surname = fields.String(required=True)
-    phone = fields.String(required=True)
+    firstName = fields.String(required=True, attribute="first_name")
+    lastName = fields.String(required=True, attribute="last_name")
+    phone = fields.String(required=True, attribute="phone_number")
     email = fields.String(required=True)
+
     street = fields.String(required=False)
     city = fields.String(required=False)
     state = fields.String(required=False)

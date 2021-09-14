@@ -1,4 +1,5 @@
 # dbo_models/customer.py
+import uuid
 from database import db
 from sqlalchemy import VARCHAR, Integer, DateTime
 from datetime import datetime
@@ -18,17 +19,11 @@ class CustomerDBO(db.Model):
     zipcode = db.Column(Integer, nullable=True)
     reward_point = db.Column(Integer, nullable=True)
 
-    id = db.Column(GUID, primary_key=True)
+    id = db.Column(GUID, primary_key=True, default=uuid.uuid4)
     created_time = db.Column(DateTime(timezone=True), nullable=False, default=datetime.utcnow())
 
-    def __init__(self, dto: CustomerDTO):
-        self.id = dto.id
-        self.first_name = dto.first_name.strip()
-        self.last_name = dto.last_name.strip()
-        self.phone_number = dto.phone_number.strip()
-        self.email = dto.email.strip()
-        self.street = dto.street
-        self.city = dto.city
-        self.state = dto.state
-        self.zipcode = dto.zipcode
-        self.reward_point = dto.reward_point
+    def __init__(self, first_name: str, last_name: str, phone_number: str, email: str):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.email = email
+        self.phone_number = phone_number
