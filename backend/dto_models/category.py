@@ -30,6 +30,7 @@ class CategoryDTO(object):
         default=Factory(datetime.utcnow),
         validator=validators.instance_of(datetime),
     )
+
     id = attrib(
         type=UUID,
         default=Factory(uuid4),

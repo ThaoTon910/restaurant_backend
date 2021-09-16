@@ -1,0 +1,9 @@
+# responses/_index.yaml
+promotion:
+  $ref: "./promotions.yaml"
+
+promotiontype:
+  $ref: "./promotion_type.yaml"
+
+merchant:
+  $ref: "./merchant.yaml"

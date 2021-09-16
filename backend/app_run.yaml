@@ -1,0 +1,631 @@
+openapi: 3.0.3
+info:
+  description: Restaurant service api
+  version: 1.0.0
+  title: Restaurant Service
+servers:
+  - url: /v0
+paths:
+  /order:
+    post:
+      summary: Create a new order
+      description: ''
+      operationId: app.create_order
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/order'
+      responses:
+        '200':
+          description: New promotion
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/createdOrder'
+    get:
+      summary: 'get all order '
+      description: ''
+      operationId: app.get_all_order
+      responses:
+        '200':
+          description: Get get all order
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/createdOrder'
+  '/order/{order_id}':
+    get:
+      summary: Get order by ID
+      description: 'Get an order '
+      operationId: app.get_order
+      parameters:
+        - in: path
+          name: order_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'response order '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createdOrder'
+    put:
+      summary: update  order's status
+      description: 'Update order '
+      operationId: app.update_order
+      parameters:
+        - in: path
+          name: order_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+      responses:
+        '200':
+          description: 'response order '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createdOrder'
+  /order/promocode:
+    post:
+      summary: Validate  a promotion code from an order
+      description: ''
+      operationId: app.validate_promo_code
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/promocode'
+      responses:
+        '200':
+          description: New promotion
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/promocode'
+  /promotion:
+    post:
+      summary: Create a new promotion
+      description: ''
+      operationId: app.create_promotion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/promotion'
+      responses:
+        '200':
+          description: New promotion
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/promotion'
+    get:
+      summary: 'get all promotion '
+      description: ''
+      operationId: app.get_all_promotion
+      responses:
+        '200':
+          description: Get get all promotion
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/promotion'
+  '/promotion/{promotion_id}':
+    delete:
+      summary: delete a promotion by ID
+      description: ''
+      operationId: app.delete_promotion
+      parameters:
+        - $ref: '#/components/parameters/promotion'
+      responses:
+        '200':
+          description: ' '
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/promotion'
+    put:
+      summary: update a promotion id
+      description: 'Update a promotion  '
+      operationId: app.update_promotion
+      parameters:
+        - $ref: '#/components/parameters/promotion'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/promotion'
+      responses:
+        '200':
+          description: ' '
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/promotion'
+    get:
+      summary: get promotion type  by id
+      description: ''
+      operationId: app.get_promotion
+      parameters:
+        - $ref: '#/components/parameters/promotion'
+      responses:
+        '200':
+          description: ' '
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/promotion'
+  /promotiontype:
+    post:
+      summary: create a new  promotion type
+      description: ''
+      operationId: app.create_promotion_type
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/promotiontype'
+      responses:
+        '200':
+          description: ' '
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/promotiontype'
+    get:
+      summary: get all promotion types
+      description: ''
+      operationId: app.get_all_promotion_type
+      responses:
+        '200':
+          description: ' '
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/promotiontype'
+  '/promotiontype/{promotiontype_id}':
+    delete:
+      summary: delete a promotion type by id
+      description: ''
+      operationId: app.delete_promotion_type
+      parameters:
+        - $ref: '#/components/parameters/promotiontype'
+      responses:
+        '200':
+          description: ' '
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/promotiontype'
+    put:
+      summary: update a promotion type by id
+      description: Update a promotion type
+      operationId: app.update_promotion_type
+      parameters:
+        - $ref: '#/components/parameters/promotiontype'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/promotiontype'
+      responses:
+        '200':
+          description: ' '
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/promotiontype'
+    get:
+      summary: get promotion type  by id
+      description: ''
+      operationId: app.get_promotion_type
+      parameters:
+        - $ref: '#/components/parameters/promotiontype'
+      responses:
+        '200':
+          description: ' '
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/promotiontype'
+  /promotiontype/extra_pa:
+    post:
+      summary: Create a new extra percentage for all items
+      description: ''
+      operationId: app.create_extra_percentage_all
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/extra_pa'
+      responses:
+        '200':
+          description: 'New promotion: extra percentages off for all items'
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/extra_pa'
+    get:
+      summary: 'to get all promotion type: extra percentage  '
+      description: ''
+      operationId: app.get_extra_percentage_all
+      responses:
+        '200':
+          description: 'List of all promotion type: extra percentage for all items '
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/extra_pa'
+  '/promotiontype/extra_pa/{extra_pa_id}':
+    delete:
+      summary: 'delete the promotion type: extra percentage off for all'
+      description: ''
+      operationId: app.delete_extra_percentage_all
+      parameters:
+        - $ref: '#/components/parameters/extra_pa'
+      responses:
+        '200':
+          description: ' '
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/extra_pa'
+    put:
+      summary: 'update the percent off of promotion tyep: extra percentage off for all'
+      description: 'Update percent off '
+      operationId: app.update_extra_percentage_all
+      parameters:
+        - $ref: '#/components/parameters/extra_pa'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/extra_pa'
+      responses:
+        '200':
+          description: ' '
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/extra_pa'
+    get:
+      summary: get promotion type  by id
+      description: ''
+      operationId: app.get_extra_percentage_all_id
+      parameters:
+        - $ref: '#/components/parameters/extra_pa'
+      responses:
+        '200':
+          description: ' '
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/extra_pa'
+components:
+  parameters:
+    merchant:
+      name: merchant_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    promotion:
+      name: promotion_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    promotiontype:
+      name: promotiontype_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    extra_pa:
+      name: extra_pa_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+  schemas:
+    merchant:
+      type: object
+      required:
+        - createdTime
+        - name
+        - address
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for a merchant
+        createdTime:
+          type: string
+          format: date-time
+          description: Datetime the merchant was created
+          readOnly: true
+        name:
+          type: string
+          description: Name of the merchant
+        phone:
+          type: string
+          description: Business phone number
+        address:
+          type: string
+          description: Business address
+        hours:
+          type: object
+          description: Hours
+    createdOrder:
+      allOf:
+        - $ref: '#components/schemas/order'
+        - type: object
+          properties:
+            status:
+              type: string
+              enum:
+                - pending
+                - processing
+                - shipping
+                - completed
+                - canceled
+            subTotal:
+              type: number
+            discount:
+              type: number
+            id:
+              type: string
+              format: uuid
+            createdTime:
+              type: string
+              format: date-time
+            updatedTime:
+              type: string
+              format: date-time
+    order:
+      type: object
+      required:
+        - customer
+        - items
+        - taxMultiplier
+        - tipMultiplier
+        - paymentToken
+      properties:
+        customer:
+          $ref: '#components/schemas/customer'
+        paymentToken:
+          type: string
+          description: payment token
+        items:
+          type: array
+          items:
+            $ref: '#components/schemas/order_item'
+        delivery:
+          $ref: '#components/schemas/delivery'
+        taxMultiplier:
+          type: number
+        tipMultiplier:
+          type: number
+        promoCode:
+          type: string
+    customer:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - phone
+        - email
+      properties:
+        email:
+          type: string
+          description: customer's email
+        firstName:
+          type: string
+          description: customer's first_name
+        lastName:
+          type: string
+          description: customer's surname
+        phone:
+          type: string
+          description: customer's phone
+    order_item:
+      type: object
+      required:
+        - menuItemId
+        - quantity
+      properties:
+        menuItemId:
+          type: string
+          format: uuid
+          description: A unique identifier for a item
+        quantity:
+          type: integer
+          description: number of item
+        specialInstruction:
+          type: string
+          description: note from customer
+        addOns:
+          type: array
+          items:
+            type: string
+            format: uuid
+    delivery:
+      type: object
+      properties:
+        deliveryFee:
+          type: number
+        deliveryType:
+          type: string
+    pickup:
+      type: object
+      required:
+        - deliveryType
+      properties:
+        deliveryType:
+          type: string
+        locationId:
+          type: string
+          format: uuid
+        time:
+          type: string
+          format: date-time
+    promocode:
+      type: object
+      required:
+        - order_id
+        - promo_code
+        - sub_total
+        - total_discount
+        - shipping_fee
+        - shipping_discount
+      properties:
+        order_id:
+          type: string
+          format: uuid
+          description: A unique identifier for a each order
+        promo_code:
+          type: string
+          description: promo code
+        sub_total:
+          type: number
+          description: sub total of the order
+        total_discount:
+          type: number
+          description: total discount for this order
+        shipping_fee:
+          type: number
+          description: shipping cost for this order
+        shipping_discount:
+          type: number
+          description: shipping discount for this order
+    promotion:
+      type: object
+      required:
+        - promotiontype_id
+        - description
+        - is_active
+        - start_date
+        - end_date
+        - image_url
+        - promo_code
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for a promotion type
+          readOnly: true
+        promotiontype_id:
+          type: string
+          format: uuid
+          description: A unique identifier for a promotion type
+        description:
+          type: string
+          description: description for promotion
+        is_active:
+          type: boolean
+          description: active or not
+        start_date:
+          type: string
+          format: date-time
+          description: Datetime the promotion begin
+        end_date:
+          type: string
+          format: date-time
+          description: Datetime the promotion end
+        image_url:
+          type: string
+          description: image url
+          nullable: true
+        promo_code:
+          type: string
+          description: promo code
+        createdTime:
+          type: string
+          format: date-time
+          description: Datetime the promotion type was created
+          readOnly: true
+    promotiontype:
+      type: object
+      required:
+        - promotion_type
+        - description
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for a promotion type
+          readOnly: true
+        promotion_type:
+          type: string
+          description: Name of the promotion type
+        description:
+          type: string
+          description: description
+        createdTime:
+          type: string
+          format: date-time
+          description: Datetime the promotion type was created
+          readOnly: true
+    extra_pa:
+      type: object
+      required:
+        - promotiontype_id
+        - percent_off
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for a promotion type
+          readOnly: true
+        promotiontype_id:
+          type: string
+          format: uuid
+          description: A unique identifier for a promotion type
+        percent_off:
+          type: number
+          description: percent off for the order
+        updated_time:
+          type: string
+          format: date-time
+          description: Datetime this type of promotion type was updated
+          readOnly: true

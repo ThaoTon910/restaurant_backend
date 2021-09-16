@@ -1,0 +1,7 @@
+#parameters/promotion_type.yaml
+name: promotiontype_id
+in: path
+required: true
+schema:
+  type: string
+  format: uuid

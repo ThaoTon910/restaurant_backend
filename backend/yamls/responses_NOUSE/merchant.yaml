@@ -1,0 +1,10 @@
+## responses/merchants.yaml
+#'200':
+#  description: |-
+#    New Merchant information
+#  content:
+#    application/json:
+#      schema:
+#        items:
+#          $ref: "../schemas/merchant.yaml"
+#

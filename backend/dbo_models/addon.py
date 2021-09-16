@@ -11,6 +11,7 @@ class AddonDBO(db.Model):
     addon_group = relationship("AddonGroupDBO", backref=backref("addons", cascade="all,delete"))
 
     addon_group_id = db.Column(GUID, ForeignKey("addongroup.id"), index=True, nullable=False)
+    order_item = relationship("OrderItemDBO", secondary="addontoorderitem" )
     id = db.Column(GUID, primary_key=True)
     name = db.Column(VARCHAR(100), nullable=False)
     price = db.Column(Float, nullable=True)

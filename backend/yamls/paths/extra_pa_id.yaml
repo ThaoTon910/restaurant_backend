@@ -1,0 +1,54 @@
+# paths/extra_pa_id.yaml
+
+delete:
+  summary: "delete the promotion type: extra percentage off for all"
+  description: ""
+  operationId: app.delete_extra_percentage_all
+  parameters:
+    - $ref: "../parameters/_index.yaml#/extra_pa"
+
+  responses:
+    '200':
+      description: ' '
+      content:
+        application/json:
+          schema:
+            items:
+              $ref: "../schemas/_index.yaml#/extra_pa"
+
+put:
+  summary: "update the percent off of promotion tyep: extra percentage off for all"
+  description: "Update percent off "
+  operationId: app.update_extra_percentage_all
+  parameters:
+    - $ref: "../parameters/_index.yaml#/extra_pa"
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: "../schemas/_index.yaml#/extra_pa"
+
+  responses:
+    '200':
+      description: ' '
+      content:
+        application/json:
+          schema:
+            items:
+              $ref: "../schemas/_index.yaml#/extra_pa"
+
+get:
+  summary: "get promotion type  by id"
+  description: ""
+  operationId: app.get_extra_percentage_all_id
+  parameters:
+    - $ref: "../parameters/_index.yaml#/extra_pa"
+
+  responses:
+    '200':
+      description: ' '
+      content:
+        application/json:
+          schema:
+            items:
+              $ref: "../schemas/_index.yaml#/extra_pa"

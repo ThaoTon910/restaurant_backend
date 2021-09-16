@@ -18,6 +18,7 @@ class AddonSchema(BaseSchema):
     updatedTime = fields.DateTime(dump_only=True, format='iso8601', attribute="updated_time")
 
 
+
 if __name__ == '__main__':
     addon_schema = AddonSchema()
     addon_json = {
@@ -30,3 +31,4 @@ if __name__ == '__main__':
     # loaded = addon_schema.load(addon_json)
     # print(loaded)
     print(addon_schema.load(addon_json))
+    print(addon_json)

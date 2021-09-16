@@ -24,6 +24,10 @@ docker-compose up -d postgres
 ```
 ### To upgrade database
 ```bash
+setx SQLALCHEMY_DATABASE_URI postgresql://postgres:root@localhost:5432/postgres
+setx FLASK_APP app:flask_app
+flask db upgrade
+
 cd backend 
 export SQLALCHEMY_DATABASE_URI=postgresql://postgres:root@localhost:5432/postgres
 export FLASK_APP=app:flask_app
@@ -31,7 +35,7 @@ flask db upgrade
 
 flask db migrate -m <message>
 flask db upgrade
-# REMEMBER TO CHECK IN THE MIGRATION FILES
+# REMEMBER TO CHECK IN THE MIGRATION FILES to import dbo_models
 ```
 ###Run program 
 ```bash

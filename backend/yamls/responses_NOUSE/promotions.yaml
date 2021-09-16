@@ -1,0 +1,20 @@
+## responses/promotions.yaml
+#post:
+#  '200':
+#    description:  "New promotion"
+#    content:
+#      application/json:
+#        schema:
+#          items:
+#            $ref: "../schemas/promotion.yaml"
+#
+#
+#get:
+#  '200':
+#    description:  "Get get all promotion types"
+#    content:
+#      application/json:
+#        schema:
+#          type: array
+#          items:
+#            $ref: "../schemas/promotion.yaml"

@@ -1,0 +1,36 @@
+# schemas/_index.yaml
+merchant:
+  $ref: "./merchant.yaml"
+
+
+createdOrder:
+  $ref: "./order.yaml#/createdOrder"
+
+order:
+  $ref: "./order.yaml#/order"
+
+customer:
+  $ref: "./order.yaml#/customer"
+
+order_item:
+  $ref: "./order.yaml#/order_item"
+
+delivery:
+  $ref: "./order.yaml#/delivery"
+
+pickup:
+  $ref: "./order.yaml#/pickup"
+
+
+
+promocode:
+  $ref: "./promocode.yaml"
+
+promotion:
+  $ref: "./promotion.yaml"
+
+promotiontype:
+  $ref: "./promotion_type.yaml"
+
+extra_pa:
+  $ref: "./extra_pa.yaml"

@@ -9,8 +9,8 @@ def category_dto_to_dbo(dto: CategoryDTO) -> CategoryDBO:
         name = dto.name,
         index = dto.index
     )
-    # dbo.updated_time = dto.updated_time
-    # dbo.created_time = dto.created_time
+    dbo.updated_time = dto.updated_time
+    dbo.created_time = dto.created_time
     return dbo
 
 def category_dbo_to_dto(dbo: CategoryDBO) -> CategoryDTO:
