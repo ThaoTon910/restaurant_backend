@@ -41,7 +41,9 @@ class MerchantService(BaseService):
 
     def update(self, dto: MerchantDTO) -> MerchantDTO:
         dbo = merchant_dto_to_dbo(dto)
-        r = self.session.query(MerchantDBO).filter(MerchantDBO.id == dto.id).update(self.get_updated_key_value(dbo))
+        dbo2 = self.session.query(MerchantDBO).first()
+        # ToDo: remove merchant id
+        r = self.session.query(MerchantDBO).filter(MerchantDBO.id == dbo2.id).update(self.get_updated_key_value(dbo))
         # self.session.merge(dbo)
         self.session.commit()
         return merchant_dbo_to_dto(dbo)
