@@ -1,0 +1,89 @@
+#path/addon.yaml
+
+noParameter:
+  post:
+    summary: "create a new addon"
+    description: ""
+    operationId: app.create_addon
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/_index.yaml#/addon"
+
+    responses:
+      '200':
+        description: |-
+          New Addon Information
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/addon"
+  get:
+    summary: "get all add on"
+    description: ""
+    operationId: app.get_all_addons
+    responses:
+      '200':
+        description: |-
+          Get all Addon
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../schemas/_index.yaml#/addon"
+
+withParameter:
+  get:
+    summary: "get addon by id"
+    description: ""
+    operationId: app.get_addon
+    parameters:
+      - $ref: "../parameters/_index.yaml#/uuid"
+
+    responses:
+      '200':
+        description: |-
+          Get addon by id
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/addon"
+  put:
+    summary: "update a addon by id"
+    description: ""
+    operationId: app.update_addon
+    parameters:
+      - $ref: "../parameters/_index.yaml#/uuid"
+
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/_index.yaml#/addon"
+
+    responses:
+      '200':
+        description: |-
+          updated addon object
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/addon"
+
+  delete:
+    summary: "delete a addon by id"
+    description: ""
+    operationId: app.delete_addon
+    parameters:
+      - $ref: "../parameters/_index.yaml#/uuid"
+
+    responses:
+      '200':
+        description: |-
+          Deleted addon object
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/addon"

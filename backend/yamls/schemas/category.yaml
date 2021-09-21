@@ -1,0 +1,40 @@
+# schemas/category.yaml
+category:
+  type: object
+  required:
+    - name
+    - index
+  properties:
+    id:
+      type: string
+      format: uuid
+      description: A unique identifier for a category.py
+      # readOnly: true
+    name:
+      type: string
+      description: Name of the category.py
+    index:
+      type: integer
+      description: order to display index
+    menuItems:
+      type: array
+      items:
+        $ref: "./_index.yaml#/menu_item"
+    createdTime:
+      type: string
+      format: date-time
+      description: |-
+        Datetime the category was created
+      # readOnly: true
+    updatedTime:
+      type: string
+      format: date-time
+      description: |-
+        Datetime the category was created
+        # readOnly: true
+
+
+
+
+
+

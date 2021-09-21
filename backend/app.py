@@ -58,22 +58,17 @@ def delete_merchant() -> Response:
 
 def update_merchant() -> Response:
     return MerchantResource.update()
-# =======
-#     return {} # MerchantResource.post()
 
-def get_merchant(merchant_id: UUID) -> Response:
-    return {} # MerchantResource.get(merchant_id)
+# def get_merchant(merchant_id: UUID) -> Response:
+#     return {} # MerchantResource.get(merchant_id)
 
 #order
 def create_order():
     return OrderResource.post()
-
 def update_order(order_id: UUID):
     return OrderResource.update_order(order_id)
-
 def get_order(order_id: UUID):
     return  OrderResource.get_order(order_id)
-
 def get_all_order():
     return  OrderResource.get_all_order()
 
@@ -82,64 +77,63 @@ def create_category() -> Response:
     return CategoryResource.post()
 def get_all_categories() -> Response:
     return CategoryResource.get_all_categories()
-def get_category(category_id: UUID) -> Response:
-    return CategoryResource.get_by_id(category_id)
-def delete_category(category_id: UUID) -> Response:
-    return CategoryResource.delete(category_id)
-def update_category(category_id: UUID) -> Response:
-    return CategoryResource.update(category_id)
+def get_category(id: UUID) -> Response:
+    return CategoryResource.get_by_id(id)
+def delete_category(id: UUID) -> Response:
+    return CategoryResource.delete(id)
+def update_category(id: UUID) -> Response:
+    return CategoryResource.update(id)
 
 #Menu Item
 def create_menu_item() -> Response:
     return MenuItemResource.post()
 def get_all_menu_items() -> Response:
     return MenuItemResource.get_all_menu_items()
-def get_menu_items_from_category(category_id:UUID) -> Response:
-    return MenuItemResource.get_menu_items_from_category(category_id)
-def get_menu_item(menu_item_id: UUID) -> Response:
-    return MenuItemResource.get_by_id(menu_item_id)
-def update_menu_item(menu_item_id: UUID) -> Response:
-    return MenuItemResource.update(menu_item_id)
-def delete_menu_item(menu_item_id: UUID) -> Response:
-    return MenuItemResource.delete(menu_item_id)
+def get_menu_items_from_category(id:UUID) -> Response:
+    return MenuItemResource.get_menu_items_from_category(id)
+def get_menu_item(id: UUID) -> Response:
+    return MenuItemResource.get_by_id(id)
+def update_menu_item(id: UUID) -> Response:
+    return MenuItemResource.update(id)
+def delete_menu_item(id: UUID) -> Response:
+    return MenuItemResource.delete(id)
 
 #Addon Group
 def create_addon_group() -> Response:
     return AddonGroupResource.post()
 def get_all_addon_groups() -> Response:
     return AddonGroupResource.get_all_addon_groups()
-def get_addon_groups_from_menu_item(menu_item_id:UUID) -> Response:
-    return AddonGroupResource.get_addon_groups_from_menu_item(menu_item_id)
-def get_addon_group(addon_group_id: UUID) -> Response:
-    return AddonGroupResource.get_by_id(addon_group_id)
+def get_addon_groups_from_menu_item(id:UUID) -> Response:
+    return AddonGroupResource.get_addon_groups_from_menu_item(id)
 
-def delete_addon_group(addon_group_id: UUID) -> Response:
-    return AddonGroupResource.delete(addon_group_id)
-
-def update(addon_group_id: UUID) -> Response:
-    return AddonGroupResource.update(addon_group_id)
+def get_addon_group(id: UUID) -> Response:
+    return AddonGroupResource.get_by_id(id)
+def delete_addon_group( id: UUID) -> Response:
+    return AddonGroupResource.delete(id)
+def update(id: UUID) -> Response:
+    return AddonGroupResource.update(id)
 
 #Addon
 def create_addon() -> Response:
     return AddonResource.post()
 def get_all_addons() -> Response:
     return AddonResource.get_all_addons()
-def get_addons_from_group(addon_group_id:UUID) -> Response:
-    return AddonResource.get_addons_from_group(addon_group_id)
-def get_addon(addon_id: UUID) -> Response:
-    return AddonResource.get_by_id(addon_id)
-def update_addon(addon_id: UUID) -> Response:
-    return AddonResource.update(addon_id)
-def delete_addon(addon_id: UUID) -> Response:
-    return AddonResource.delete(addon_id)
+def get_addons_from_group(id:UUID) -> Response:
+    return AddonResource.get_addons_from_group(id)
+def get_addon(id: UUID) -> Response:
+    return AddonResource.get_by_id(id)
+def update_addon(id: UUID) -> Response:
+    return AddonResource.update(id)
+def delete_addon(id: UUID) -> Response:
+    return AddonResource.delete(id)
 
 #Menu Item to Addon Group
 def create_menu_item_to_addon_group() -> Response:
     return MenuItemToAddonGroupResource.post()
 def get_all_menu_item_to_addon_group() -> Response:
     return MenuItemToAddonGroupResource.get_all_menu_item_to_addon_group()
-def delete_menu_item_to_addon_group(menu_item_id: UUID, addon_group_id: UUID) -> Response:
-    return MenuItemToAddonGroupResource.delete(menu_item_id, addon_group_id)
+def delete_menu_item_to_addon_group(id: UUID, addon_group_id: UUID) -> Response:
+    return MenuItemToAddonGroupResource.delete(id, addon_group_id)
 
 def get_menu()->Response:
     return MenuResource.get_menu()
@@ -153,12 +147,12 @@ def create_promotion() -> Response:
     return PromotionResource.post()
 def get_all_promotion() -> Response:
     return PromotionResource.get_all_promotion()
-def get_promotion(promotion_id: UUID) -> Response:
-    return PromotionResource.get_by_id(promotion_id)
-def delete_promotion(promotion_id: UUID) -> Response:
-    return PromotionResource.delete_promotion(promotion_id)
-def update_promotion(promotion_id: UUID) -> Response:
-    return PromotionResource.update_promotion(promotion_id)
+def get_promotion(id: UUID) -> Response:
+    return PromotionResource.get_by_id(id)
+def delete_promotion(id: UUID) -> Response:
+    return PromotionResource.delete_promotion(id)
+def update_promotion(id: UUID) -> Response:
+    return PromotionResource.update_promotion(id)
 
 
 # promotion type functions
@@ -166,12 +160,12 @@ def create_promotion_type() -> Response:
     return PromotionTypeResource.post()
 def get_all_promotion_type() -> Response:
     return PromotionTypeResource.get_all_promotion_type()
-def get_promotion_type(promotiontype_id: UUID) -> Response:
-    return PromotionTypeResource.get_by_id(promotiontype_id)
-def delete_promotion_type( promotiontype_id: UUID) -> Response:
-    return PromotionTypeResource.delete_promotion_type(promotiontype_id)
-def update_promotion_type( promotiontype_id: UUID) -> Response:
-    return PromotionTypeResource.update_promotion_type(promotiontype_id)
+def get_promotion_type(id: UUID) -> Response:
+    return PromotionTypeResource.get_by_id(id)
+def delete_promotion_type( id: UUID) -> Response:
+    return PromotionTypeResource.delete_promotion_type(id)
+def update_promotion_type( id: UUID) -> Response:
+    return PromotionTypeResource.update_promotion_type(id)
 
 # extra_percentage_all
 def create_extra_percentage_all() -> Response:

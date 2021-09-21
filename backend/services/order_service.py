@@ -11,6 +11,7 @@ from dbo_models.order_item import OrderItemDBO
 from dbo_models.add_on_to_order_item import AddonToOrderItem
 from dbo_models.customer import CustomerDBO
 from converters.order_convert import order_dbo_to_dto
+from dbo_models.delivery import DeliveryDBO
 
 import logging
 
@@ -28,6 +29,7 @@ class OrderService(BaseService):
 
     # create new promotion in table "promotion", get data from resource
     def create(self, dto: OrderDTO) -> OrderDTO:
+        print("inside service 1")
 
         order_dbo = OrderDBO(dto)
 
@@ -36,20 +38,31 @@ class OrderService(BaseService):
                                    email=dto.customer["email"],
                                    phone_number=dto.customer["phone_number"])
         order_dbo.customer = customer_dbo
+
+        delivery = DeliveryDBO(delivery_type=dto.delivery["info"]["delivery_type"],
+                               fee=dto.delivery["delivery_fee"],
+                               time=dto.delivery["info"]["time"],
+                               merchant_id=dto.delivery["info"]["merchant_id"])
+        # order_dbo.delivery.append
+
+        delivery.order = order_dbo
         order_dbo.discount=0.0
+
         for item in dto.items:
             item_dbo = self.session.query(MenuItemDBO).get(item["menu_item_id"])
             print("item dbo: ", item_dbo)
             price = item_dbo.price
             order_item_dbo = OrderItemDBO(order=order_dbo, menu_item=item_dbo, quantity=item["quantity"],
                                           special_instruction=item["special_instruction"])
-            for addon in item["add_ons"]:
-                add_on_dbo = self.session.query(AddonDBO).get(addon)
-                print("add_on dbo: ", add_on_dbo)
-                price += add_on_dbo.price
-                order_item_dbo.add_ons.append(add_on_dbo)
-            # print("price: ", price)
-            order_item_dbo.price = price
+            if "add_ons" in  item:
+                for addon in item["add_ons"]:
+                    add_on_dbo = self.session.query(AddonDBO).get(addon)
+                    print("add_on dbo: ", add_on_dbo)
+                    price += add_on_dbo.price
+                    order_item_dbo.add_ons.append(add_on_dbo)
+                # print("price: ", price)
+
+            order_item_dbo.price = price #*item["quantity"]
             # order_dbo.order_items.append(order_item_dbo)
 
         # print("order_dbo return:", order_dbo.order_items)

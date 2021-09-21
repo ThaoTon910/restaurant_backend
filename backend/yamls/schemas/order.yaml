@@ -98,8 +98,8 @@ delivery:
   properties:
     deliveryFee:
       type: number
-    deliveryType:
-      type: string
+    info:
+      $ref: "#components/schemas/pickup"
 
 pickup:
   type: object
@@ -108,7 +108,7 @@ pickup:
   properties:
     deliveryType:
       type: string
-    locationId:
+    merchantId:
       type: string
       format: uuid
     time:

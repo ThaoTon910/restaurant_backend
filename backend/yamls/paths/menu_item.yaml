@@ -1,0 +1,171 @@
+#path/menu_item.yaml
+noParameter:
+  get:
+    summary: "get all menu item"
+    description: ""
+    operationId: app.get_all_menu_items
+    responses:
+      '200':
+        description: |-
+          Get all Recipes
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../schemas/_index.yaml#/menu_item"
+  post:
+    summary: "create a menu item"
+    description: ""
+    operationId: app.create_menu_item
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/_index.yaml#/menu_item"
+
+    responses:
+      '200':
+        description: |-
+          New Recipe information
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/menu_item"
+
+withParameter:
+  get:
+    summary: "get menu item by id"
+    description: ""
+    operationId: app.get_menu_item
+    parameters:
+      - $ref: "../parameters/_index.yaml#/uuid"
+    responses:
+      '200':
+        description: |-
+          Get recipe by id
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/menu_item"
+  delete:
+    summary: "delete a menu item by id"
+    description: ""
+    operationId: app.delete_menu_item
+    parameters:
+      - $ref: "../parameters/_index.yaml#/uuid"
+
+    responses:
+      '200':
+        description: |-
+          Deleted menu item object
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/menu_item"
+
+  put:
+    summary: "update a menu item by id"
+    description: ""
+    operationId: app.update_menu_item
+    parameters:
+      - $ref: "../parameters/_index.yaml#/uuid"
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/_index.yaml#/menu_item"
+    responses:
+      '200':
+        description: |-
+          updated menu item object
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/menu_item"
+# for menu
+menu:
+  get:
+    summary: "get menu"
+    description: ""
+    operationId: app.get_menu
+    responses:
+      '200':
+        description: |-
+          Get menu
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/menu"
+
+# for add on group to menu item
+addOnGroupsToMenuItem:
+  get:
+    summary: "get all addon groups in a menu item"
+    description: ""
+    operationId: app.get_addon_groups_from_menu_item
+    parameters:
+      - $ref: "../parameters/_index.yaml#/uuid"
+    responses:
+      '200':
+        description: |-
+          Get all addon groups in a menu item
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../schemas/_index.yaml#/addonGroup"
+
+# for menu item to add on groups
+menuItemToAddOnGroup:
+  post:
+    summary: "create a new menu item to addon groups"
+    description: ""
+    operationId: app.create_menu_item_to_addon_group
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/_index.yaml#/menuItemToAddOnGroup"
+    responses:
+      '200':
+        description: |-
+          New menu item to addon groups Information
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/menuItemToAddOnGroup"
+
+  get:
+    summary: "get all menu item to addon groups"
+    description: ""
+    operationId: app.get_all_menu_item_to_addon_group
+    responses:
+      '200':
+        description: |-
+          Get all Menu Item To Addon Groups
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../schemas/_index.yaml#/menuItemToAddOnGroup"
+
+menuItemToAddOnGroupsWithIDs:
+  delete:
+    summary: "delete a menu item to addon group"
+    description: ""
+    operationId: app.delete_menu_item_to_addon_group
+    parameters:
+      - $ref: "../parameters/_index.yaml#/menu_item_id"
+      - $ref: "../parameters/_index.yaml#/addon_group_id"
+
+    responses:
+      '200':
+        description: |-
+          Deleted menu item to addon groups object
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/menuItemToAddOnGroup"

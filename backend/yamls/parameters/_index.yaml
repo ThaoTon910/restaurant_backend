@@ -1,12 +1,48 @@
 # parameters/_index.yaml
-merchant:
-  $ref: "./merchant.yaml"
+menu_item_id:
+  name: menu_item_id
+  in: path
+  required: true
+  schema:
+    type: string
+    format: uuid
 
-promotion:
-  $ref: "./promotion.yaml"
+addon_group_id:
+  name: addon_group_id
+  in: path
+  required: true
+  schema:
+    type: string
+    format: uuid
 
-promotiontype:
-  $ref: "./promotion_type.yaml"
+uuid:
+  name: id
+  in: path
+  required: true
+  schema:
+    type: string
+    format: uuid
+#
+#merchant:
+#  $ref: "./merchant.yaml"
+#
+#category:
+#  $ref: "./category.yaml#/category_id"
+#
+#menu_item:
+#  $ref: "./menu_item.yaml#/menu_item_id"
+#
+#addon:
+#  $ref: "./addon.yaml#/addon_id"
+
+#addon_group_id:
+#  $ref: "./addon.yaml#/addon_group_id"
+#
+#promotion:
+#  $ref: "./promotion.yaml"
+
+#promotiontype:
+#  $ref: "./promotion_type.yaml"
 
 extra_pa:
   $ref: "./extra_pa.yaml"

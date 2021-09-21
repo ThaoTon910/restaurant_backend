@@ -1,0 +1,108 @@
+#path/category.yaml
+
+noParameter:
+  post:
+    summary: "create a new category.py"
+    description: ""
+    operationId: app.create_category
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/_index.yaml#/category"
+
+    responses:
+      '200':
+        description: |-
+          New Category information
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/category"
+
+  get:
+    summary: "get all categories"
+    description: ""
+    operationId: app.get_all_categories
+    responses:
+      '200':
+        description: |-
+          Get all Categories
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../schemas/_index.yaml#/category"
+
+withParameter:
+  get:
+    summary: "get category.py by id"
+    description: ""
+    operationId: app.get_category
+    parameters:
+      - $ref: "../parameters/_index.yaml#/uuid"
+    responses:
+      '200':
+        description: |-
+          Get category by id
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/category"
+
+  delete:
+    summary: "delete a category by id"
+    description: ""
+    operationId: app.delete_category
+    parameters:
+      - $ref: "../parameters/_index.yaml#/uuid"
+
+    responses:
+      '200':
+        description: |-
+          Deleted category object
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/category"
+
+  put:
+    summary: "update a category by id"
+    description: ""
+    operationId: app.update_category
+    parameters:
+      - $ref: "../parameters/_index.yaml#/uuid"
+
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/_index.yaml#/category"
+
+    responses:
+      '200':
+        description: |-
+          updated category object
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/category"
+
+menuItemToCategory:
+  get:
+    summary: "get all menu items in a category"
+    description: ""
+    operationId: app.get_menu_items_from_category
+    parameters:
+      - $ref: "../parameters/_index.yaml#/uuid"
+    responses:
+      '200':
+        description: |-
+          Get all menu items in a category
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../schemas/_index.yaml#/menu_item"

@@ -27,3 +27,9 @@ class OrderItemDTO(object):
         init=True,
         type=List[UUID]
     )
+    price = attrib(
+        init=True,
+        type=float,
+        validator=validators.instance_of(float),
+        default=0.0
+    )

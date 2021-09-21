@@ -9,6 +9,7 @@ class OrderItemSchema(BaseSchema):
      quantity = fields.Integer(required=True)
      addOns = fields.List(fields.UUID, required=False, attribute="add_ons")
      specialInstruction = fields.String(required=False, attribute="special_instruction")
+     price = fields.Float(required=True, dump_only=True)
 
 
 

@@ -9,7 +9,7 @@ servers:
   - url: "/v0"
 
 paths:
-#Merchant ok
+#Merchant done
   /merchant:
     post:
       summary: "create a new merchant"
@@ -29,7 +29,6 @@ paths:
             application/json:
               schema:
                 $ref: '#components/schemas/Merchant'
-
     get:
       summary: "get all merchant"
       description: ""
@@ -77,7 +76,7 @@ paths:
                   $ref: '#components/schemas/Merchant'
 
 #category (create, get all, get by id, delete, update)
-  /category:
+  /category: #done
     post:
       summary: "create a new category.py"
       description: ""
@@ -112,7 +111,7 @@ paths:
                 items:
                   $ref: '#components/schemas/Category'
 
-  /category/{category_id}/menu-items:
+  /category/{category_id}/menu-items:  # done
     get:
       summary: "get all menu items in a category"
       description: ""
@@ -130,7 +129,7 @@ paths:
                 items:
                   $ref: '#components/schemas/MenuItem'
 
-  /category/{category_id}:
+  /category/{category_id}: # done
     get:
       summary: "get category.py by id"
       description: ""
@@ -184,7 +183,7 @@ paths:
                 $ref: '#components/schemas/Category'
 
 #menu-item (create, get all, get by id)
-  /menu-item:
+  /menu-item: # done
     post:
       summary: "create a menu item"
       description: ""
@@ -219,7 +218,7 @@ paths:
                 items:
                   $ref: '#components/schemas/MenuItem'
 
-  /menu-item/{menu_item_id}/addon-groups:
+  /menu-item/{menu_item_id}/addon-groups: # done
     get:
       summary: "get all addon groups in a menu item"
       description: ""
@@ -237,7 +236,7 @@ paths:
                 items:
                   $ref: '#components/schemas/AddonGroup'
 
-  /menu-item/{menu_item_id}:
+  /menu-item/{menu_item_id}: # done
     get:
       summary: "get menu item by id"
       description: ""
@@ -291,7 +290,7 @@ paths:
                   $ref: '#components/schemas/MenuItem'
 
 
-  /addon-group:
+  /addon-group: #done
     post:
       summary: "create a new addon group"
       description: ""
@@ -326,7 +325,7 @@ paths:
                 items:
                   $ref: '#components/schemas/AddonGroup'
 
-  /addon-group/{addon_group_id}:
+  /addon-group/{addon_group_id}: #done
     get:
       summary: "get addon group by id"
       description: ""
@@ -378,7 +377,7 @@ paths:
               schema:
                 $ref: '#components/schemas/AddonGroup'
 
-  /addon-group/{addon_group_id}/addons:
+  /addon-group/{addon_group_id}/addons: # done
     get:
       summary: "get all addons in an addon group"
       description: ""
@@ -396,8 +395,8 @@ paths:
                 items:
                   $ref: '#components/schemas/Addon'
 
-#addon
-  /addon:
+#addon ~~
+  /addon:  #done
     post:
       summary: "create a new addon"
       description: ""
@@ -431,7 +430,7 @@ paths:
                 items:
                   $ref: '#components/schemas/Addon'
 
-  /addon/{addon_id}:
+  /addon/{addon_id}: #done
     get:
       summary: "get addon by id"
       description: ""
@@ -456,9 +455,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#components/schemas/Addon'
-
-<<<<<<< HEAD
+                $ref: '#components/schemas/Addon'
       responses:
         '200':
           description: |-
@@ -484,10 +481,8 @@ paths:
               schema:
                 $ref: '#components/schemas/Addon'
 
-=======
->>>>>>> new_promotion
 #menu item to addon group
-  /menu-item-to-addon-group:
+  /menu-item-to-addon-group: # done
     post:
       summary: "create a new menu item to addon groups"
       description: ""
@@ -521,7 +516,8 @@ paths:
                 type: array
                 items:
                   $ref: '#components/schemas/MenuItemToAddonGroup'
-  /menu-item-to-addon-group/{menu_item_id}/{addon_group_id}:
+
+  /menu-item-to-addon-group/{menu_item_id}/{addon_group_id}: #DONE
     delete:
       summary: "delete a menu item to addon group"
       description: ""
@@ -539,10 +535,8 @@ paths:
               schema:
                 $ref: '#components/schemas/MenuItemToAddonGroup'
 
-
-
 #menu
-  /menu:
+  /menu: #done
     get:
       summary: "get menu"
       description: ""
@@ -554,14 +548,7 @@ paths:
           content:
             application/json:
               schema:
-<<<<<<< HEAD
                 $ref: '#components/schemas/Menu'
-=======
-                type: object
-#                items:
-#                  $ref: '#components/schemas/Addon'
->>>>>>> new_promotion
-
 
 components:
   parameters:
@@ -638,7 +625,7 @@ components:
           type: array
           items:
             $ref: '#components/schemas/Hour'
-
+# @
     Category:
       type: object
       required:

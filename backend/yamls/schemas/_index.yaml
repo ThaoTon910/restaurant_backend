@@ -1,7 +1,23 @@
 # schemas/_index.yaml
 merchant:
-  $ref: "./merchant.yaml"
+  $ref: "./merchant.yaml#/merchant"
 
+category:
+  $ref: "./category.yaml#/category"
+
+menu:
+  $ref: "./menu_item.yaml#/menu"
+
+menu_item:
+  $ref: "./menu_item.yaml#/menu_item"
+
+menuItemToAddOnGroup:
+  $ref: "./menu_item.yaml#/menuItemToAddOnGroup"
+addon:
+   $ref: "./addon.yaml#/addon"
+
+addonGroup:
+   $ref: "./addon.yaml#/addonGroup"
 
 createdOrder:
   $ref: "./order.yaml#/createdOrder"
@@ -21,16 +37,14 @@ delivery:
 pickup:
   $ref: "./order.yaml#/pickup"
 
-
-
 promocode:
   $ref: "./promocode.yaml"
 
 promotion:
-  $ref: "./promotion.yaml"
+  $ref: "./promotion.yaml#/promotion"
 
-promotiontype:
-  $ref: "./promotion_type.yaml"
+promotionType:
+  $ref: "./promotion_type.yaml#/promotionType"
 
 extra_pa:
   $ref: "./extra_pa.yaml"

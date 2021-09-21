@@ -19,8 +19,6 @@ post:
             items:
               $ref: "../schemas/_index.yaml#/promotion"
 
-
-
 get:
   summary: "get all promotion "
   description: ""

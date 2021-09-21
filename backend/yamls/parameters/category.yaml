@@ -1,0 +1,9 @@
+# parameters/category.yaml
+
+category_id:
+  name: category_id
+  in: path
+  required: true
+  schema:
+    type: string
+    format: uuid

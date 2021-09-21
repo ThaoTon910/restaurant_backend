@@ -6,6 +6,467 @@ info:
 servers:
   - url: /v0
 paths:
+  /merchant:
+    post:
+      summary: create a new merchant
+      description: ''
+      operationId: app.create_merchant
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/merchant'
+      responses:
+        '200':
+          description: New Merchant information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/merchant'
+    get:
+      summary: get all merchant
+      description: ''
+      operationId: app.get_merchant
+      responses:
+        '200':
+          description: Get all Merchants
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/merchant'
+    delete:
+      summary: delete a merchant
+      description: ''
+      operationId: app.delete_merchant
+      responses:
+        '200':
+          description: Deleted merchant object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/merchant'
+    put:
+      summary: put all merchant
+      description: ''
+      operationId: app.update_merchant
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/merchant'
+      responses:
+        '200':
+          description: update all Merchants
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/merchant'
+  /category:
+    post:
+      summary: create a new category.py
+      description: ''
+      operationId: app.create_category
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/category'
+      responses:
+        '200':
+          description: New Category information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/category'
+    get:
+      summary: get all categories
+      description: ''
+      operationId: app.get_all_categories
+      responses:
+        '200':
+          description: Get all Categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/category'
+  '/category/{id}':
+    get:
+      summary: get category.py by id
+      description: ''
+      operationId: app.get_category
+      parameters:
+        - $ref: '#/components/parameters/uuid'
+      responses:
+        '200':
+          description: Get category by id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/category'
+    delete:
+      summary: delete a category by id
+      description: ''
+      operationId: app.delete_category
+      parameters:
+        - $ref: '#/components/parameters/uuid'
+      responses:
+        '200':
+          description: Deleted category object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/category'
+    put:
+      summary: update a category by id
+      description: ''
+      operationId: app.update_category
+      parameters:
+        - $ref: '#/components/parameters/uuid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/category'
+      responses:
+        '200':
+          description: updated category object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/category'
+  '/category/{id}/menu-items':
+    get:
+      summary: get all menu items in a category
+      description: ''
+      operationId: app.get_menu_items_from_category
+      parameters:
+        - $ref: '#/components/parameters/uuid'
+      responses:
+        '200':
+          description: Get all menu items in a category
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/menu_item'
+  /menu:
+    get:
+      summary: get menu
+      description: ''
+      operationId: app.get_menu
+      responses:
+        '200':
+          description: Get menu
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/menu'
+  /menu-item:
+    get:
+      summary: get all menu item
+      description: ''
+      operationId: app.get_all_menu_items
+      responses:
+        '200':
+          description: Get all Recipes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/menu_item'
+    post:
+      summary: create a menu item
+      description: ''
+      operationId: app.create_menu_item
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/menu_item'
+      responses:
+        '200':
+          description: New Recipe information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/menu_item'
+  '/menu-item/{id}':
+    get:
+      summary: get menu item by id
+      description: ''
+      operationId: app.get_menu_item
+      parameters:
+        - $ref: '#/components/parameters/uuid'
+      responses:
+        '200':
+          description: Get recipe by id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/menu_item'
+    delete:
+      summary: delete a menu item by id
+      description: ''
+      operationId: app.delete_menu_item
+      parameters:
+        - $ref: '#/components/parameters/uuid'
+      responses:
+        '200':
+          description: Deleted menu item object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/menu_item'
+    put:
+      summary: update a menu item by id
+      description: ''
+      operationId: app.update_menu_item
+      parameters:
+        - $ref: '#/components/parameters/uuid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/menu_item'
+      responses:
+        '200':
+          description: updated menu item object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/menu_item'
+  /menu-item-to-addon-group:
+    post:
+      summary: create a new menu item to addon groups
+      description: ''
+      operationId: app.create_menu_item_to_addon_group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/menuItemToAddOnGroup'
+      responses:
+        '200':
+          description: New menu item to addon groups Information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/menuItemToAddOnGroup'
+    get:
+      summary: get all menu item to addon groups
+      description: ''
+      operationId: app.get_all_menu_item_to_addon_group
+      responses:
+        '200':
+          description: Get all Menu Item To Addon Groups
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/menuItemToAddOnGroup'
+  '/menu-item-to-addon-group/{menu_item_id}/{addon_group_id}':
+    delete:
+      summary: delete a menu item to addon group
+      description: ''
+      operationId: app.delete_menu_item_to_addon_group
+      parameters:
+        - $ref: '#/components/parameters/menu_item_id'
+        - $ref: '#/components/parameters/addon_group_id'
+      responses:
+        '200':
+          description: Deleted menu item to addon groups object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/menuItemToAddOnGroup'
+  '/menu-item/{id}/addon-groups':
+    get:
+      summary: get all addon groups in a menu item
+      description: ''
+      operationId: app.get_addon_groups_from_menu_item
+      parameters:
+        - $ref: '#/components/parameters/uuid'
+      responses:
+        '200':
+          description: Get all addon groups in a menu item
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/addonGroup'
+  /addon-group:
+    post:
+      summary: create a new addon group
+      description: ''
+      operationId: app.create_addon_group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addonGroup'
+      responses:
+        '200':
+          description: New Addon Group Information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/addonGroup'
+    get:
+      summary: get all add on group
+      description: ''
+      operationId: app.get_all_addon_groups
+      responses:
+        '200':
+          description: Get all Addon Groups
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/addonGroup'
+  '/addon-group/{id}':
+    get:
+      summary: get addon group by id
+      description: ''
+      operationId: app.get_addon_group
+      parameters:
+        - $ref: '#/components/parameters/uuid'
+      responses:
+        '200':
+          description: Get addon group by id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/addonGroup'
+    put:
+      summary: update a addon group by id
+      description: ''
+      operationId: app.update
+      parameters:
+        - $ref: '#/components/parameters/uuid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addonGroup'
+      responses:
+        '200':
+          description: updated addon group object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/addonGroup'
+    delete:
+      summary: delete a addongroup by id
+      description: ''
+      operationId: app.delete_addon_group
+      parameters:
+        - $ref: '#/components/parameters/uuid'
+      responses:
+        '200':
+          description: Deleted addon group object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/addonGroup'
+  '/addon-group/{id}/addons':
+    get:
+      summary: get all addons in an addon group
+      description: ''
+      operationId: app.get_addons_from_group
+      parameters:
+        - $ref: '#/components/parameters/uuid'
+      responses:
+        '200':
+          description: Get all addons in an addon group
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/addon'
+  /addon:
+    post:
+      summary: create a new addon
+      description: ''
+      operationId: app.create_addon
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addon'
+      responses:
+        '200':
+          description: New Addon Information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/addon'
+    get:
+      summary: get all add on
+      description: ''
+      operationId: app.get_all_addons
+      responses:
+        '200':
+          description: Get all Addon
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/addon'
+  '/addon/{id}':
+    get:
+      summary: get addon by id
+      description: ''
+      operationId: app.get_addon
+      parameters:
+        - $ref: '#/components/parameters/uuid'
+      responses:
+        '200':
+          description: Get addon by id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/addon'
+    put:
+      summary: update a addon by id
+      description: ''
+      operationId: app.update_addon
+      parameters:
+        - $ref: '#/components/parameters/uuid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addon'
+      responses:
+        '200':
+          description: updated addon object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/addon'
+    delete:
+      summary: delete a addon by id
+      description: ''
+      operationId: app.delete_addon
+      parameters:
+        - $ref: '#/components/parameters/uuid'
+      responses:
+        '200':
+          description: Deleted addon object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/addon'
   /order:
     post:
       summary: Create a new order
@@ -131,13 +592,13 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/promotion'
-  '/promotion/{promotion_id}':
+  '/promotion/{id}':
     delete:
       summary: delete a promotion by ID
       description: ''
       operationId: app.delete_promotion
       parameters:
-        - $ref: '#/components/parameters/promotion'
+        - $ref: '#/components/parameters/uuid'
       responses:
         '200':
           description: ' '
@@ -151,7 +612,7 @@ paths:
       description: 'Update a promotion  '
       operationId: app.update_promotion
       parameters:
-        - $ref: '#/components/parameters/promotion'
+        - $ref: '#/components/parameters/uuid'
       requestBody:
         content:
           application/json:
@@ -170,7 +631,7 @@ paths:
       description: ''
       operationId: app.get_promotion
       parameters:
-        - $ref: '#/components/parameters/promotion'
+        - $ref: '#/components/parameters/uuid'
       responses:
         '200':
           description: ' '
@@ -188,7 +649,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/promotiontype'
+              $ref: '#/components/schemas/promotionType'
       responses:
         '200':
           description: ' '
@@ -196,7 +657,7 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/promotiontype'
+                  $ref: '#/components/schemas/promotionType'
     get:
       summary: get all promotion types
       description: ''
@@ -209,33 +670,33 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/promotiontype'
-  '/promotiontype/{promotiontype_id}':
+                  $ref: '#/components/schemas/promotionType'
+  '/promotiontype/{id}':
     delete:
       summary: delete a promotion type by id
       description: ''
       operationId: app.delete_promotion_type
       parameters:
-        - $ref: '#/components/parameters/promotiontype'
+        - $ref: '#/components/parameters/uuid'
       responses:
         '200':
-          description: ' '
+          description: ' deleted promotion type'
           content:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/promotiontype'
+                  $ref: '#/components/schemas/promotionType'
     put:
       summary: update a promotion type by id
       description: Update a promotion type
       operationId: app.update_promotion_type
       parameters:
-        - $ref: '#/components/parameters/promotiontype'
+        - $ref: '#/components/parameters/uuid'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/promotiontype'
+              $ref: '#/components/schemas/promotionType'
       responses:
         '200':
           description: ' '
@@ -243,13 +704,13 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/promotiontype'
+                  $ref: '#/components/schemas/promotionType'
     get:
       summary: get promotion type  by id
       description: ''
       operationId: app.get_promotion_type
       parameters:
-        - $ref: '#/components/parameters/promotiontype'
+        - $ref: '#/components/parameters/uuid'
       responses:
         '200':
           description: ' '
@@ -257,7 +718,7 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/promotiontype'
+                  $ref: '#/components/schemas/promotionType'
   /promotiontype/extra_pa:
     post:
       summary: Create a new extra percentage for all items
@@ -339,22 +800,22 @@ paths:
                   $ref: '#/components/schemas/extra_pa'
 components:
   parameters:
-    merchant:
-      name: merchant_id
+    menu_item_id:
+      name: menu_item_id
       in: path
       required: true
       schema:
         type: string
         format: uuid
-    promotion:
-      name: promotion_id
+    addon_group_id:
+      name: addon_group_id
       in: path
       required: true
       schema:
         type: string
         format: uuid
-    promotiontype:
-      name: promotiontype_id
+    uuid:
+      name: id
       in: path
       required: true
       schema:
@@ -371,19 +832,15 @@ components:
     merchant:
       type: object
       required:
-        - createdTime
         - name
         - address
+        - phone
+        - hours
       properties:
-        id:
-          type: string
-          format: uuid
-          description: A unique identifier for a merchant
         createdTime:
           type: string
           format: date-time
           description: Datetime the merchant was created
-          readOnly: true
         name:
           type: string
           description: Name of the merchant
@@ -394,8 +851,210 @@ components:
           type: string
           description: Business address
         hours:
-          type: object
-          description: Hours
+          description: List of all hours
+          type: array
+          items:
+            type: object
+            required:
+              - start
+              - end
+              - day
+            properties:
+              start:
+                type: string
+                description: ...
+              end:
+                type: string
+                description: ...
+              day:
+                type: string
+                description: ...
+              'off':
+                type: boolean
+                description: day off
+    category:
+      type: object
+      required:
+        - name
+        - index
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for a category.py
+        name:
+          type: string
+          description: Name of the category.py
+        index:
+          type: integer
+          description: order to display index
+        menuItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/menu_item'
+        createdTime:
+          type: string
+          format: date-time
+          description: Datetime the category was created
+        updatedTime:
+          type: string
+          format: date-time
+          description: |-
+            Datetime the category was created
+            # readOnly: true
+    menu:
+      type: object
+      properties:
+        categories:
+          description: List of all categories
+          type: array
+          items:
+            $ref: '#/components/schemas/category'
+        addonGroups:
+          description: List of all addon groups
+          type: array
+          items:
+            $ref: '#/components/schemas/addonGroup'
+    menu_item:
+      type: object
+      required:
+        - name
+        - categoryId
+        - description
+        - price
+        - size
+        - imageUrl
+        - active
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier of a recipe
+        addonGroupIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        name:
+          type: string
+          description: Name of the  add on group
+        categoryId:
+          type: string
+          format: uuid
+          description: A foreign key category id from category
+        description:
+          type: string
+          nullable: true
+          description: description of a recipe
+        price:
+          type: number
+          description: price of a recipe
+        size:
+          type: string
+          description: size of a recipe
+        imageUrl:
+          type: string
+          nullable: true
+          description: image of a recipe
+        active:
+          type: boolean
+          nullable: true
+          description: an active status of a recipe
+        isTaxable:
+          type: boolean
+          nullable: true
+          description: tax status of a recipe
+        taxRate:
+          type: number
+          nullable: true
+          description: tax rate of a recipe
+        createdTime:
+          type: string
+          format: date-time
+          description: Datetime the menu item was created
+        updatedTime:
+          type: string
+          format: date-time
+          description: Datetime the menu item was created
+    menuItemToAddOnGroup:
+      type: object
+      required:
+        - addonGroupId
+        - menuItemId
+      properties:
+        addonGroupId:
+          type: string
+          format: uuid
+          description: A foreign key addon group id from addon group
+        menuItemId:
+          type: string
+          format: uuid
+          description: A foreign key menu item id from menu item group
+    addon:
+      type: object
+      required:
+        - addonGroupId
+        - name
+        - price
+        - description
+        - isTaxable
+      properties:
+        addonGroupId:
+          type: string
+          format: uuid
+          description: A foreign key addon group id from addon group
+        name:
+          type: string
+          description: Name of the addon
+        price:
+          type: number
+          description: price of a addon
+        description:
+          type: string
+          nullable: true
+          description: description of a addon
+        isTaxable:
+          type: boolean
+          nullable: true
+          description: tax status of a addon
+        createdTime:
+          type: string
+          format: date-time
+          description: Datetime the menu item was created
+        updatedTime:
+          type: string
+          format: date-time
+          description: Datetime the menu item was created
+    addonGroup:
+      type: object
+      required:
+        - name
+        - maxQuantity
+        - minQuantity
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier of a recipe
+        name:
+          type: string
+          description: Name of the add on group
+        maxQuantity:
+          type: number
+          nullable: true
+          description: Max addon quantity
+        minQuantity:
+          type: number
+          nullable: true
+          description: Min addon quantity
+        createdTime:
+          type: string
+          format: date-time
+          description: Datetime the add-on group was created
+        updatedTime:
+          type: string
+          format: date-time
+          description: Datetime the add-on group was created
     createdOrder:
       allOf:
         - $ref: '#components/schemas/order'
@@ -494,8 +1153,8 @@ components:
       properties:
         deliveryFee:
           type: number
-        deliveryType:
-          type: string
+        info:
+          $ref: '#components/schemas/pickup'
     pickup:
       type: object
       required:
@@ -503,7 +1162,7 @@ components:
       properties:
         deliveryType:
           type: string
-        locationId:
+        merchantId:
           type: string
           format: uuid
         time:
@@ -541,42 +1200,42 @@ components:
     promotion:
       type: object
       required:
-        - promotiontype_id
+        - promotiontypeId
         - description
-        - is_active
-        - start_date
-        - end_date
-        - image_url
-        - promo_code
+        - isActive
+        - startDate
+        - endDate
+        - imageUrl
+        - promoCode
       properties:
         id:
           type: string
           format: uuid
           description: A unique identifier for a promotion type
           readOnly: true
-        promotiontype_id:
+        promotiontypeId:
           type: string
           format: uuid
           description: A unique identifier for a promotion type
         description:
           type: string
           description: description for promotion
-        is_active:
+        isActive:
           type: boolean
           description: active or not
-        start_date:
+        startDate:
           type: string
           format: date-time
           description: Datetime the promotion begin
-        end_date:
+        endDate:
           type: string
           format: date-time
           description: Datetime the promotion end
-        image_url:
+        imageUrl:
           type: string
           description: image url
           nullable: true
-        promo_code:
+        promoCode:
           type: string
           description: promo code
         createdTime:
@@ -584,10 +1243,10 @@ components:
           format: date-time
           description: Datetime the promotion type was created
           readOnly: true
-    promotiontype:
+    promotionType:
       type: object
       required:
-        - promotion_type
+        - promotionType
         - description
       properties:
         id:
@@ -595,7 +1254,7 @@ components:
           format: uuid
           description: A unique identifier for a promotion type
           readOnly: true
-        promotion_type:
+        promotionType:
           type: string
           description: Name of the promotion type
         description:

@@ -1,7 +1,7 @@
 # dbo_models/order_dbo.py
 from database import db
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy import VARCHAR, Integer, DateTime, Boolean, Float, String, ForeignKey, UniqueConstraint
+from sqlalchemy import VARCHAR,  DateTime, JSON, Float, ForeignKey
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from ._helper import GUID
