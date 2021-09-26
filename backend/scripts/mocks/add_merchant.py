@@ -160,6 +160,7 @@ def add_orders(merchant_name):
           "tipMultiplier": 0
         }
     r = requests.post(BASE_URL + '/order', json=order_payload)
+    print("order ", r.json())
     assert r.status_code == 200
 
 
@@ -170,7 +171,7 @@ def create_merchant_detail(merchant_name):
     create_menu_item(merchant_name)
     create_addon(merchant_name)
     create_menu_item_to_addon_group(merchant_name)
-    # add_orders(merchant_name)
+    add_orders(merchant_name)
 
 if __name__ == "__main__":
     create_merchant_detail("pho21")
