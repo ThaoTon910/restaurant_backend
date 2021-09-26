@@ -132,14 +132,14 @@ def add_orders(merchant_name):
     order_payload = {
           "customer": {
             "email": "123@example.com",
-            "firstName": "Test",
-            "lastName": "User",
+            "firstName": "Hoang",
+            "lastName": "Tran",
             "phone": "(408) 123 4567"
           },
           "delivery": {
             "deliveryFee": 0,
             "info": {
-              "deliveryType": "deliveryType_test",
+              "deliveryType": "pickup",
               "merchantId": merchant_id,
               "time": str(datetime.datetime.now())
             }
