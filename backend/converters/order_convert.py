@@ -16,7 +16,7 @@ def order_dbo_to_dto(dbo: OrderDBO) -> OrderDTO:
         OrderItemDTO(
             special_instruction=order_item_dbo.special_instruction,
             quantity=order_item_dbo.quantity,
-            menu_item_id=order_item_dbo.menu_item.id,
+            menu_item_id=order_item_dbo.menu_item_id,
             add_ons=[
                 addon.id for addon in order_item_dbo.add_ons
             ],
@@ -28,8 +28,8 @@ def order_dbo_to_dto(dbo: OrderDBO) -> OrderDTO:
         "delivery_fee": delivery_dbo.fee,
         "info": {
             "delivery_type": delivery_dbo.delivery_type,
-            "time": delivery_dbo.pick_up.time,
-            "merchant_id": delivery_dbo.pick_up.merchant_id
+            "time": delivery_dbo.pick_up.time if delivery_dbo.pick_up else None,
+            "merchant_id": delivery_dbo.pick_up.merchant_id if delivery_dbo.pick_up else None
         }
     }
 

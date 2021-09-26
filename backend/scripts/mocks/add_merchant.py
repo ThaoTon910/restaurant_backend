@@ -1,3 +1,5 @@
+import datetime
+
 import requests
 import os
 import codecs
@@ -106,13 +108,69 @@ def create_menu_item_to_addon_group(merchant_name: str):
                     if(r.status_code == 500):
                         print(r.text)
 
+def add_orders(merchant_name):
+    r = requests.get(BASE_URL + '/merchant')
+    merchant_id = r.json()['id']
+    print(merchant_id)
+
+    r = requests.get(BASE_URL + '/menu')
+    menu = r.json()
+    categories = menu['categories']
+    addon_groups = menu['addonGroups']
+
+    pho_category = categories[1]
+    first_pho = pho_category['menuItems'][0]
+    first_addongroup_id = first_pho['addonGroupIds'][0]
+    # Get group detail data from group id where id is stored in first_addongroup_id and group list in addon_groups
+    addon_group = None
+    for group in addon_groups:
+        if group['id'] == first_addongroup_id:
+            addon_group = group
+            break
+    first_addon_id = addon_group['addons'][0]['id']
+
+    order_payload = {
+          "customer": {
+            "email": "123@example.com",
+            "firstName": "Test",
+            "lastName": "User",
+            "phone": "(408) 123 4567"
+          },
+          "delivery": {
+            "deliveryFee": 0,
+            "info": {
+              "deliveryType": "deliveryType_test",
+              "merchantId": merchant_id,
+              "time": str(datetime.datetime.now())
+            }
+          },
+          "items": [
+            {
+              "addOns": [
+                first_addon_id # uuid addon
+              ],
+              "menuItemId": first_pho["id"],
+              "quantity": 1,
+              "specialInstruction": "special"
+            }
+          ],
+          "paymentToken": "string",
+          "promoCode": "string",
+          "taxMultiplier": 0,
+          "tipMultiplier": 0
+        }
+    r = requests.post(BASE_URL + '/order', json=order_payload)
+    assert r.status_code == 200
+
+
 def create_merchant_detail(merchant_name):
-    # create_merchant(merchant_name)
+    create_merchant(merchant_name)
     create_categories(merchant_name)
     create_addon_group(merchant_name)
     create_menu_item(merchant_name)
     create_addon(merchant_name)
     create_menu_item_to_addon_group(merchant_name)
+    # add_orders(merchant_name)
 
 if __name__ == "__main__":
     create_merchant_detail("pho21")
