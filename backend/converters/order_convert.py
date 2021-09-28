@@ -28,10 +28,12 @@ def order_dbo_to_dto(dbo: OrderDBO) -> OrderDTO:
         "delivery_fee": delivery_dbo.fee,
         "info": {
             "delivery_type": delivery_dbo.delivery_type,
-            "time": delivery_dbo.pick_up.time if delivery_dbo.pick_up else None,
-            "merchant_id": delivery_dbo.pick_up.merchant_id if delivery_dbo.pick_up else None
         }
     }
+    if delivery_dbo.pick_up:
+        delivery["info"]["time"] = delivery_dbo.pick_up.time
+        delivery["info"]["merchant_id"] = delivery_dbo.pick_up.merchant_id
+
 
     dto = OrderDTO(
         payment_token=dbo.payment_token,
