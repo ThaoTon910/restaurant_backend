@@ -17,4 +17,6 @@ class OrderSchema(BaseSchema):
 
     status = fields.String(required=True, dump_only=True)
     discount = fields.Float(required=True, dump_only=True)
+    createdTime = fields.DateTime(required=True, dump_only=True, format='iso8601', attribute="created_time")
+    updatedTime = fields.DateTime(required=True, dump_only=True, format='iso8601', attribute="updated_time")
     id = fields.UUID(dump_only=True)
