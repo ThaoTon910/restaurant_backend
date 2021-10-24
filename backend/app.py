@@ -71,6 +71,9 @@ def get_order(order_id: UUID):
     return  OrderResource.get_order(order_id)
 def get_all_order():
     return  OrderResource.get_all_order()
+def get_payment_intent():
+    return OrderResource.create_payment_intent()
+
 
 # Category
 def create_category() -> Response:

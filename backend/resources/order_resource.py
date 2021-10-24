@@ -5,6 +5,7 @@ from uuid import UUID
 from schemas.order_schema import OrderSchema
 from dto_models.app_order_dto import OrderDTO
 from services.order_service import OrderService
+from schemas.payment_intent import PaymentIntentSchema
 import logging
 
 logger = logging.getLogger(__name__)
@@ -94,6 +95,24 @@ class OrderResource:
             logger.debug("Promotion Type Resource  post 500 {}".format(e))
 
         schema = OrderSchema()
+        # Dumps to UI format (json)
+        response_data = schema.dumps(returned_dto)
+
+        return Response(response_data, status=200, headers={}, mimetype="application/json")
+
+    @staticmethod
+    def create_payment_intent() -> Response:
+        try:
+            json = request.get_json(force=True)  # get from body
+
+            if not json.get("amount"):
+                abort(400, {'message': 'invalid amount'})
+            returned_dto = OrderService().get_payment_intent(amount=json.get("amount"))
+        except Exception as e:
+            abort(500, {'message': str(e)})
+            logger.debug("Payment Indent Type Resource  post 500 {}".format(e))
+
+        schema = PaymentIntentSchema()
         # Dumps to UI format (json)
         response_data = schema.dumps(returned_dto)
 
