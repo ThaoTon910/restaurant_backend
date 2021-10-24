@@ -14,8 +14,8 @@ from converters.order_convert import order_dbo_to_dto
 from dbo_models.delivery import DeliveryDBO
 from dto_models.payment_intent import PaymentIntentDTO
 import stripe
-
-stripe.api_key = "sk_test_51JntlwGjZM1U6lN0oZsX1AREl2jMAfbhPcrE26o9dNNokPvIbakkKgtF2C67RZdb9fP7KbVueacZq1I23hREErdJ00Sp1BXXYs"
+#TODO: add this secret key to environment variable
+stripe.api_key = "sk_test_51Jno9iJtWODUig1GpEc6isyYnuA51IPjJ1c3fIvEWbOVA09y8LUNSmU3uRifuKiKq4augXBylY5q9VGoelqy13Jn00sJCKAEyx"
 
 import logging
 
