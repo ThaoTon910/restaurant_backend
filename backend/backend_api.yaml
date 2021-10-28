@@ -53,6 +53,9 @@ paths:
   /addon/{id}:
     $ref: "./yamls/paths/addon.yaml#/withParameter"
 
+  /order-initial-payment:
+    $ref: "./yamls/paths/createPayment.yaml"
+
   /order:
     $ref: "./yamls/paths/order.yaml#/noParameter"
 
@@ -75,10 +78,10 @@ paths:
   /promotiontype/{id}:
     $ref: "./yamls/paths/promotion_type.yaml#/withParameter"
 
-  /promotiontype/extra_pa:
+  /promotiontype/extra-pa:
     $ref: "./yamls/paths/extra_pa.yaml"
 
-  /promotiontype/extra_pa/{extra_pa_id}:
+  /promotiontype/extra-pa/{extra_pa_id}:
     $ref: "./yamls/paths/extra_pa_id.yaml"
 
 components:

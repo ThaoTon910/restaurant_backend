@@ -467,6 +467,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/addon'
+  /order-initial-payment:
+    post:
+      summary: Send payment intent to Stripe
+      description: 'require, the amount > 0.0!'
+      operationId: app.initial_payment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/initialPayment'
+      responses:
+        '200':
+          description: get client secret
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/clientSecret'
   /order:
     post:
       summary: Create a new order
@@ -719,7 +737,7 @@ paths:
               schema:
                 items:
                   $ref: '#/components/schemas/promotionType'
-  /promotiontype/extra_pa:
+  /promotiontype/extra-pa:
     post:
       summary: Create a new extra percentage for all items
       description: ''
@@ -750,7 +768,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/extra_pa'
-  '/promotiontype/extra_pa/{extra_pa_id}':
+  '/promotiontype/extra-pa/{extra_pa_id}':
     delete:
       summary: 'delete the promotion type: extra percentage off for all'
       description: ''
@@ -1127,6 +1145,22 @@ components:
         phone:
           type: string
           description: customer's phone
+    initialPayment:
+      type: object
+      required:
+        - amount
+      properties:
+        amount:
+          type: number
+          description: amount wish to make in this payment
+    clientSecret:
+      type: object
+      required:
+        - clientSecret
+      properties:
+        clientSecret:
+          type: string
+          description: client secret to process the other
     order_item:
       type: object
       required:

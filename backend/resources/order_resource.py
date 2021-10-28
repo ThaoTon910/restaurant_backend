@@ -1,15 +1,41 @@
 # resources/order_resource.py
+import stripe
+import json
 from flask import request, Response, abort, jsonify
 from utils.exceptions import ObjectAlreadyExists
 from uuid import UUID
 from schemas.order_schema import OrderSchema
+from schemas.client_secret import ClientSecret
 from dto_models.app_order_dto import OrderDTO
 from services.order_service import OrderService
 import logging
 
 logger = logging.getLogger(__name__)
 
+stripe.api_key = "sk_test_51Jno9iJtWODUig1GpEc6isyYnuA51IPjJ1c3fIvEWbOVA09y8LUNSmU3uRifuKiKq4augXBylY5q9VGoelqy13Jn00sJCKAEyx"
+
+
 class OrderResource:
+    @staticmethod
+    # send payment intent to stripe
+    def create_payment() -> Response:
+        data = json.loads(request.data)
+        try:
+            if "amount" in data:
+                try:
+                    intent = stripe.PaymentIntent.create(
+                        amount=data["amount"], currency="usd"
+                    )
+                    return jsonify({"client_secret": intent["client_secret"]}), 200
+                    print(response_data)
+                except ValueError as e:
+                    return jsonify(error=str(e)), 400
+            else:
+                return jsonify(error="No amount to pay in request"), 400
+        except Exception as e:
+            return jsonify(error=str(e)), 500
+
+
     # create(post), get_by_id, get_all, update, delete
     @staticmethod
     def post() -> Response:
@@ -41,7 +67,7 @@ class OrderResource:
         # return "hello-->"
 
     @staticmethod
-    def get_all_order() ->Response:
+    def get_all_order() -> Response:
         try:
             returned_dto = OrderService().get_all_order()
         except ValueError as e:
@@ -57,7 +83,7 @@ class OrderResource:
         return Response(response_data, status=200, headers={}, mimetype="application/json")
 
     @staticmethod
-    def get_order(order_id: UUID) ->Response:
+    def get_order(order_id: UUID) -> Response:
         try:
             returned_dto = OrderService().get_order(order_id)
         except ValueError as e:
@@ -71,7 +97,6 @@ class OrderResource:
         response_data = schema.dumps(returned_dto)
 
         return Response(response_data, status=200, headers={}, mimetype="application/json")
-
 
     @staticmethod
     def update_order(order_id: UUID) -> Response:

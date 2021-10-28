@@ -26,6 +26,7 @@ CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
 MIGRATION_DIR = os.path.join(CURRENT_DIR, "migrations")
 
 
+
 def create_app():
     # initial app API
     os.system('swagger-cli bundle backend_api.yaml --outfile app_run.yaml --type yaml')
@@ -61,8 +62,9 @@ def update_merchant() -> Response:
 
 # def get_merchant(merchant_id: UUID) -> Response:
 #     return {} # MerchantResource.get(merchant_id)
-
 #order
+def initial_payment():
+    return OrderResource.create_payment()
 def create_order():
     return OrderResource.post()
 def update_order(order_id: UUID):
@@ -71,6 +73,8 @@ def get_order(order_id: UUID):
     return  OrderResource.get_order(order_id)
 def get_all_order():
     return  OrderResource.get_all_order()
+
+
 
 # Category
 def create_category() -> Response:
