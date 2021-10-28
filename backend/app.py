@@ -63,8 +63,8 @@ def update_merchant() -> Response:
 # def get_merchant(merchant_id: UUID) -> Response:
 #     return {} # MerchantResource.get(merchant_id)
 #order
-def initial_payment():
-    return OrderResource.create_payment()
+# def initial_payment():
+#     return OrderResource.create_payment()
 def create_order():
     return OrderResource.post()
 def update_order(order_id: UUID):

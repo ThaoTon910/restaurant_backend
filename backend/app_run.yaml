@@ -471,7 +471,7 @@ paths:
     post:
       summary: Send payment intent to Stripe
       description: 'require, the amount > 0.0!'
-      operationId: app.initial_payment
+      operationId: app.get_payment_intent
       requestBody:
         content:
           application/json:
@@ -579,25 +579,6 @@ paths:
               schema:
                 items:
                   $ref: '#/components/schemas/promocode'
-  /order/payment-intent:
-    post:
-      summary: Get payment intent
-      description: ''
-      operationId: app.get_payment_intent
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PaymentIntentInput'
-      responses:
-        '200':
-          description: New promotion
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/PaymentIntent'
-
   /promotion:
     post:
       summary: Create a new promotion
@@ -1143,20 +1124,6 @@ components:
         tipMultiplier:
           type: number
         promoCode:
-          type: string
-    PaymentIntentInput:
-      type: object
-      required:
-        - amount
-      properties:
-        amount:
-          type: number
-    PaymentIntent:
-      type: object
-      required:
-        - clientSecret
-      properties:
-        clientSecret:
           type: string
     customer:
       type: object

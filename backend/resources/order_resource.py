@@ -17,24 +17,24 @@ stripe.api_key = "sk_test_51Jno9iJtWODUig1GpEc6isyYnuA51IPjJ1c3fIvEWbOVA09y8LUNS
 
 
 class OrderResource:
-    @staticmethod
-    # send payment intent to stripe
-    def create_payment() -> Response:
-        data = json.loads(request.data)
-        try:
-            if "amount" in data:
-                try:
-                    intent = stripe.PaymentIntent.create(
-                        amount=data["amount"], currency="usd"
-                    )
-                    return jsonify({"client_secret": intent["client_secret"]}), 200
-                    print(response_data)
-                except ValueError as e:
-                    return jsonify(error=str(e)), 400
-            else:
-                return jsonify(error="No amount to pay in request"), 400
-        except Exception as e:
-            return jsonify(error=str(e)), 500
+    # @staticmethod
+    # # send payment intent to stripe
+    # def create_payment() -> Response:
+    #     data = json.loads(request.data)
+    #     try:
+    #         if "amount" in data:
+    #             try:
+    #                 intent = stripe.PaymentIntent.create(
+    #                     amount=data["amount"], currency="usd"
+    #                 )
+    #                 return jsonify({"client_secret": intent["client_secret"]}), 200
+    #                 print(response_data)
+    #             except ValueError as e:
+    #                 return jsonify(error=str(e)), 400
+    #         else:
+    #             return jsonify(error="No amount to pay in request"), 400
+    #     except Exception as e:
+    #         return jsonify(error=str(e)), 500
 
 
     # create(post), get_by_id, get_all, update, delete

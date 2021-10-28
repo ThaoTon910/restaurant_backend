@@ -3,7 +3,7 @@
 post:
   summary: "Send payment intent to Stripe"
   description: "require, the amount > 0.0!"
-  operationId: app.initial_payment
+  operationId: app.get_payment_intent
   requestBody:
     content:
       application/json:
