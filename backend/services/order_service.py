@@ -12,6 +12,10 @@ from dbo_models.add_on_to_order_item import AddonToOrderItem
 from dbo_models.customer import CustomerDBO
 from converters.order_convert import order_dbo_to_dto
 from dbo_models.delivery import DeliveryDBO
+from dto_models.payment_intent import PaymentIntentDTO
+import stripe
+#TODO: add this secret key to environment variable
+stripe.api_key = "sk_test_51Jno9iJtWODUig1GpEc6isyYnuA51IPjJ1c3fIvEWbOVA09y8LUNSmU3uRifuKiKq4augXBylY5q9VGoelqy13Jn00sJCKAEyx"
 
 import logging
 
@@ -103,3 +107,9 @@ class OrderService(BaseService):
         # print("new dto: ", new_dto)
         return new_dto
 
+    def get_payment_intent(self, amount: float) -> PaymentIntentDTO:
+        intent = stripe.PaymentIntent.create(
+            amount=amount, currency="usd"
+        )
+        payment_intent_dto = PaymentIntentDTO(client_secret=intent["client_secret"])
+        return payment_intent_dto

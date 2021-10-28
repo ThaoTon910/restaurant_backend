@@ -1,9 +1,49 @@
-{
-  "id": "1abad2af-e334-4073-82b9-ac32359cb38a",
-  "name": "Pho 21",
-  "address": "2569 S King Rd, San Jose, CA 95122",
-  "phone": "(669) 275-9099",
-  "hours": {
-    "display": "MONDAY - THURSDAY\n10:00am - 11:45pm\nFRIDAY - SATURDAY\n10:00am - 2:00am\nSUNDAY\n10:00am - 11:45pm"
-  }
-}
+ {
+     "address": "12345 King avenue",
+     "phone": "(408) 888 8888",
+     "name": "Pho26",
+     "hours": [
+         {
+             "day": "Monday",
+             "end": "22:00:00",
+             "start": "09:00:00",
+             "off": false
+         },
+         {
+             "day": "Tuesday",
+           "end": "22:00:00",
+             "start": "09:00:00",
+             "off": false
+         },
+         {
+             "day": "Wednesday",
+             "end": "22:00:00",
+             "start": "09:00:00",
+             "off": false
+         },
+         {
+             "day": "Thursday",
+             "end": "22:00:00",
+             "start": "09:00:00",
+             "off": false
+         },
+         {
+             "day": "Friday",
+             "end": "22:00:00",
+             "start": "09:00:00",
+             "off": false
+         },
+         {
+             "day": "Saturday",
+             "end": "22:00:00",
+             "start": "09:00:00",
+             "off": false
+         },
+         {
+             "day": "Sunday",
+             "end": "22:00:00",
+             "start": "09:00:00",
+             "off": false
+         }
+     ]
+ }
