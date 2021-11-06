@@ -4,9 +4,11 @@ from schemas import BaseSchema
 from schemas.customer import CustomerSchema
 from schemas.delivery import DeliverySchema
 from schemas.order_item import OrderItemSchema
+from schemas.payment import PaymentSchema
 
 class OrderSchema(BaseSchema):
 
+    payment = fields.Nested(PaymentSchema)
     customer = fields.Nested(CustomerSchema)
     delivery = fields.Nested(DeliverySchema)
     items = fields.List(fields.Nested(OrderItemSchema), required=True)

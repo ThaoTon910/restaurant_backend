@@ -7,14 +7,14 @@ from schemas import BaseSchema
 from dto_models.customer import CustomerDTO
 from dto_models.order_item import OrderItemDTO
 from dto_models.delivery import DeliveryDTO
+from dto_models.payment import PaymentDTO
 
 
 @attrs
 class OrderDTO(object):
-    payment_token = attrib(
-        init=True,
-        type=str,
-        validator=validators.instance_of(str),
+    payment = attrib(
+        init=False,
+        type=PaymentDTO
     )
     promo_code = attrib(
         init=True,

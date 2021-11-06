@@ -13,6 +13,8 @@ from dbo_models.customer import CustomerDBO
 from converters.order_convert import order_dbo_to_dto
 from dbo_models.delivery import DeliveryDBO
 from dto_models.payment_intent import PaymentIntentDTO
+from dbo_models.payment import PaymentDBO
+
 import stripe
 #TODO: add this secret key to environment variable
 stripe.api_key = "sk_test_51Jno9iJtWODUig1GpEc6isyYnuA51IPjJ1c3fIvEWbOVA09y8LUNSmU3uRifuKiKq4augXBylY5q9VGoelqy13Jn00sJCKAEyx"
@@ -33,48 +35,40 @@ class OrderService(BaseService):
 
     # create new promotion in table "promotion", get data from resource
     def create(self, dto: OrderDTO) -> OrderDTO:
-        print("inside service 1")
-
         order_dbo = OrderDBO(dto)
-
         customer_dbo = CustomerDBO(first_name=dto.customer["first_name"],
                                    last_name=dto.customer["last_name"],
                                    email=dto.customer["email"],
                                    phone_number=dto.customer["phone_number"])
         order_dbo.customer = customer_dbo
-
         delivery = DeliveryDBO(delivery_type=dto.delivery["info"]["delivery_type"],
                                fee=dto.delivery["delivery_fee"],
                                time=dto.delivery["info"]["time"],
                                merchant_id=dto.delivery["info"]["merchant_id"])
-        # order_dbo.delivery.append
-
         delivery.order = order_dbo
         order_dbo.discount=0.0
 
+        subtotal = 0.0
         for item in dto.items:
             item_dbo = self.session.query(MenuItemDBO).get(item["menu_item_id"])
-            print("item dbo: ", item_dbo)
             price = item_dbo.price
             order_item_dbo = OrderItemDBO(order=order_dbo, menu_item=item_dbo, quantity=item["quantity"],
                                           special_instruction=item["special_instruction"])
             if "add_ons" in  item:
                 for addon in item["add_ons"]:
                     add_on_dbo = self.session.query(AddonDBO).get(addon)
-                    print("add_on dbo: ", add_on_dbo)
                     price += add_on_dbo.price
                     order_item_dbo.add_ons.append(add_on_dbo)
-                # print("price: ", price)
-
+            subtotal += price
             order_item_dbo.price = price #*item["quantity"]
-            # order_dbo.order_items.append(order_item_dbo)
 
-        # print("order_dbo return:", order_dbo.order_items)
-
+        payment_intent =  self.get_payment_intent(round(subtotal*100))
+        payment_dbo = PaymentDBO(payment_intent_id = payment_intent.id, client_secret=payment_intent.client_secret)
+        payment_dbo.order = order_dbo
         self.session.add(order_dbo)
         self.session.commit()
+
         new_dto = order_dbo_to_dto(order_dbo)
-        # print("new dto: ", new_dto)
         return new_dto
 
     def get_all_order(self) -> OrderDTO:
@@ -107,9 +101,21 @@ class OrderService(BaseService):
         # print("new dto: ", new_dto)
         return new_dto
 
-    def get_payment_intent(self, amount: float) -> PaymentIntentDTO:
-        intent = stripe.PaymentIntent.create(
+    def get_payment_intent(self, amount: float):
+        return stripe.PaymentIntent.create(
             amount=amount, currency="usd"
         )
-        payment_intent_dto = PaymentIntentDTO(client_secret=intent["client_secret"])
-        return payment_intent_dto
+        # print("Intent: ", intent)
+        # payment_intent_dto = PaymentIntentDTO(client_secret=intent["client_secret"])
+        # return payment_intent_dto
+
+    def process_payment(self, payment_intent_id: str, receipt_url: str):
+        payment = self.session.query(PaymentDBO).filter_by(payment_intent_id=payment_intent_id).first()
+        if not payment:
+            raise ObjectNotFound(f"payment_intent_id: '{payment_intent_id}' not found!")\
+
+        payment.receipt_url = receipt_url
+        payment.order.status = "pending"
+        self.session.commit()
+        order_dto = order_dbo_to_dto(payment.order)
+        return order_dto

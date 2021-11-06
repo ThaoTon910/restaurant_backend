@@ -1,4 +1,13 @@
 # schemas/order.yaml
+orderResponse:
+  type: object
+  properties:
+    order:
+      $ref: "#components/schemas/createdOrder"
+    clientSecret:
+      type: string
+
+
 order:
   type: object
   required:
@@ -6,14 +15,10 @@ order:
     - items
     - taxMultiplier
     - tipMultiplier
-    - paymentToken
 
   properties:
     customer:
       $ref: "#components/schemas/customer"
-    paymentToken:
-      type: string
-      description: payment token
     items:
       type: array
       items:

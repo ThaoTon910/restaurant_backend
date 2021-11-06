@@ -65,6 +65,14 @@ paths:
   /order/promocode:
     $ref: "./yamls/paths/promocode.yaml"
 
+  /webhook:
+    post:
+      summary: "Stripe webhooks event listening"
+      description: ""
+      operationId: app.handle_webhooks
+      responses:
+        '200':
+          description:  "from stripe"
 
   /promotion:
     $ref: "./yamls/paths/promotion.yaml#/noParameter"

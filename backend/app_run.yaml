@@ -579,6 +579,14 @@ paths:
               schema:
                 items:
                   $ref: '#/components/schemas/promocode'
+  /webhook:
+    post:
+      summary: Stripe webhooks event listening
+      description: ''
+      operationId: app.handle_webhooks
+      responses:
+        '200':
+          description: from stripe
   /promotion:
     post:
       summary: Create a new promotion
@@ -1073,6 +1081,13 @@ components:
           type: string
           format: date-time
           description: Datetime the add-on group was created
+    orderResponse:
+      type: object
+      properties:
+        order:
+          $ref: '#components/schemas/createdOrder'
+        clientSecret:
+          type: string
     createdOrder:
       allOf:
         - $ref: '#components/schemas/order'
@@ -1106,13 +1121,9 @@ components:
         - items
         - taxMultiplier
         - tipMultiplier
-        - paymentToken
       properties:
         customer:
           $ref: '#components/schemas/customer'
-        paymentToken:
-          type: string
-          description: payment token
         items:
           type: array
           items:

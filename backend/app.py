@@ -1,6 +1,9 @@
 import os
 import connexion
-from flask import Response, Flask
+import pprint
+import stripe
+from dotenv import load_dotenv
+from flask import Response, Flask, request
 from flask_migrate import Migrate
 from flask_cors import CORS
 from database import db
@@ -25,8 +28,8 @@ logger = logging.getLogger(__name__)
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
 MIGRATION_DIR = os.path.join(CURRENT_DIR, "migrations")
 
-
-
+load_dotenv()
+pp = pprint.PrettyPrinter(indent=4)
 def create_app():
     # initial app API
     os.system('swagger-cli bundle backend_api.yaml --outfile app_run.yaml --type yaml')
@@ -75,7 +78,22 @@ def get_all_order():
     return  OrderResource.get_all_order()
 def get_payment_intent():
     return OrderResource.create_payment_intent()
+def handle_webhooks():
+    json = request.get_json(force=True)  # get from body
+    pp.pprint(json)
+    sk = os.getenv('STRIPE_SK')
+    # print(f"SK: {sk}")
+    event = stripe.Event.construct_from(
+        json,
+        sk
+    )
+    if event.type == 'charge.succeeded':
+        payment_intent_id = event.data.object.payment_intent
+        receipt_url = event.data.object.receipt_url
+        return OrderResource.process_payment(payment_intent_id, receipt_url)
 
+        print("\nPaymentIntent succeeded!!")
+    return "handle webhook!"
 
 
 

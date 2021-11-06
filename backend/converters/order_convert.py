@@ -4,13 +4,21 @@ from dbo_models.order_dbo import OrderDBO
 from dto_models.app_order_dto import OrderDTO
 from dto_models.customer import CustomerDTO
 from dto_models.order_item import OrderItemDTO
+from dto_models.payment import PaymentDTO
 
 def order_dbo_to_dto(dbo: OrderDBO) -> OrderDTO:
+    print("Inisde order_dbo_to_dto:  ", dbo.payment)
     customer = CustomerDTO(
         first_name=dbo.customer.first_name,
         last_name=dbo.customer.last_name,
         phone_number=dbo.customer.phone_number,
         email=dbo.customer.email
+    )
+    payment_dbo = dbo.payment[0]
+    payment = PaymentDTO(
+        payment_intent_id=payment_dbo.payment_intent_id,
+        client_secret=payment_dbo.client_secret,
+        refunded=payment_dbo.refunded
     )
     items = [
         OrderItemDTO(
@@ -36,7 +44,7 @@ def order_dbo_to_dto(dbo: OrderDBO) -> OrderDTO:
 
 
     dto = OrderDTO(
-        payment_token=dbo.payment_token,
+        #payment_token=dbo.payment_token,
         promo_code=dbo.promo_code,
         tax_multiplier=dbo.tax_multiplier,
         tip_multiplier=dbo.tip_multiplier,
@@ -45,7 +53,7 @@ def order_dbo_to_dto(dbo: OrderDBO) -> OrderDTO:
         delivery=delivery,
         id=dbo.id
     )
-
+    dto.payment = payment
     dto.discount = dbo.discount
     dto.status = dbo.status
 

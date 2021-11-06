@@ -9,6 +9,7 @@ from schemas.client_secret import ClientSecret
 from dto_models.app_order_dto import OrderDTO
 from services.order_service import OrderService
 from schemas.payment_intent import PaymentIntentSchema
+from schemas.order_response import OrderResponseSchema
 import logging
 
 logger = logging.getLogger(__name__)
@@ -17,25 +18,6 @@ stripe.api_key = "sk_test_51Jno9iJtWODUig1GpEc6isyYnuA51IPjJ1c3fIvEWbOVA09y8LUNS
 
 
 class OrderResource:
-    # @staticmethod
-    # # send payment intent to stripe
-    # def create_payment() -> Response:
-    #     data = json.loads(request.data)
-    #     try:
-    #         if "amount" in data:
-    #             try:
-    #                 intent = stripe.PaymentIntent.create(
-    #                     amount=data["amount"], currency="usd"
-    #                 )
-    #                 return jsonify({"client_secret": intent["client_secret"]}), 200
-    #                 print(response_data)
-    #             except ValueError as e:
-    #                 return jsonify(error=str(e)), 400
-    #         else:
-    #             return jsonify(error="No amount to pay in request"), 400
-    #     except Exception as e:
-    #         return jsonify(error=str(e)), 500
-
 
     # create(post), get_by_id, get_all, update, delete
     @staticmethod
@@ -63,9 +45,9 @@ class OrderResource:
 
         # Dumps to UI format (json)
         response_data = schema.dumps(returned_dto)
-
+        # response_schema = OrderResponseSchema()
+        # response_data =  response_schema.dumps({"order": returned_dto })
         return Response(response_data, status=200, headers={}, mimetype="application/json")
-        # return "hello-->"
 
     @staticmethod
     def get_all_order() -> Response:
@@ -142,3 +124,24 @@ class OrderResource:
         response_data = schema.dumps(returned_dto)
 
         return Response(response_data, status=200, headers={}, mimetype="application/json")
+
+    @staticmethod
+    def process_payment(payment_intent_id: str, receipt_url: str):
+        try:
+            returned_dto = OrderService().process_payment(payment_intent_id, receipt_url)
+
+        except ValueError as e:
+            abort(400, {'message': str(e)})
+            logger.debug("Promotion Type Resource post 400 {}".format(e))
+        except ObjectAlreadyExists as e:
+            abort(400, {'message': str(e)})
+            logger.debug("Promotion Type Resource  post 400 {}".format(e))
+        except Exception as e:
+            abort(500, {'message': str(e)})
+            logger.debug("Promotion Type Resource  post 500 {}".format(e))
+
+        return Response( status=200, headers={})
+
+
+
+

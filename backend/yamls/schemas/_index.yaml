@@ -19,6 +19,9 @@ addon:
 addonGroup:
    $ref: "./addon.yaml#/addonGroup"
 
+orderResponse:
+  $ref: "./order.yaml#/orderResponse"
+
 createdOrder:
   $ref: "./order.yaml#/createdOrder"
 

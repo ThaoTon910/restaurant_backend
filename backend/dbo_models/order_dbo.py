@@ -24,8 +24,8 @@ class OrderDBO(db.Model):
     updated_time = db.Column(DateTime(timezone=True), nullable=False, default=datetime.utcnow)
 
     def __init__(self, dto: OrderDTO):
-        self.status = "pending"
-        self.payment_token = dto.payment_token
+        self.status = "processing"
+        self.payment_token = "n/a"
         self.promo_code = dto.promo_code
         self.discount = 0
         self.tip_multiplier = dto.tip_multiplier
