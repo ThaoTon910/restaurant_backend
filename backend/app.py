@@ -204,6 +204,8 @@ def delete_extra_percentage_all( extra_pa_id: UUID) -> Response:
 def update_extra_percentage_all( extra_pa_id: UUID) -> Response:
     return ExtraPercentageAllResource.update_extra_percentage_all(extra_pa_id)
 
+def only_for_test():
+    return "test"
 
 #=============== app =========================
 app, flask_app = create_app()
