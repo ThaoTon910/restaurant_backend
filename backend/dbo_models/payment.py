@@ -19,7 +19,7 @@ class PaymentDBO(db.Model):
 
     payment_intent_id = db.Column(VARCHAR(100), nullable=False)
     client_secret = db.Column(VARCHAR(100), nullable=False)
-    receipt_url = db.Column(VARCHAR(100), nullable=True)
+    receipt_url = db.Column(VARCHAR(200), nullable=True)
     refunded = db.Column(Boolean, default=False, nullable=False)
 
     created_time = db.Column(DateTime(timezone=True), nullable=False, default=datetime.utcnow)

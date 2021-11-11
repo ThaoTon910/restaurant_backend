@@ -24,7 +24,7 @@ def upgrade():
     sa.Column('order_id', dbo_models._helper.GUID(), nullable=True),
     sa.Column('payment_intent_id', sa.VARCHAR(length=100), nullable=False),
     sa.Column('client_secret', sa.VARCHAR(length=100), nullable=False),
-    sa.Column('receipt_url', sa.VARCHAR(length=100), nullable=True),
+    sa.Column('receipt_url', sa.VARCHAR(length=200), nullable=True),
     sa.Column('refunded', sa.Boolean(), nullable=False),
     sa.Column('created_time', sa.DateTime(timezone=True), nullable=False),
     sa.Column('updated_time', sa.DateTime(timezone=True), nullable=False),
