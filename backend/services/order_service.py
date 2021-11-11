@@ -1,7 +1,11 @@
 # services/order_service.py
+import logging
+import os
+import stripe
+from dotenv import load_dotenv
+from uuid import UUID
 from services._base import BaseService
 from utils.exceptions import *
-from uuid import UUID
 from typing import List
 from dbo_models.menu_item import MenuItemDBO
 from dto_models.app_order_dto import OrderDTO
@@ -15,20 +19,14 @@ from dbo_models.delivery import DeliveryDBO
 from dto_models.payment_intent import PaymentIntentDTO
 from dbo_models.payment import PaymentDBO
 
-import stripe
-#TODO: add this secret key to environment variable
-stripe.api_key = "sk_test_51Jno9iJtWODUig1GpEc6isyYnuA51IPjJ1c3fIvEWbOVA09y8LUNSmU3uRifuKiKq4augXBylY5q9VGoelqy13Jn00sJCKAEyx"
-
-import logging
-
 logger = logging.getLogger(__name__)
+load_dotenv()
+stripe.api_key = os.getenv('STRIPE_SK')
 
 # working with database, and logic
 class OrderService(BaseService):
     def __init__(self) -> None:
         super().__init__()
-
-
 
     # def _is_id_exist(self, promotion_id: UUID) -> bool:
     #     return self.session.query(PromotionDBO).filter_by(id=promotion_id).first()
@@ -60,9 +58,9 @@ class OrderService(BaseService):
                     price += add_on_dbo.price
                     order_item_dbo.add_ons.append(add_on_dbo)
             subtotal += price
-            order_item_dbo.price = price #*item["quantity"]
+            order_item_dbo.price = price
 
-        payment_intent =  self.get_payment_intent(round(subtotal*100))
+        payment_intent = self.get_payment_intent(amount=round(subtotal*100), email=customer_dbo.email)
         payment_dbo = PaymentDBO(payment_intent_id = payment_intent.id, client_secret=payment_intent.client_secret)
         payment_dbo.order = order_dbo
         self.session.add(order_dbo)
@@ -101,13 +99,11 @@ class OrderService(BaseService):
         # print("new dto: ", new_dto)
         return new_dto
 
-    def get_payment_intent(self, amount: float):
+    def get_payment_intent(self, amount: float, email: str):
         return stripe.PaymentIntent.create(
-            amount=amount, currency="usd"
+            amount=amount, currency="usd", receipt_email=email
         )
-        # print("Intent: ", intent)
-        # payment_intent_dto = PaymentIntentDTO(client_secret=intent["client_secret"])
-        # return payment_intent_dto
+
 
     def process_payment(self, payment_intent_id: str, receipt_url: str):
         payment = self.session.query(PaymentDBO).filter_by(payment_intent_id=payment_intent_id).first()
