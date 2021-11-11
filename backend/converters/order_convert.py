@@ -20,6 +20,8 @@ def order_dbo_to_dto(dbo: OrderDBO) -> OrderDTO:
         client_secret=payment_dbo.client_secret,
         refunded=payment_dbo.refunded
     )
+    payment.receipt_url = payment_dbo.receipt_url
+
     items = [
         OrderItemDTO(
             special_instruction=order_item_dbo.special_instruction,
