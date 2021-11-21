@@ -14,13 +14,16 @@ def order_dbo_to_dto(dbo: OrderDBO) -> OrderDTO:
         phone_number=dbo.customer.phone_number,
         email=dbo.customer.email
     )
-    payment_dbo = dbo.payment[0]
-    payment = PaymentDTO(
-        payment_intent_id=payment_dbo.payment_intent_id,
-        client_secret=payment_dbo.client_secret,
-        refunded=payment_dbo.refunded
-    )
-    payment.receipt_url = payment_dbo.receipt_url
+    
+    payment = {}
+    if dbo.payment[0]:
+        payment_dbo = dbo.payment[0]
+        payment = PaymentDTO(
+            payment_intent_id=payment_dbo.payment_intent_id,
+            client_secret=payment_dbo.client_secret,
+            refunded=payment_dbo.refunded
+        )
+        payment.receipt_url = payment_dbo.receipt_url
 
     items = [
         OrderItemDTO(
@@ -46,7 +49,6 @@ def order_dbo_to_dto(dbo: OrderDBO) -> OrderDTO:
 
 
     dto = OrderDTO(
-        #payment_token=dbo.payment_token,
         promo_code=dbo.promo_code,
         tax_multiplier=dbo.tax_multiplier,
         tip_multiplier=dbo.tip_multiplier,
