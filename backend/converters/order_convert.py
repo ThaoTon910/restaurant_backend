@@ -36,16 +36,18 @@ def order_dbo_to_dto(dbo: OrderDBO) -> OrderDTO:
             price=order_item_dbo.price
         ) for order_item_dbo in dbo.order_items
     ]
-    delivery_dbo = dbo.delivery[0]
-    delivery = {
-        "delivery_fee": delivery_dbo.fee,
-        "info": {
-            "delivery_type": delivery_dbo.delivery_type,
-        }
-    }
-    if delivery_dbo.pick_up:
-        delivery["info"]["time"] = delivery_dbo.pick_up.time
-        delivery["info"]["merchant_id"] = delivery_dbo.pick_up.merchant_id
+    delivery = {}
+    # if dbo.delivery:
+    #     delivery_dbo = dbo.delivery[0]
+    #     delivery = {
+    #         "delivery_fee": delivery_dbo.fee,
+    #         "info": {
+    #             "delivery_type": delivery_dbo.delivery_type,
+    #         }
+    #     }
+    #     if delivery_dbo.pick_up:
+    #         delivery["info"]["time"] = delivery_dbo.pick_up.time
+    #         delivery["info"]["merchant_id"] = delivery_dbo.pick_up.merchant_id
 
 
     dto = OrderDTO(
