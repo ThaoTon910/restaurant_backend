@@ -39,11 +39,14 @@ class OrderService(BaseService):
                                    email=dto.customer["email"],
                                    phone_number=dto.customer["phone_number"])
         order_dbo.customer = customer_dbo
+
+        print(dto.delivery)
         delivery = DeliveryDBO(delivery_type=dto.delivery["info"]["delivery_type"],
                                fee=dto.delivery["delivery_fee"],
                                time=dto.delivery["info"]["time"],
                                merchant_id=dto.delivery["info"]["merchant_id"])
         delivery.order = order_dbo
+        print(delivery)
         order_dbo.discount=0.0
 
         subtotal = 0.0

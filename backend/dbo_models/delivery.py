@@ -32,7 +32,6 @@ class DeliveryDBO(db.Model):
     def __init__(self, delivery_type: str, fee: float, time, merchant_id: uuid ):
         self.delivery_type = delivery_type
         self.fee = fee
-        print("delivery dbo create: -__________-")
         if delivery_type == "pickup":
             pick_up_new = PickUpDBO(time=time, merchant_id=merchant_id)
             self.pick_up = pick_up_new
