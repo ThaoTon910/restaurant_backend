@@ -15,9 +15,9 @@ class CustomerSchema(BaseSchema):
     state = fields.String(required=False)
     zipcode = fields.Integer(required=False)
     rewardPoint = fields.Integer(required=False)
+    id = fields.UUID(required=False)
 
     # Dump to UI
-    id = fields.UUID(dump_only=True)
     createdTime = fields.DateTime(dump_only=True, format='iso8601')
 
 

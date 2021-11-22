@@ -63,6 +63,8 @@ customer:
     - phone
     - email
   properties:
+    id:
+      type: string
     email:
       type: string
       description: customer's email

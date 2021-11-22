@@ -12,8 +12,9 @@ def order_dbo_to_dto(dbo: OrderDBO) -> OrderDTO:
         first_name=dbo.customer.first_name,
         last_name=dbo.customer.last_name,
         phone_number=dbo.customer.phone_number,
-        email=dbo.customer.email
+        email=dbo.customer.email,
     )
+    customer.id = dbo.customer.id
     
     payment = {}
     if dbo.payment[0]:

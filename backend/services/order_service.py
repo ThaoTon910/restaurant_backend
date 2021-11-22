@@ -34,19 +34,30 @@ class OrderService(BaseService):
     # create new promotion in table "promotion", get data from resource
     def create(self, dto: OrderDTO) -> OrderDTO:
         order_dbo = OrderDBO(dto)
-        customer_dbo = CustomerDBO(first_name=dto.customer["first_name"],
-                                   last_name=dto.customer["last_name"],
-                                   email=dto.customer["email"],
-                                   phone_number=dto.customer["phone_number"])
+        customer_dbo = None
+        if "id" in dto.customer:
+            customer_dbo = self.session.query(CustomerDBO).get(dto.customer["id"])
+            if customer_dbo == None:
+                customer_dbo = CustomerDBO(first_name=dto.customer["first_name"],
+                                        last_name=dto.customer["last_name"],
+                                        email=dto.customer["email"],
+                                        phone_number=dto.customer["phone_number"])
+                customer_dbo.id = dto.customer["id"]
+        else:
+            customer_dbo = CustomerDBO(first_name=dto.customer["first_name"],
+                                        last_name=dto.customer["last_name"],
+                                        email=dto.customer["email"],
+                                        phone_number=dto.customer["phone_number"])
+        
         order_dbo.customer = customer_dbo
 
-        print(dto.delivery)
+        # print(dto.delivery)
         delivery = DeliveryDBO(delivery_type=dto.delivery["info"]["delivery_type"],
                                fee=dto.delivery["delivery_fee"],
                                time=dto.delivery["info"]["time"],
                                merchant_id=dto.delivery["info"]["merchant_id"])
         delivery.order = order_dbo
-        print(delivery)
+        # print(delivery)
         order_dbo.discount=0.0
 
         subtotal = 0.0
@@ -77,7 +88,6 @@ class OrderService(BaseService):
         # sort by created_time
 
         dbos = base_query.order_by(OrderDBO.created_time).all()
-        print("==> dbos: ", dbos)
         dtos = [order_dbo_to_dto(dbo) for dbo in dbos]
         return dtos
 
