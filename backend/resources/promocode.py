@@ -5,6 +5,9 @@ from dto_models.promocode import PromoCodeDTO
 from services.promocode import PromoCodeService
 from flask import request, Response, abort, jsonify
 from utils.exceptions import ObjectAlreadyExists
+from dto_models.app_order_dto import OrderDTO
+from schemas.order_schema import  OrderSchema
+from services.order_service import OrderService
 from uuid import UUID
 import logging
 
@@ -21,10 +24,38 @@ class PromoCodeResource:
         return False
 
     @staticmethod
+    def get_percent_off() -> Response:
+        try:
+            json = request.get_json(force=True)  # get from body
+            print(json)
+            print("Hello form resource!")
+            schema = OrderSchema()
+            validated_json = schema.load(json)  # Validated data from frontend
+            print("\nvalidated_json:", validated_json)
+            dto = OrderDTO(**validated_json)  # transform to DTO OBJECT
+            print("\n DTO: ", dto)
+            percent_off = OrderService().promotion_code(dto)
+
+        except ValueError as e:
+            abort(400, {'message': str(e)})
+            logger.debug("Promotion Type Resource post 400 {}".format(e))
+        except ObjectAlreadyExists as e:
+            abort(400, {'message': str(e)})
+            logger.debug("Promotion Type Resource  post 400 {}".format(e))
+        except Exception as e:
+            abort(500, {'message': str(e)})
+            logger.debug("Promotion Type Resource  post 500 {}".format(e))
+
+        return jsonify(percent_off=percent_off)
+
+
+    @staticmethod
     def post() -> Response:
         response_data = {}
         try:
             json = request.get_json(force=True)  # get from body
+            print(json)
+
             schema = PromoCodeSchema()
             validated_promo = schema.load(json)  # Validated data from frontend
             dto = PromoCodeDTO(**validated_promo)

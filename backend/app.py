@@ -165,7 +165,9 @@ def get_menu()->Response:
 
 # get promo code
 def validate_promo_code() -> Response:
-    return PromoCodeResource.post()
+    # return {"r": "validate_promo_code"}
+    return PromoCodeResource.get_percent_off()
+
 
 # promotion functions
 def create_promotion() -> Response:

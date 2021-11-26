@@ -27,7 +27,7 @@ class OrderDBO(db.Model):
         self.status = "processing"
         self.payment_token = "n/a"
         self.promo_code = dto.promo_code
-        self.discount = 0
+        self.discount = 0.0
         self.tip_multiplier = dto.tip_multiplier
         self.tax_multiplier = dto.tax_multiplier
         self.id = dto.id

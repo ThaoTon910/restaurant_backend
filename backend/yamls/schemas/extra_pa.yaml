@@ -1,23 +1,14 @@
 # schemas/extra_pa.yaml
 type: object
 required:
-  - promotiontype_id
-  - percent_off
+  - promotiontypeId
+  - percentOff
 properties:
-  id:
+
+  promotiontypeId:
     type: string
     format: uuid
     description: A unique identifier for a promotion type
-    readOnly: True
-  promotiontype_id:
-    type: string
-    format: uuid
-    description: A unique identifier for a promotion type
-  percent_off:
+  percentOff:
     type: number
     description: percent off for the order
-  updated_time:
-    type: string
-    format: date-time
-    description: Datetime this type of promotion type was updated
-    readOnly: true

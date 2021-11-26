@@ -8,7 +8,7 @@ post:
     content:
       application/json:
         schema:
-          $ref: "../schemas/_index.yaml#/promocode"
+          $ref: "../schemas/_index.yaml#/order"
 
   responses:
     '200':
@@ -16,5 +16,5 @@ post:
       content:
         application/json:
           schema:
-            items:
-              $ref: "../schemas/_index.yaml#/promocode"
+            type: object
+

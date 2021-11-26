@@ -143,5 +143,27 @@ class OrderResource:
         return Response( status=200, headers={})
 
 
+    @staticmethod
+    def promotion_code() -> Response:
+        try:
+            json = request.get_json(force=True)  # get from body
+            schema = OrderSchema()
+            validated_json = schema.load(json)  # Validated data from frontend
+            print("\nvalidated_json:", validated_json)
+            dto = OrderDTO(**validated_json)  # transform to DTO OBJECT
+            print("\nDTO: ", dto)
+            returned_dto = OrderService().promotion_code(dto)
 
+        except ValueError as e:
+            abort(400, {'message': str(e)})
+            logger.debug("Promotion Type Resource post 400 {}".format(e))
+        except ObjectAlreadyExists as e:
+            abort(400, {'message': str(e)})
+            logger.debug("Promotion Type Resource  post 400 {}".format(e))
+        except Exception as e:
+            abort(500, {'message': str(e)})
+            logger.debug("Promotion Type Resource  post 500 {}".format(e))
+
+        response_data = schema.dumps(returned_dto)
+        return Response(response_data, status=200, headers={}, mimetype="application/json")
 

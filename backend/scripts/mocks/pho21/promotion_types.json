@@ -1,0 +1,39 @@
+[
+   {
+    "promotionType": "extra_percentage_all",
+    "description": "Type 1: apply this promotion to all items"
+  },
+  {
+    "promotionType": "extra_percentage_item",
+    "description": "Type 2: discount applies to specific items"
+  },
+  {
+    "promotionType": "buy_one_type_get_promo",
+    "description": "Type 3: buy N items of one type of item get another item percentage off"
+  },
+  {
+    "promotionType": "buy_combo_two_get_promo",
+    "description": "Type 4: buy 2 different  items get ONE percentage off"
+  },
+  {
+    "promotionType": "extra_dollar_off",
+    "description": "Type 5: get an exact of N dollar amount  off"
+  },
+  {
+    "promotionType": "extra_dollar_off_over_amount",
+    "description": "Type 6: get the amount of dollar off if order over the required amount"
+  },
+  {
+    "promotionType": "free_shipping",
+    "description": "Type 7: get free shipping for specific items"
+  },
+  {
+    "promotionType": "free_shipping_over_amount",
+    "description": "Type 8: get free shipping if the order is over the required amount"
+  },
+  {
+    "promotionType": "point_reward",
+    "description": "Type 9: get a flat dollar amount off when collecting enough N points"
+  }
+]
+
