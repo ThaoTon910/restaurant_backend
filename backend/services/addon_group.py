@@ -34,6 +34,8 @@ class AddonGroupService(BaseService):
 
     def get_all_addon_groups(self) -> List[AddonGroupDTO]:
         dbo_list = self.session.query(AddonGroupDBO).all()
+        if not dbo_list:
+            raise ObjectNotFound("dbo_list '{}' not found" )
         return [addon_group_dbo_to_dto(dbo) for dbo in dbo_list]
 
     def get_addon_groups_from_menu_item(self, menu_item_id: UUID) -> List[AddonGroupDTO]:

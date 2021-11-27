@@ -1100,6 +1100,7 @@ components:
                 - shipping
                 - completed
                 - canceled
+                - PayByCash
             subTotal:
               type: number
             discount:

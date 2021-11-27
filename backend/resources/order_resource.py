@@ -11,10 +11,13 @@ from services.order_service import OrderService
 from schemas.payment_intent import PaymentIntentSchema
 from schemas.order_response import OrderResponseSchema
 import logging
+import os
+from dotenv import load_dotenv
 
 logger = logging.getLogger(__name__)
 
-stripe.api_key = "sk_test_51Jno9iJtWODUig1GpEc6isyYnuA51IPjJ1c3fIvEWbOVA09y8LUNSmU3uRifuKiKq4augXBylY5q9VGoelqy13Jn00sJCKAEyx"
+load_dotenv()
+stripe.api_key = os.getenv('STRIPE_SK')
 
 
 class OrderResource:
@@ -24,13 +27,13 @@ class OrderResource:
     def post() -> Response:
         try:
             json = request.get_json(force=True)  # get from body
-            print(json)
-            print("Hello form resource!")
+            # print(json)
+            # print("Hello form resource!")
             schema = OrderSchema()
             validated_json = schema.load(json)  # Validated data from frontend
-            print("\nvalidated_json:", validated_json)
+            # print("\nvalidated_json:", validated_json)
             dto = OrderDTO(**validated_json)  # transform to DTO OBJECT
-            print("\n DTO: ", dto)
+            # print("\n DTO: ", dto)
             returned_dto = OrderService().create(dto)
 
         except ValueError as e:
@@ -149,9 +152,9 @@ class OrderResource:
             json = request.get_json(force=True)  # get from body
             schema = OrderSchema()
             validated_json = schema.load(json)  # Validated data from frontend
-            print("\nvalidated_json:", validated_json)
+            # print("\nvalidated_json:", validated_json)
             dto = OrderDTO(**validated_json)  # transform to DTO OBJECT
-            print("\nDTO: ", dto)
+            # print("\nDTO: ", dto)
             returned_dto = OrderService().promotion_code(dto)
 
         except ValueError as e:

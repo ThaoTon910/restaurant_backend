@@ -7,7 +7,7 @@ from dto_models.order_item import OrderItemDTO
 from dto_models.payment import PaymentDTO
 
 def order_dbo_to_dto(dbo: OrderDBO) -> OrderDTO:
-    print("Inisde order_dbo_to_dto:  ", dbo.payment)
+    # print("Inisde order_dbo_to_dto:  ", dbo.payment)
     customer = CustomerDTO(
         first_name=dbo.customer.first_name,
         last_name=dbo.customer.last_name,
@@ -39,7 +39,7 @@ def order_dbo_to_dto(dbo: OrderDBO) -> OrderDTO:
     ]
     delivery = {}
 
-    print("DELIVERY", dbo.delivery)
+    # print("DELIVERY", dbo.delivery)
     if dbo.delivery:
         delivery_dbo = dbo.delivery[0]
         delivery = {

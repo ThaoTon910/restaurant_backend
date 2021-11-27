@@ -40,7 +40,7 @@ createdOrder:
       properties:
         status:
           type: string
-          enum: [pending, processing, shipping, completed, canceled]
+          enum: [pending, processing, shipping, completed, canceled, PayByCash]
         subTotal:
           type: number
         discount:

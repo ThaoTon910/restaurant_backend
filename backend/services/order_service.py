@@ -21,13 +21,13 @@ from dbo_models.payment import PaymentDBO
 from dbo_models.promotion import PromotionDBO
 from dto_models.promocode import PromoCodeDTO
 from dbo_models.extra_percentage_all import ExtraPercentageAllDBO
-
 from services.extra_percentage_all import ExtraPercentageAllService
 
 
 logger = logging.getLogger(__name__)
 load_dotenv()
 stripe.api_key = os.getenv('STRIPE_SK')
+
 
 # working with database, and logic
 class OrderService(BaseService):
@@ -40,7 +40,7 @@ class OrderService(BaseService):
     # create new promotion in table "promotion", get data from resource
     def create(self, dto: OrderDTO) -> OrderDTO:
         percent_off = 0.0
-        print(f"\npromo_code: {dto.promo_code} \n")
+        # print(f"\npromo_code: {dto.promo_code} \n")
 
         if dto.promo_code != "":
             if self._is_code_valid(dto.promo_code):
@@ -48,7 +48,7 @@ class OrderService(BaseService):
                 promo_type = str(active_pc.promotion_type.promotion_type)
                 if promo_type == "extra_percentage_all":
                     percent_off = self.get_percent_off()
-                    print(f"\npercent_off: {percent_off} \n")
+                    # print(f"\npercent_off: {percent_off} \n")
                 else:
                     return dto
             else:
@@ -95,12 +95,12 @@ class OrderService(BaseService):
             order_item_dbo.price = price
 
 
-        print(f"\nsubtotal: {subtotal} \n")
+        # print(f"\nsubtotal: {subtotal} \n")
 
         order_dbo.discount = subtotal * percent_off
         subtotal = (subtotal - order_dbo.discount)
         subtotal += subtotal*order_dbo.tip_multiplier + subtotal*order_dbo.tax_multiplier
-        print(f"\nsubtotal AFTER: {subtotal} \n")
+        # print(f"\nsubtotal AFTER: {subtotal} \n")
 
 
         payment_intent = self.get_payment_intent(amount=round(subtotal*100), email=customer_dbo.email)
@@ -186,12 +186,12 @@ class OrderService(BaseService):
         return percent_off
 
     def promotion_code(self, dto: OrderDTO) -> OrderDTO:
-        print(f"\nIn serviece PC: {dto} \n")
+        # print(f"\nIn serviece PC: {dto} \n")
         order = dto
         promo_code = order.promo_code
         # check if the promo code is valid and in ACTIVE
         if self._is_code_valid(promo_code):
-            print(f"\nIn serviece: code active \n")
+            # print(f"\nIn serviece: code active \n")
 
             active_pc = self.session.query(PromotionDBO).filter_by(promo_code=promo_code, is_active=True).first()
             if not active_pc:
@@ -199,7 +199,7 @@ class OrderService(BaseService):
             promo_type = str(active_pc.promotion_type.promotion_type)
             if promo_type == "extra_percentage_all":
                 percent_off = self.get_percent_off()
-                print(f"\npercent_off: {percent_off} \n")
+                # print(f"\npercent_off: {percent_off} \n")
                 return percent_off
         else:
             return 0.0

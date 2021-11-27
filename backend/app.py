@@ -30,6 +30,9 @@ MIGRATION_DIR = os.path.join(CURRENT_DIR, "migrations")
 
 load_dotenv()
 pp = pprint.PrettyPrinter(indent=4)
+
+sk = os.getenv('STRIPE_SK')
+
 def create_app():
     # initial app API
     os.system('swagger-cli bundle backend_api.yaml --outfile app_run.yaml --type yaml')
@@ -73,16 +76,18 @@ def create_order():
 def update_order(order_id: UUID):
     return OrderResource.update_order(order_id)
 def get_order(order_id: UUID):
+
     return  OrderResource.get_order(order_id)
 def get_all_order():
+    print(f"GET ALL Order ")
     return  OrderResource.get_all_order()
 def get_payment_intent():
     return OrderResource.create_payment_intent()
 def handle_webhooks():
     json = request.get_json(force=True)  # get from body
     pp.pprint(json)
-    sk = os.getenv('STRIPE_SK')
-    # print(f"SK: {sk}")
+    # sk = os.getenv('STRIPE_SK')
+    # print(f" APP SK: {sk}")
     event = stripe.Event.construct_from(
         json,
         sk
@@ -92,7 +97,7 @@ def handle_webhooks():
         receipt_url = event.data.object.receipt_url
         return OrderResource.process_payment(payment_intent_id, receipt_url)
 
-        print("\nPaymentIntent succeeded!!")
+        # print("\nPaymentIntent succeeded!!")
     return "handle webhook!"
 
 
