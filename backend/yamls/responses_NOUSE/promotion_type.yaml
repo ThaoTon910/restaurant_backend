@@ -1,0 +1,8 @@
+## response/promotion_type.yaml
+#'200':
+#  description: " "
+#  content:
+#    application/json:
+#      schema:
+#        items:
+#          $ref: "../schemas/_index.yaml#/promotiontype"

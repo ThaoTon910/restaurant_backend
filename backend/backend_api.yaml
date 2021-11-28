@@ -1,0 +1,100 @@
+openapi: 3.0.3
+info:
+  description: "Restaurant service api"
+  version: "1.0.0"
+  title: "Restaurant Service"
+
+servers:
+  - url: "/v0"
+
+paths:
+  /merchant:
+    $ref: "./yamls/paths/merchant.yaml#/noParameter"
+
+  /category:
+    $ref: "./yamls/paths/category.yaml#/noParameter"
+
+  /category/{id}:
+    $ref: "./yamls/paths/category.yaml#/withParameter"
+
+  /category/{id}/menu-items:
+    $ref: "./yamls/paths/category.yaml#/menuItemToCategory"
+
+  /menu:
+    $ref: "./yamls/paths/menu_item.yaml#/menu"
+
+  /menu-item:
+    $ref: "./yamls/paths/menu_item.yaml#/noParameter"
+
+  /menu-item/{id}:
+    $ref: "./yamls/paths/menu_item.yaml#/withParameter"
+
+  /menu-item-to-addon-group:
+    $ref: "./yamls/paths/menu_item.yaml#/menuItemToAddOnGroup"
+
+  /menu-item-to-addon-group/{menu_item_id}/{addon_group_id}:
+    $ref: "./yamls/paths/menu_item.yaml#/menuItemToAddOnGroupsWithIDs"
+
+  /menu-item/{id}/addon-groups:
+    $ref: "./yamls/paths/menu_item.yaml#/addOnGroupsToMenuItem"
+
+  /addon-group:
+    $ref: "./yamls/paths/addon_group.yaml#/noParameter"
+
+  /addon-group/{id}:
+    $ref: "./yamls/paths/addon_group.yaml#/withParameter"
+
+  /addon-group/{id}/addons:
+    $ref: "./yamls/paths/addon_group.yaml#/addOnsToAddOnGroup"
+
+  /addon:
+    $ref: "./yamls/paths/addon.yaml#/noParameter"
+
+  /addon/{id}:
+    $ref: "./yamls/paths/addon.yaml#/withParameter"
+
+  /order-initial-payment:
+    $ref: "./yamls/paths/createPayment.yaml"
+
+  /order:
+    $ref: "./yamls/paths/order.yaml#/noParameter"
+
+  /order/{order_id}:
+    $ref: "./yamls/paths/order.yaml#/withParameter"
+
+  /order/promocode:
+    $ref: "./yamls/paths/promocode.yaml"
+
+  /webhook:
+    post:
+      summary: "Stripe webhooks event listening"
+      description: ""
+      operationId: app.handle_webhooks
+      responses:
+        '200':
+          description:  "from stripe"
+
+  /promotion:
+    $ref: "./yamls/paths/promotion.yaml#/noParameter"
+
+  /promotion/{id}:
+    $ref: "./yamls/paths/promotion.yaml#/withParameter"
+
+  /promotiontype:
+    $ref: "./yamls/paths/promotion_type.yaml#/noParameter"
+
+  /promotiontype/{id}:
+    $ref: "./yamls/paths/promotion_type.yaml#/withParameter"
+
+  /promotiontype/extra-pa:
+    $ref: "./yamls/paths/extra_pa.yaml"
+
+  /promotiontype/extra-pa/{extra_pa_id}:
+    $ref: "./yamls/paths/extra_pa_id.yaml"
+
+components:
+  parameters:
+    $ref: "./yamls/parameters/_index.yaml"
+  schemas:
+    $ref: "./yamls/schemas/_index.yaml"
+

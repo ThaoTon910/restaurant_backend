@@ -1,0 +1,55 @@
+# schemas/merchant.yaml
+
+merchant:
+  type: object
+  required:
+    - name
+    - address
+    - phone
+    - hours
+  properties:
+    #        id:
+    #          type: string
+    #          format: uuid
+    #          description: A unique identifier for a merchant
+    createdTime:
+      type: string
+      format: date-time
+      description: |-
+        Datetime the merchant was created
+      # readOnly: true
+    name:
+      type: string
+      description: Name of the merchant
+    phone:
+      type: string
+      description: Business phone number
+    address:
+      type: string
+      description: Business address
+    hours:
+      description: List of all hours
+      type: array
+      items:
+        $ref: '#/Hour'
+
+Hour:
+  type: object
+  required:
+    - start
+    - end
+    - day
+  #        - off
+  properties:
+    start:
+      type: string
+      description: ...
+    end:
+      type: string
+      description: ...
+    day:
+      type: string
+      description: ...
+    off:
+      type: boolean
+      description: day off

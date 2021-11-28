@@ -1,0 +1,25 @@
+# schemas/promotion_type.yaml
+
+promotionType:
+  type: object
+  required:
+    - promotionType
+    - description
+  properties:
+    id:
+      type: string
+      format: uuid
+      description: A unique identifier for a promotion type
+      readOnly: True
+    promotionType:
+      type: string
+      description: Name of the promotion type
+    description:
+      type: string
+      description: description
+    createdTime:
+      type: string
+      format: date-time
+      description: |-
+        Datetime the promotion type was created
+      readOnly: true

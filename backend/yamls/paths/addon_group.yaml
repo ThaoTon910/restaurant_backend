@@ -1,0 +1,106 @@
+#path/addon_group.yaml
+
+noParameter:
+  post:
+    summary: "create a new addon group"
+    description: ""
+    operationId: app.create_addon_group
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/_index.yaml#/addonGroup"
+
+    responses:
+      '200':
+        description: |-
+          New Addon Group Information
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/addonGroup"
+
+  get:
+    summary: "get all add on group"
+    description: ""
+    operationId: app.get_all_addon_groups
+    responses:
+      '200':
+        description: |-
+          Get all Addon Groups
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../schemas/_index.yaml#/addonGroup"
+
+withParameter:
+  get:
+    summary: "get addon group by id"
+    description: ""
+    operationId: app.get_addon_group
+    parameters:
+      - $ref: "../parameters/_index.yaml#/uuid"
+    responses:
+      '200':
+        description: |-
+          Get addon group by id
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/addonGroup"
+  put:
+    summary: "update a addon group by id"
+    description: ""
+    operationId: app.update
+
+    parameters:
+      - $ref: "../parameters/_index.yaml#/uuid"
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/_index.yaml#/addonGroup"
+
+    responses:
+      '200':
+        description: |-
+          updated addon group object
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/addonGroup"
+  delete:
+    summary: "delete a addongroup by id"
+    description: ""
+    operationId: app.delete_addon_group
+    parameters:
+      - $ref: "../parameters/_index.yaml#/uuid"
+
+    responses:
+      '200':
+        description: |-
+          Deleted addon group object
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/addonGroup"
+
+addOnsToAddOnGroup:
+  get:
+    summary: "get all addons in an addon group"
+    description: ""
+    operationId: app.get_addons_from_group
+    parameters:
+      - $ref: "../parameters/_index.yaml#/uuid"
+    responses:
+      '200':
+        description: |-
+          Get all addons in an addon group
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../schemas/_index.yaml#/addon"

@@ -1,0 +1,20 @@
+# path/createPayment.yaml
+
+post:
+  summary: "Send payment intent to Stripe"
+  description: "require, the amount > 0.0!"
+  operationId: app.get_payment_intent
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: "../schemas/_index.yaml#/initialPayment"
+
+  responses:
+    '200':
+      description:  "get client secret"
+      content:
+        application/json:
+          schema:
+            items:
+              $ref: "../schemas/_index.yaml#/clientSecret"

@@ -12,7 +12,7 @@ class MerchantSchema(BaseSchema):
      hours = fields.List(fields.Nested(HourSchema), required=True)
 
      # Dump to UI
-     # id = fields.UUID(dump_only=True)
+     id = fields.UUID(dump_only=True)
      createdTime = fields.DateTime(dump_only=True, format='iso8601', attribute="created_time")
      updatedTime = fields.DateTime(dump_only=True, format='iso8601', attribute="updated_time")
 

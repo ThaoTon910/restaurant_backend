@@ -1,0 +1,35 @@
+#path/promotiontypes.yaml
+
+post:
+  summary: "create a new  promotion type"
+  description: ""
+  operationId: app.create_promotion_type
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: "../schemas/_index.yaml#/promotiontype"
+
+  responses:
+    '200':
+      description: ' '
+      content:
+        application/json:
+          schema:
+            items:
+              $ref: "../schemas/_index.yaml#/promotiontype"
+
+get:
+  summary: "get all promotion types"
+  description: ""
+  operationId: app.get_all_promotion_type
+  responses:
+    '200':
+      description: ' '
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+               $ref: "../schemas/_index.yaml#/promotiontype"
+

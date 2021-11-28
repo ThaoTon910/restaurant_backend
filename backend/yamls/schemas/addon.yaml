@@ -1,0 +1,86 @@
+# schemas/addon.yaml
+
+addon:
+  type: object
+  required:
+    - addonGroupId
+    - name
+    - price
+    - description
+    - isTaxable
+  properties:
+    addonGroupId:
+      type: string
+      format: uuid
+      description: A foreign key addon group id from addon group
+    name:
+      type: string
+      description: Name of the addon
+
+    price:
+      type: number
+      description: price of a addon
+
+    description:
+      type: string
+      nullable: true
+      description: description of a addon
+
+    isTaxable:
+      type: boolean
+      nullable: true
+      description: tax status of a addon
+
+    createdTime:
+      type: string
+      format: date-time
+      description: |-
+        Datetime the menu item was created
+      # readOnly: true
+
+    updatedTime:
+      type: string
+      format: date-time
+      description: |-
+        Datetime the menu item was created
+      # readOnly: true
+
+
+addonGroup:
+  type: object
+  required:
+    - name
+    - maxQuantity
+    - minQuantity
+  properties:
+    id:
+      type: string
+      format: uuid
+      description: A unique identifier of a recipe
+      # readOnly: true
+    name:
+      type: string
+      description: Name of the add on group
+    maxQuantity:
+      type: number
+      nullable: true
+      description: Max addon quantity
+
+    minQuantity:
+      type: number
+      nullable: true
+      description: Min addon quantity
+
+    createdTime:
+      type: string
+      format: date-time
+      description: |-
+        Datetime the add-on group was created
+      # readOnly: true
+
+    updatedTime:
+      type: string
+      format: date-time
+      description: |-
+        Datetime the add-on group was created
+      # readOnly: true

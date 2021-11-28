@@ -1,0 +1,7 @@
+# parameters/merchant.yaml
+name: merchant_id
+in: path
+required: true
+schema:
+  type: string
+  format: uuid

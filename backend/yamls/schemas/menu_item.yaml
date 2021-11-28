@@ -1,0 +1,96 @@
+# schemas/menu_item.yaml
+menu:
+  type: object
+  properties:
+    categories:
+      description: List of all categories
+      type: array
+      items:
+        $ref: "./_index.yaml#/category"
+    addonGroups:
+      description: List of all addon groups
+      type: array
+      items:
+        $ref: "./_index.yaml#/addonGroup"
+
+menu_item:
+  type: object
+  required:
+    - name
+    - categoryId
+    - description
+    - price
+    - size
+    - imageUrl
+    - active
+  properties:
+    id:
+      type: string
+      format: uuid
+      description: A unique identifier of a recipe
+      # readOnly: true
+    addonGroupIds:
+      type: array
+      items:
+        type: string
+        format: uuid
+    name:
+      type: string
+      description: Name of the  add on group
+    categoryId:
+      type: string
+      format: uuid
+      description: A foreign key category id from category
+    description:
+      type: string
+      nullable: true
+      description: description of a recipe
+    price:
+      type: number
+      description: price of a recipe
+    size:
+      type: string
+      description: size of a recipe
+    imageUrl:
+      type: string
+      nullable: true
+      description: image of a recipe
+    active:
+      type: boolean
+      nullable: true
+      description: an active status of a recipe
+    isTaxable:
+      type: boolean
+      nullable: true
+      description: tax status of a recipe
+    taxRate:
+      type: number
+      nullable: true
+      description: tax rate of a recipe
+    createdTime:
+      type: string
+      format: date-time
+      description: |-
+        Datetime the menu item was created
+      # readOnly: true
+    updatedTime:
+      type: string
+      format: date-time
+      description: |-
+        Datetime the menu item was created
+      # readOnly: true
+
+menuItemToAddOnGroup:
+  type: object
+  required:
+    - addonGroupId
+    - menuItemId
+  properties:
+    addonGroupId:
+      type: string
+      format: uuid
+      description: A foreign key addon group id from addon group
+    menuItemId:
+      type: string
+      format: uuid
+      description: A foreign key menu item id from menu item group

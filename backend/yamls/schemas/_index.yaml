@@ -1,0 +1,59 @@
+# schemas/_index.yaml
+merchant:
+  $ref: "./merchant.yaml#/merchant"
+
+category:
+  $ref: "./category.yaml#/category"
+
+menu:
+  $ref: "./menu_item.yaml#/menu"
+
+menu_item:
+  $ref: "./menu_item.yaml#/menu_item"
+
+menuItemToAddOnGroup:
+  $ref: "./menu_item.yaml#/menuItemToAddOnGroup"
+addon:
+   $ref: "./addon.yaml#/addon"
+
+addonGroup:
+   $ref: "./addon.yaml#/addonGroup"
+
+orderResponse:
+  $ref: "./order.yaml#/orderResponse"
+
+createdOrder:
+  $ref: "./order.yaml#/createdOrder"
+
+order:
+  $ref: "./order.yaml#/order"
+
+customer:
+  $ref: "./order.yaml#/customer"
+
+initialPayment:
+  $ref: "./initialPayment.yaml#/initialPayment"
+
+clientSecret:
+  $ref: "./initialPayment.yaml#/clientSecret"
+
+order_item:
+  $ref: "./order.yaml#/order_item"
+
+delivery:
+  $ref: "./order.yaml#/delivery"
+
+pickup:
+  $ref: "./order.yaml#/pickup"
+
+promocode:
+  $ref: "./promocode.yaml"
+
+promotion:
+  $ref: "./promotion.yaml#/promotion"
+
+promotionType:
+  $ref: "./promotion_type.yaml#/promotionType"
+
+extra_pa:
+  $ref: "./extra_pa.yaml"

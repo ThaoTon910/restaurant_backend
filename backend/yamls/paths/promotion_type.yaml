@@ -1,0 +1,91 @@
+# paths/promotion_type.yaml
+
+noParameter:
+  post:
+    summary: "create a new  promotion type"
+    description: ""
+    operationId: app.create_promotion_type
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/_index.yaml#/promotionType"
+
+    responses:
+      '200':
+        description: ' '
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: "../schemas/_index.yaml#/promotionType"
+
+  get:
+    summary: "get all promotion types"
+    description: ""
+    operationId: app.get_all_promotion_type
+    responses:
+      '200':
+        description: ' '
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                 $ref: "../schemas/_index.yaml#/promotionType"
+
+
+
+withParameter:
+  delete:
+    summary: "delete a promotion type by id"
+    description: ""
+    operationId: app.delete_promotion_type
+    parameters:
+      - $ref: "../parameters/_index.yaml#/uuid"
+
+    responses:
+      '200':
+        description: ' deleted promotion type'
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: "../schemas/_index.yaml#/promotionType"
+
+  put:
+    summary: "update a promotion type by id"
+    description: "Update a promotion type"
+    operationId: app.update_promotion_type
+    parameters:
+      - $ref: "../parameters/_index.yaml#/uuid"
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/_index.yaml#/promotionType"
+
+    responses:
+      '200':
+        description: ' '
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: "../schemas/_index.yaml#/promotionType"
+
+  get:
+    summary: "get promotion type  by id"
+    description: ""
+    operationId: app.get_promotion_type
+    parameters:
+      - $ref: "../parameters/_index.yaml#/uuid"
+
+    responses:
+      '200':
+        description: ' '
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: "../schemas/_index.yaml#/promotionType"

@@ -11,6 +11,7 @@ import dbo_models
 
 
 # revision identifiers, used by Alembic.
+# revision = '8f947749424f'
 revision = '8f947749424f'
 down_revision = None
 branch_labels = None

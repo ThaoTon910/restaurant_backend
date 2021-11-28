@@ -1,0 +1,7 @@
+# parameters/extra_pa.yaml
+name: extra_pa_id
+in: path
+required: true
+schema:
+  type: string
+  format: uuid

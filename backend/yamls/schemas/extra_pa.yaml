@@ -1,0 +1,14 @@
+# schemas/extra_pa.yaml
+type: object
+required:
+  - promotiontypeId
+  - percentOff
+properties:
+
+  promotiontypeId:
+    type: string
+    format: uuid
+    description: A unique identifier for a promotion type
+  percentOff:
+    type: number
+    description: percent off for the order

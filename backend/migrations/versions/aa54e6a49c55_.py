@@ -1,16 +1,18 @@
-"""merchant
+"""empty message
 
-Revision ID: 156c2bf25fd0
-Revises: 8f947749424f
-Create Date: 2021-08-27 18:30:10.518882
+Revision ID: aa54e6a49c55
+Revises: 58ab8ec8d14a
+Create Date: 2021-09-20 16:11:16.432246
 
 """
 from alembic import op
 import sqlalchemy as sa
 import dbo_models
+
+
 # revision identifiers, used by Alembic.
-revision = '156c2bf25fd0'
-down_revision = '8f947749424f'
+revision = 'aa54e6a49c55'
+down_revision = '58ab8ec8d14a'
 branch_labels = None
 depends_on = None
 

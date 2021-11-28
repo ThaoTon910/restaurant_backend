@@ -1,0 +1,67 @@
+# paths/merchant.yaml
+
+noParameter:
+  post:
+    summary: "create a new merchant"
+    description: ""
+    operationId: app.create_merchant
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/_index.yaml#/merchant"
+
+    responses:
+      '200':
+        description: |-
+          New Merchant information
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/merchant"
+
+  get:
+    summary: "get all merchant"
+    description: ""
+    operationId: app.get_merchant
+    responses:
+      '200':
+        description: |-
+          Get all Merchants
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/merchant"
+
+  delete:
+    summary: "delete a merchant"
+    description: ""
+    operationId: app.delete_merchant
+    responses:
+      '200':
+        description: |-
+          Deleted merchant object
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/merchant"
+
+  put:
+    summary: "put all merchant"
+    description: ""
+    operationId: app.update_merchant
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/_index.yaml#/merchant"
+
+    responses:
+      '200':
+        description: |-
+          update all Merchants
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: "../schemas/_index.yaml#/merchant"

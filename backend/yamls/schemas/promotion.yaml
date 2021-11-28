@@ -1,0 +1,48 @@
+# schemas/promotion.yaml
+
+promotion:
+  type: object
+  required:
+    - promotiontypeId
+    - description
+    - isActive
+    - startDate
+    - endDate
+    - imageUrl
+    - promoCode
+  properties:
+    id:
+      type: string
+      format: uuid
+      description: A unique identifier for a promotion type
+      readOnly: True
+    promotiontypeId:
+      type: string
+      format: uuid
+      description: A unique identifier for a promotion type
+    description:
+      type: string
+      description: description for promotion
+    isActive:
+      type: boolean
+      description: active or not
+    startDate:
+      type: string
+      format: date-time
+      description: Datetime the promotion begin
+    endDate:
+      type: string
+      format: date-time
+      description: Datetime the promotion end
+    imageUrl:
+      type: string
+      description: image url
+      nullable: true
+    promoCode:
+      type: string
+      description: promo code
+    createdTime:
+      type: string
+      format: date-time
+      description: Datetime the promotion type was created
+      readOnly: true

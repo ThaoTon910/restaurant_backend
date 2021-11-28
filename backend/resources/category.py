@@ -16,9 +16,8 @@ class CategoryResource:
         try:
             json = request.get_json(force=True)  # get from body
             schema = CategorySchema()
-            validated_json = schema.load(json)  # Validated data from frontend
+            validated_json = schema.load(json)  # get data  from frontend to validate
             dto = CategoryDTO(**validated_json)  # transform to DTO OBJECT
-
             returned_dto = CategoryService().create(dto)
 
         except ValueError as e:

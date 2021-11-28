@@ -1,0 +1,9 @@
+# parameters/addon.yaml
+
+addon_id:
+  name: addon_id
+  in: path
+  required: true
+  schema:
+    type: string
+    format: uuid

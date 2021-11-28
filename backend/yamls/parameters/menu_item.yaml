@@ -1,0 +1,8 @@
+# parameters/menu_item.yaml
+menu_item_id:
+  name: menu_item_id
+  in: path
+  required: true
+  schema:
+    type: string
+    format: uuid
