@@ -23,7 +23,6 @@ from dto_models.promocode import PromoCodeDTO
 from dbo_models.extra_percentage_all import ExtraPercentageAllDBO
 from services.extra_percentage_all import ExtraPercentageAllService
 
-
 logger = logging.getLogger(__name__)
 load_dotenv()
 stripe.api_key = os.getenv('STRIPE_SK')
@@ -44,15 +43,12 @@ class OrderService(BaseService):
 
         if dto.promo_code != "":
             if self._is_code_valid(dto.promo_code):
-                active_pc = self.session.query(PromotionDBO).filter_by(promo_code=dto.promo_code, is_active=True).first()
+                active_pc = self.session.query(PromotionDBO).filter_by(promo_code=dto.promo_code,
+                                                                       is_active=True).first()
                 promo_type = str(active_pc.promotion_type.promotion_type)
                 if promo_type == "extra_percentage_all":
                     percent_off = self.get_percent_off()
                     # print(f"\npercent_off: {percent_off} \n")
-                else:
-                    return dto
-            else:
-                return dto
 
         order_dbo = OrderDBO(dto)
         customer_dbo = None
@@ -60,16 +56,16 @@ class OrderService(BaseService):
             customer_dbo = self.session.query(CustomerDBO).get(dto.customer["id"])
             if customer_dbo == None:
                 customer_dbo = CustomerDBO(first_name=dto.customer["first_name"],
-                                        last_name=dto.customer["last_name"],
-                                        email=dto.customer["email"],
-                                        phone_number=dto.customer["phone_number"])
+                                           last_name=dto.customer["last_name"],
+                                           email=dto.customer["email"],
+                                           phone_number=dto.customer["phone_number"])
                 customer_dbo.id = dto.customer["id"]
         else:
             customer_dbo = CustomerDBO(first_name=dto.customer["first_name"],
-                                        last_name=dto.customer["last_name"],
-                                        email=dto.customer["email"],
-                                        phone_number=dto.customer["phone_number"])
-        
+                                       last_name=dto.customer["last_name"],
+                                       email=dto.customer["email"],
+                                       phone_number=dto.customer["phone_number"])
+
         order_dbo.customer = customer_dbo
 
         # print(dto.delivery)
@@ -86,25 +82,26 @@ class OrderService(BaseService):
             price = item_dbo.price
             order_item_dbo = OrderItemDBO(order=order_dbo, menu_item=item_dbo, quantity=item["quantity"],
                                           special_instruction=item["special_instruction"])
-            if "add_ons" in  item:
+            if "add_ons" in item:
                 for addon in item["add_ons"]:
                     add_on_dbo = self.session.query(AddonDBO).get(addon)
                     price += add_on_dbo.price
                     order_item_dbo.add_ons.append(add_on_dbo)
-            subtotal += price
+            subtotal += price * item["quantity"]
             order_item_dbo.price = price
 
-
-        # print(f"\nsubtotal: {subtotal} \n")
+        # print(f"\n before discount subtotal: {subtotal} \n")
 
         order_dbo.discount = subtotal * percent_off
         subtotal = (subtotal - order_dbo.discount)
-        subtotal += subtotal*order_dbo.tip_multiplier + subtotal*order_dbo.tax_multiplier
-        # print(f"\nsubtotal AFTER: {subtotal} \n")
+        subtotal += subtotal * order_dbo.tip_multiplier + subtotal * order_dbo.tax_multiplier
 
+        # print(f"\nsubtotal to payment intentintent: {subtotal}")
 
-        payment_intent = self.get_payment_intent(amount=round(subtotal*100), email=customer_dbo.email)
-        payment_dbo = PaymentDBO(payment_intent_id = payment_intent.id, client_secret=payment_intent.client_secret)
+        payment_intent = self.get_payment_intent(amount=round(subtotal * 100), email=customer_dbo.email)
+        payment_dbo = PaymentDBO(payment_intent_id=payment_intent.id, client_secret=payment_intent.client_secret)
+        # print(f"\nsubtotal to payment intentintent: {subtotal}")
+
         payment_dbo.order = order_dbo
         self.session.add(order_dbo)
         self.session.commit()
@@ -120,7 +117,7 @@ class OrderService(BaseService):
         dtos = [order_dbo_to_dto(dbo) for dbo in dbos]
         return dtos
 
-    def get_order(self, id:UUID) -> OrderDTO:
+    def get_order(self, id: UUID) -> OrderDTO:
         order = self.session.query(OrderDBO).get(id)
         if not order:
             raise ObjectNotFound(f"Order id '{id}' not found!")
@@ -132,8 +129,8 @@ class OrderService(BaseService):
     def update_order(self, id: UUID, status: str) -> OrderDTO:
 
         order = self.session.query(OrderDBO).get(id)
-        if not order :
-            raise ObjectNotFound(f"Order id '{id}' not found!" )
+        if not order:
+            raise ObjectNotFound(f"Order id '{id}' not found!")
         order.status = status
         self.session.commit()
 
@@ -146,13 +143,12 @@ class OrderService(BaseService):
             amount=amount, currency="usd", receipt_email=email
         )
 
-
     def process_payment(self, payment_intent_id: str, receipt_url: str):
         payment = self.session.query(PaymentDBO).filter_by(payment_intent_id=payment_intent_id).first()
         if not payment:
-            raise ObjectNotFound(f"payment_intent_id: '{payment_intent_id}' not found!")\
-
-        payment.receipt_url = receipt_url
+            raise ObjectNotFound(f"payment_intent_id: '{payment_intent_id}' not found!") \
+ \
+                    payment.receipt_url = receipt_url
         payment.order.status = "pending"
         self.session.commit()
         order_dto = order_dbo_to_dto(payment.order)
