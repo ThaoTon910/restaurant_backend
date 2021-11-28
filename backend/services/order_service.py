@@ -146,9 +146,8 @@ class OrderService(BaseService):
     def process_payment(self, payment_intent_id: str, receipt_url: str):
         payment = self.session.query(PaymentDBO).filter_by(payment_intent_id=payment_intent_id).first()
         if not payment:
-            raise ObjectNotFound(f"payment_intent_id: '{payment_intent_id}' not found!") \
- \
-                    payment.receipt_url = receipt_url
+            raise ObjectNotFound(f"payment_intent_id: '{payment_intent_id}' not found!")
+        payment.receipt_url = receipt_url
         payment.order.status = "pending"
         self.session.commit()
         order_dto = order_dbo_to_dto(payment.order)
